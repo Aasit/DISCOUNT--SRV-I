@@ -1,0 +1,207 @@
+@startuml
+' Scheme Execution Execution Phase
+title Scheme Simulation / Execution\n __Execution Phase__
+
+' Define all actors and entities
+control "Execution Cron Job:\nlib/Akzo/Scheme/Command/ExecuteSchemeCommand.php#execute()" as ECJ
+entity "lib/Akzo/Scheme/Service.php" as SS
+database "lib/Akzo/Scheme/DAOImpl.php" as DB
+box "Scheme Execution Service" #LightBlue
+    entity "lib/Akzo/Scheme/ExecService.php" as ES
+    entity "lib/Akzo/Scheme/Cache.php" as EC
+    entity "models/Akzo/Scheme/ExecData.php" as ED
+end box
+entity "lib/Akzo/Geography/Service.php" as GS
+
+
+' Activate Always active entities
+activate EC
+
+' Cron job runs every minute and checks if any scheme execution action is queued
+note over ECJ
+    Run every minute and check if any
+    scheme execution action is queued
+end note
+
+activate ECJ
+ECJ -> SS : getNextSchemeAction()
+activate SS
+SS -> ES : getNextSchemeAction()
+activate ES
+
+ES -> ES : Build cache key for All Schemes Execution Action\n    scheme::*::EXECUTE_*_ACTION
+ES -> EC : listKeys(scheme::*::EXECUTE_*_ACTION)
+ES <- EC : All Scheme Execution keys for \nall execution data types
+
+loop Iterate through all action keys and check that they are valid
+    alt If scheme CODE or execution data TYPE is note set
+        ES -> EC : delete this Action Key
+    else If STATE is not set
+        ES -> ES : _setupActionForRunning(<action Key>, <action Data>)
+        note over ES
+            _setupActionForRunning()
+                Set STATE to \Akzo\Scheme\Cache\ExecuteActionState::RUNNING
+                If DEALER_OFFSET not set, set it to 0
+                Read UNIX Process ID (PID) + Unix Process Group ID (GID) for self process and set as Action PID
+        end note
+        ES -> ES : _setActionDealerOffset(0)
+        SS <- ES : return this execute Action
+    else If STATE == \Akzo\Scheme\Cache\ExecuteActionState::NOT_RUNNING OR STATE == \Akzo\Scheme\Cache\ExecuteActionState::WAITING
+        ES -> ES : _setupActionForRunning(<action Key>, <action Data>)
+        SS <- ES : return this execute Action
+    else If STATE == \Akzo\Scheme\Cache\ExecuteActionState::RUNNING
+        note over ES
+            Need to check if the stored pid is valid and currently running
+                - If PID does not exist in system:
+                    - the execution did not complete for this dealer offset
+                    - Re-run this again
+        end note
+        ES -> ES : _setupActionForRunning(<action Key>, <action Data>)
+        SS <- ES : return this execute Action
+    else Fallback
+        ES -> EC : delete this Action Key
+    end
+end
+deactivate ES
+
+ECJ <- SS : (assoc. array) actionToExecute
+deactivate SS
+
+' If a valid execution action was received execute it
+ECJ -> SS : executeScheme\n(\n    actionToExecute[CODE],\n    actionToExecute[TYPE],\n    groupDealersByCreditCode = true,\n    actionToExecute[DEALER_OFFSET]\n)
+activate SS
+
+SS -> DB : loadSchemeByCode(<code>)
+SS <- DB : (object) \Akzo\Scheme scheme
+note over SS
+    Transform scheme->data (JSON encoded string)
+    into (object) \Akzo\Scheme\Data for scheme execution
+end note
+SS -> ES : execute\n(\n    <code>,\n    <execution data type>,\n    (object) \Akzo\Scheme\Data <data>,\n    <groupDealersByCreditCode>,\n    <dealer offset>,\n    count = 15\n)
+activate ES
+
+opt if <dealer offset> == 0 (First iteration of scheme execution)
+    ES -> EC : Delete all execution related keys for this\n<code>, <execution data type>
+end
+
+' Build Scheme Execution related cache keys
+note over ES
+    Build 3 cache storage keys for <code> + <execution data type>:
+        execution status key
+            scheme::<code>::EXECUTE_<execution data type>_STATUS
+        execution cumulated result key
+            scheme::<code>::EXECUTE_<execution data type>_CUMULATED_RESULT
+        execution per-dealer result key
+            scheme::<code>::EXECUTE_<execution data type>_PER_DEALER_RESULT
+end note
+ES -> ES : _buildExecutionResultKeys\n(\n    <code>, \n    <execution data type (targets|actuals)> \n)
+
+' Load the Dealers that are applicable for this scheme
+ES -> ES : _loadSchemeDealers\n(\n    <sales geographies>,\n    <dealer attributes>,\n    <groupDealersByCreditCode>\n)
+loop Iterate through all geographies and load dealers filtered by attributes
+    ES -> GS : getDealersByGid\n(<geography>,\n    <dealer attributes>,\n    <groupDealersByCreditCode>\n) 
+    ES <- GS : (object array) \Akzo\Dealers
+    ES -> ES : Merge all dealers and return for scheme execution
+end
+note over ES
+    Check if more dealers would be left
+    for execution after this iteration
+    Accordingly calculate new <dealer offset>
+end note
+note over ES
+    Transform \Akzo\Scheme\Data -> \Akzo\Scheme\ExecData
+end note
+
+' Iterate through all dealers and execute scheme
+loop Iterate through all dealers and execute scheme for each dealer
+    ES -> ES : _executeSchemeForDealer\n(\n    \Akzo\Scheme\ExecData <execData>,\n    \Akzo\Dealer <dealer>,\n    <execution data type>,\n    <groupDealersByCreditCode>,\n    <existing cumulated result>\n)
+    alt If <groupDealersByCreditCode> == true
+        ES -> ES : use dealer->credit_code to index per-dealer result
+    else
+        ES -> ES : use dealer->code to index per-dealer result
+    end
+
+    ES -> ED : execData->toRuleEngineDealerExecData\n(\n    \Akzo\Dealer <dealer>,\n    <execution data type>,\n    <format> = "json"\n)
+    activate ED
+    note over ED
+        Calls toRuleEngineDealerExecData() on all nested objects
+            Qualifying Conditions,
+            InBillEntry,
+            LapEntry,
+            ProductEntry
+        uses the visitor pattern
+    end note
+    
+    ' Rule Engine Data generation example for LapEntry
+    note over ED
+        Sample Execution data generation for \Akzo\Scheme\ExecData\LapEntry
+          - add tplId
+          - add transformed period
+          - add condensed product pids
+          - add packs
+          - add Sales / Target data
+            - If execution data type == \Akzo\Scheme\ExecuteActionDataType::ACTUAL
+              - Call \Akzo\Sales\Service::getSalesData
+                (
+                  <dealer>,
+                  <segment>,
+                  <period>,
+                  <products>,
+                  <packs>
+                )
+            - If execution data type == \Akzo\Scheme\ExecuteActionDataType::TARGET
+              - Call \Akzo\Sales\Service::getTargetData
+                (
+                  <dealer>,
+                  <segment>,
+                  <period>,
+                  <products>,
+                  <packs>
+                )
+            - Populate sales value / sales volume
+            - If sales quantity type == \Akzo\Scheme\Data\Common\QuantityType::VALUE
+              - set qty = sales value
+            - else if sales quantity type == \Akzo\Scheme\Data\Common\QuantityType::VOLUME
+              - set qty = sales volume
+          - If any slab level Qualifying Conditions
+            - Plugin execution data for qualifying conditions in the same way
+    end note
+    ES <- ED : Return json encoded populated execution data
+    deactivate ED
+
+    note over ES
+        Execute scheme with this dealer data
+          - Call \Akzo\Scheme\RemoteRuleService->executeScheme(
+            <scheme code>
+            <json encoded populated execution data>
+          )
+
+        Execution result returned as json encoded string
+    end note
+
+    note over ES
+        Collate Scheme Execution data per dealer, per template (tplId)
+          - If without QC data, set payout as it is
+          - If with QC data, set the maximum of all with QC payouts
+
+        Add collated per dealer, per template data to cumulated execution data
+    end note
+
+    ES -> EC : Update Execution Cumulated Result
+    ES -> EC : Update per-dealer Execution Result
+    ES -> EC : Based on if more dealers are to be executed\nUpdate scheme simulation status (PARTIAL | READY )
+end
+
+SS <- ES : Execution Result: array\n(\n   status => true,\n    moreDealersLeft => true / false,\n    moreDealersOffset => <dealer offset for next iteration>\n)
+deactivate ES
+ECJ <- SS : Execution Result: array\n(\n   status => true,\n    moreDealersLeft => true / false,\n    moreDealersOffset => <dealer offset for next iteration>\n)
+deactivate SS
+
+' Check if more dealers are left to be executed, update scheme execution action accordingly
+alt Scheme needs to be executed for more dealers
+    ECJ -> ES : setSchemeAction\n(\n    <code>, \n    <execution data type (targets|actuals)>\n    <dealerOffset = moreDealersOffset>,\n    \Akzo\Scheme\Cache\ExecuteActionState::WAITING,\n    <pid = 0>\n)
+else
+    ECJ -> ES : removeSchemeAction\n(\n    <code>, \n    <execution data type (targets|actuals)>\n)
+end
+
+@enduml

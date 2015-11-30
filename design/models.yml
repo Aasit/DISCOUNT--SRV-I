@@ -1,0 +1,44 @@
+---
+# Card Model Class
+-
+    fqn: Native5\Ui\Card
+    class-metadata:
+        builderClass: Native5\Ui\Card\Builder
+    class-patterns:
+        - immutable
+    props:
+        - page
+        - name
+        - state
+# Card Model Class Builder
+-
+    fqn: Native5\Ui\Card\Builder
+    class-metadata:
+        builtClass: Native5\Ui\Card
+    class-patterns:
+        - builder
+    props:
+        - page
+        - name
+        - state
+
+# Card Page Model Class
+-
+    fqn: Native5\Ui\Card\Page
+    class-metadata:
+        builderClass: Native5\Ui\Card\Page\Builder
+    class-patterns:
+        - immutable
+    props:
+        - name
+        - cards
+# Card Page Model Class Builder
+-
+    fqn: Native5\Ui\Card\Page\Builder
+    class-metadata:
+        builtClass: Native5\Ui\Card\Page
+    class-patterns:
+        - builder
+    props:
+        - name
+        - cards

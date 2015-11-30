@@ -1,0 +1,83 @@
+@startuml
+' Scheme Execution Initialization Phase
+title Scheme Simulation / Execution\n __Initialization Phase__
+
+' Define all actors and entities
+actor "Simulation Initiator" as FE
+control "controllers/simulation.php" as SC
+entity "lib/Akzo/Scheme/Service.php" as SS
+box "Scheme Execution Service" #LightBlue
+    entity "lib/Akzo/Scheme/ExecService.php" as ES
+    entity "lib/Akzo/Scheme/Cache.php" as EC
+end box
+
+' Activate Always active entities
+activate EC
+
+' Ajax Request from Scheme Simulation Page to get Scheme Execution Result or to start a Scheme Execution if not started
+FE -> SC : //Initiate Scheme Execution//\n(\n    <code>, \n    <execution data type (targets|actuals)> \n    [, <group Dealers By Credit Code>]\n)
+note left: AJAX Request
+activate SC
+
+SC -> SS : getSchemeExecutionResult\n(\n    <code>, \n    <execution data type (targets|actuals)> \n    [, <group Dealers By Credit Code>]\n)
+activate SS
+
+SS -> ES : checkExecutionStatus\n(\n    <code>, \n    <execution data type (targets|actuals)> \n)
+activate ES
+
+' Build Scheme Execution related cache keys
+note over ES
+    Build 3 cache storage keys for <code> + <execution data type>:
+        execution status key
+            scheme::<code>::EXECUTE_<execution data type>_STATUS
+        execution cumulated result key
+            scheme::<code>::EXECUTE_<execution data type>_CUMULATED_RESULT
+        execution per-dealer result key
+            scheme::<code>::EXECUTE_<execution data type>_PER_DEALER_RESULT
+end note
+ES -> ES : _buildExecutionResultKeys\n(\n    <code>, \n    <execution data type (targets|actuals)> \n)
+
+' Get scheme execution result if it exists in cache or else return not started flag
+ES -> EC : keyExists(<execution cumulated result key>)
+ES <- EC : true / false
+alt Cumulated Result Key Exists
+    ES -> EC : getValue(<execution status key>)
+    ES <- EC : <(string) Execution Status>
+    ES -> EC : getMap(<execution per-dealer result>)
+    ES <- EC : <(assoc. array) Per-Dealer Result>
+    ES -> EC : getValue(<execution cumulated result>)
+    ES <- EC : <(json encoded string) Cumulated Result>
+    SS <- ES : array\n(\n    status => <(string) Execution Status>\n    newData => <(assoc. array) Per-Dealer Result>\n    cumulatedData => <(assoc. array) Cumulated Result>\n)
+else Cumulated Result Key Does Not Exist
+    SS <- ES : array\n(\n    status => \Akzo\Scheme\ProcessStatus::NOT_STARTED \n)
+end
+deactivate ES
+
+' Set Execution Action in Cache if execution is not started for this scheme code and execution data type
+alt if (<Execution Status> == \Akzo\Scheme\ProcessStatus::NOT_STARTED \n)
+    SS -> ES : setSchemeAction\n(\n    <code>, \n    <execution data type (targets|actuals)>\n    <dealerOffset = 0>\n)
+    activate ES
+    ES -> ES : Build cache key for Scheme Execution Action\n    scheme::<code>::EXECUTE_<execution data type>_ACTION
+    ES -> EC : deleteKey(\n  scheme::<code>::EXECUTE_<execution data type>_ACTION\n)
+    note over ES
+        Build Scheme Execution Action map
+            array(
+                "code" => <code>,
+                "type" => <execution data type>,
+                "dealerOffset" => <execution dealer offset>
+            )
+    end note
+    ES -> EC : setMap(<Scheme Execution Map>)
+    SS <- ES : true / false
+    deactivate ES
+
+    SC <- SS : array\n(\n    status => \Akzo\Scheme\ProcessStatus::JUST_STARTED \n)
+else
+    SC <- SS : array\n(\n    status => <(string) Execution Status>\n    newData => <(assoc. array) Per-Dealer Result>\n    cumulatedData => <(assoc. array) Cumulated Result>\n)
+end
+deactivate SS
+
+FE <- SC : Simulation Status and other results
+deactivate SC
+
+@enduml

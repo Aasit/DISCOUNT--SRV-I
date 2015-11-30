@@ -1,0 +1,39 @@
+@startuml
+
+Staged: "schemeId*"
+Staged: "schemeJson*"
+
+UpdateRequested: "schemeId*"
+UpdateRequested: "schemeJson*"
+UpdateRequested: "update_requested_at*"
+UpdateRequested: "update_requested_by*"
+
+ToBeReviewed: "schemeId*"
+ToBeReviewed: "schemeJson*"
+ToBeReviewed: "initated_at*"
+
+ToBeApproved: "schemeId*"
+ToBeApproved: "schemeJson*"
+ToBeApproved: "initated_at*"
+ToBeApproved: "reviewed_at*"
+
+Approved: "schemeId*"
+Approved: "schemeJson*"
+Approved: "initated_at*"
+Approved: "reviewed_at*"
+Approved: "active*"
+
+[*] --> Staged: createScheme
+[*] --> ToBeReviewed: initiateScheme
+Staged --> Staged: updateStagedScheme
+Staged --> ToBeReviewed: initiateScheme
+UpdateRequested --> ToBeReviewed: initiateUpdatedScheme
+UpdateRequested --> UpdateRequested: updateScheme
+ToBeReviewed --> UpdateRequested: requestSchemeUpdate
+ToBeApproved --> ToBeReviewed: requestSchemeReview
+ToBeApproved --> UpdateRequested: requestSchemeUpdate
+ToBeReviewed --> ToBeApproved: reviewScheme
+ToBeApproved --> Approved: approveScheme
+Approved --> UpdateRequested: editApprovedScheme
+
+@enduml
