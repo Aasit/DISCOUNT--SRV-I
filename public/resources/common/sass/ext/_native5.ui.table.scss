@@ -1,0 +1,2228 @@
+/*************
+  Black Ice Theme (by thezoggy)
+ *************/
+/* overall */
+
+.tablesorter-blackice {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  font: 11px/18px Arial, Sans-serif;
+  text-align: left;
+  background-color: #000;
+  border-collapse: collapse;
+  border-spacing: 0;
+  th, thead td {
+    padding: 4px;
+    font: bold 13px/20px Arial, Sans-serif;
+    color: #e5e5e5;
+    text-align: left;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.7);
+    background-color: #111;
+    border: 1px solid #232323;
+  }
+  .header, .tablesorter-header {
+    padding: 4px 20px 4px 4px;
+    cursor: pointer;
+    background-image: url(data:image/gif;base64,R0lGODlhFQAJAIAAAP///////yH5BAEAAAEALAAAAAAVAAkAAAIXjI+AywnaYnhUMoqt3gZXPmVg94yJVQAAOw==);
+    background-position: center right;
+    background-repeat: no-repeat;
+  }
+  .headerSortUp, .tablesorter-headerSortUp, .tablesorter-headerAsc {
+    background-image: url(data:image/gif;base64,R0lGODlhFQAEAIAAAP///////yH5BAEAAAEALAAAAAAVAAQAAAINjI8Bya2wnINUMopZAQA7);
+    color: #fff;
+  }
+  .headerSortDown, .tablesorter-headerSortDown, .tablesorter-headerDesc {
+    color: #fff;
+    background-image: url(data:image/gif;base64,R0lGODlhFQAEAIAAAP///////yH5BAEAAAEALAAAAAAVAAQAAAINjB+gC+jP2ptn0WskLQA7);
+  }
+  thead .sorter-false {
+    background-image: none;
+    padding: 4px;
+  }
+  tfoot {
+    .tablesorter-headerSortUp, .tablesorter-headerSortDown, .tablesorter-headerAsc, .tablesorter-headerDesc {
+      /* remove sort arrows from footer */
+      background-image: none;
+    }
+  }
+  td {
+    padding: 4px;
+    color: #ccc;
+    vertical-align: top;
+    background-color: #333;
+    border: 1px solid #232323;
+  }
+  tbody > tr {
+    &:hover > td, &.even:hover > td, &.odd:hover > td {
+      background: #000;
+    }
+  }
+  .tablesorter-processing {
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+    /* background-image: url(../addons/pager/icons/loading.gif) !important; */
+    background-image: url('data:image/gif;base64,R0lGODlhFAAUAKEAAO7u7lpaWgAAAAAAACH/C05FVFNDQVBFMi4wAwEAAAAh+QQBCgACACwAAAAAFAAUAAACQZRvoIDtu1wLQUAlqKTVxqwhXIiBnDg6Y4eyx4lKW5XK7wrLeK3vbq8J2W4T4e1nMhpWrZCTt3xKZ8kgsggdJmUFACH5BAEKAAIALAcAAAALAAcAAAIUVB6ii7jajgCAuUmtovxtXnmdUAAAIfkEAQoAAgAsDQACAAcACwAAAhRUIpmHy/3gUVQAQO9NetuugCFWAAAh+QQBCgACACwNAAcABwALAAACE5QVcZjKbVo6ck2AF95m5/6BSwEAIfkEAQoAAgAsBwANAAsABwAAAhOUH3kr6QaAcSrGWe1VQl+mMUIBACH5BAEKAAIALAIADQALAAcAAAIUlICmh7ncTAgqijkruDiv7n2YUAAAIfkEAQoAAgAsAAAHAAcACwAAAhQUIGmHyedehIoqFXLKfPOAaZdWAAAh+QQFCgACACwAAAIABwALAAACFJQFcJiXb15zLYRl7cla8OtlGGgUADs=') !important;
+  }
+  tr {
+    &.odd td {
+      background-color: #333;
+    }
+    &.even td {
+      background-color: #393939;
+    }
+  }
+  td.primary {
+    background-color: #2f3a40;
+  }
+  tr {
+    &.odd td.primary {
+      background-color: #2f3a40;
+    }
+    &.even td.primary {
+      background-color: #3f4a50;
+    }
+  }
+  td.secondary {
+    background-color: #3f4a50;
+  }
+  tr {
+    &.odd td.secondary {
+      background-color: #3f4a50;
+    }
+    &.even td.secondary {
+      background-color: #4f5a60;
+    }
+  }
+  td.tertiary {
+    background-color: #4f5a60;
+  }
+  tr {
+    &.odd td.tertiary {
+      background-color: #4f5a60;
+    }
+    &.even td.tertiary {
+      background-color: #5a646b;
+    }
+  }
+}
+
+/* header */
+
+/* tfoot */
+
+/* tbody */
+
+/* hovered row colors */
+
+/* table processing indicator */
+
+/* Zebra Widget - row alternating colors */
+
+/* Column Widget - column sort colors */
+
+/* caption */
+
+caption {
+  background: #fff;
+}
+
+/* filter widget */
+
+.tablesorter-blackice {
+  .tablesorter-filter-row {
+    td {
+      background: #222;
+      line-height: normal;
+      text-align: center;
+      /* center the input */
+      -webkit-transition: line-height 0.1s ease;
+      -moz-transition: line-height 0.1s ease;
+      -o-transition: line-height 0.1s ease;
+      transition: line-height 0.1s ease;
+    }
+    .disabled {
+      opacity: 0.5;
+      filter: alpha(opacity = 50);
+      cursor: not-allowed;
+    }
+    &.hideme {
+      td {
+        /*** *********************************************** ***/
+        /*** change this padding to modify the thickness     ***/
+        /*** of the closed filter row (height = padding x 2) ***/
+        padding: 2px;
+        /*** *********************************************** ***/
+        margin: 0;
+        line-height: 0;
+        cursor: pointer;
+      }
+      .tablesorter-filter {
+        height: 1px;
+        min-height: 0;
+        border: 0;
+        padding: 0;
+        margin: 0;
+        /* don't use visibility: hidden because it disables tabbing */
+        opacity: 0;
+        filter: alpha(opacity = 0);
+      }
+    }
+  }
+  .tablesorter-filter {
+    width: 98%;
+    height: auto;
+    margin: 0;
+    padding: 4px;
+    background-color: #fff;
+    border: 1px solid #bbb;
+    color: #333;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-transition: height 0.1s ease;
+    -moz-transition: height 0.1s ease;
+    -o-transition: height 0.1s ease;
+    transition: height 0.1s ease;
+  }
+}
+
+/* optional disabled input styling */
+
+/* hidden filter row */
+
+/* filters */
+
+/* ajax error row */
+
+.tablesorter .tablesorter-errorRow td {
+  cursor: pointer;
+  background-color: #e6bf99;
+}
+
+
+/*************
+  Blue Theme
+ *************/
+/* overall */
+
+.tablesorter-blue {
+  width: 100%;
+  background-color: #fff;
+  margin: 10px 0 15px;
+  text-align: left;
+  border-spacing: 0;
+  border: #cdcdcd 1px solid;
+  border-width: 1px 0 0 1px;
+  th, td {
+    border: #cdcdcd 1px solid;
+    border-width: 0 1px 1px 0;
+  }
+  th, thead td {
+    font: bold 12px/18px Arial, Sans-serif;
+    color: #000;
+    background-color: #99bfe6;
+    border-collapse: collapse;
+    padding: 4px;
+    text-shadow: 0 1px 0 rgba(204, 204, 204, 0.7);
+  }
+  tbody td {
+    padding: 4px;
+    vertical-align: top;
+  }
+  tfoot {
+    th, td {
+      padding: 4px;
+      vertical-align: top;
+    }
+  }
+  .header, .tablesorter-header {
+    /* black (unsorted) double arrow */
+    background-image: url(data:image/gif;base64,R0lGODlhFQAJAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAkAAAIXjI+AywnaYnhUMoqt3gZXPmVg94yJVQAAOw==);
+    /* white (unsorted) double arrow */
+    /* background-image: url(data:image/gif;base64,R0lGODlhFQAJAIAAAP///////yH5BAEAAAEALAAAAAAVAAkAAAIXjI+AywnaYnhUMoqt3gZXPmVg94yJVQAAOw==); */
+    /* image */
+    /* background-image: url(images/black-unsorted.gif); */
+    background-repeat: no-repeat;
+    background-position: center right;
+    padding: 4px 18px 4px 4px;
+    white-space: normal;
+    cursor: pointer;
+  }
+  .headerSortUp, .tablesorter-headerSortUp, .tablesorter-headerAsc {
+    background-color: #9fbfdf;
+    /* black asc arrow */
+    background-image: url(data:image/gif;base64,R0lGODlhFQAEAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAQAAAINjI8Bya2wnINUMopZAQA7);
+    /* white asc arrow */
+    /* background-image: url(data:image/gif;base64,R0lGODlhFQAEAIAAAP///////yH5BAEAAAEALAAAAAAVAAQAAAINjI8Bya2wnINUMopZAQA7); */
+    /* image */
+    /* background-image: url(images/black-asc.gif); */
+  }
+  .headerSortDown, .tablesorter-headerSortDown, .tablesorter-headerDesc {
+    background-color: #8cb3d9;
+    /* black desc arrow */
+    background-image: url(data:image/gif;base64,R0lGODlhFQAEAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAQAAAINjB+gC+jP2ptn0WskLQA7);
+    /* white desc arrow */
+    /* background-image: url(data:image/gif;base64,R0lGODlhFQAEAIAAAP///////yH5BAEAAAEALAAAAAAVAAQAAAINjB+gC+jP2ptn0WskLQA7); */
+    /* image */
+    /* background-image: url(images/black-desc.gif); */
+  }
+  thead .sorter-false {
+    background-image: none;
+    padding: 4px;
+  }
+  tfoot {
+    .tablesorter-headerSortUp, .tablesorter-headerSortDown, .tablesorter-headerAsc, .tablesorter-headerDesc {
+      /* remove sort arrows from footer */
+      background-image: none;
+    }
+  }
+  td {
+    color: #3d3d3d;
+    background-color: #fff;
+    padding: 4px;
+    vertical-align: top;
+  }
+  tbody > tr {
+    &:hover {
+      > td {
+        background: #d9d9d9;
+      }
+      + tr.tablesorter-childRow {
+        > td, + tr.tablesorter-childRow > td {
+          background: #d9d9d9;
+        }
+      }
+    }
+    &.even:hover {
+      > td {
+        background: #d9d9d9;
+      }
+      + tr.tablesorter-childRow {
+        > td, + tr.tablesorter-childRow > td {
+          background: #d9d9d9;
+        }
+      }
+    }
+    &.odd:hover {
+      > td {
+        background: #bfbfbf;
+      }
+      + tr.tablesorter-childRow {
+        > td, + tr.tablesorter-childRow > td {
+          background: #bfbfbf;
+        }
+      }
+    }
+  }
+  .tablesorter-processing {
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+    /* background-image: url(../addons/pager/icons/loading.gif) !important; */
+    background-image: url('data:image/gif;base64,R0lGODlhFAAUAKEAAO7u7lpaWgAAAAAAACH/C05FVFNDQVBFMi4wAwEAAAAh+QQBCgACACwAAAAAFAAUAAACQZRvoIDtu1wLQUAlqKTVxqwhXIiBnDg6Y4eyx4lKW5XK7wrLeK3vbq8J2W4T4e1nMhpWrZCTt3xKZ8kgsggdJmUFACH5BAEKAAIALAcAAAALAAcAAAIUVB6ii7jajgCAuUmtovxtXnmdUAAAIfkEAQoAAgAsDQACAAcACwAAAhRUIpmHy/3gUVQAQO9NetuugCFWAAAh+QQBCgACACwNAAcABwALAAACE5QVcZjKbVo6ck2AF95m5/6BSwEAIfkEAQoAAgAsBwANAAsABwAAAhOUH3kr6QaAcSrGWe1VQl+mMUIBACH5BAEKAAIALAIADQALAAcAAAIUlICmh7ncTAgqijkruDiv7n2YUAAAIfkEAQoAAgAsAAAHAAcACwAAAhQUIGmHyedehIoqFXLKfPOAaZdWAAAh+QQFCgACACwAAAIABwALAAACFJQFcJiXb15zLYRl7cla8OtlGGgUADs=') !important;
+  }
+  tbody tr {
+    &.odd td {
+      background-color: #ebf2fa;
+    }
+    &.even td {
+      background-color: #fff;
+    }
+  }
+  td.primary {
+    background-color: #99b3e6;
+  }
+  tr {
+    &.odd td.primary {
+      background-color: #99b3e6;
+    }
+    &.even td.primary {
+      background-color: #c2d1f0;
+    }
+  }
+  td.secondary {
+    background-color: #c2d1f0;
+  }
+  tr {
+    &.odd td.secondary {
+      background-color: #c2d1f0;
+    }
+    &.even td.secondary {
+      background-color: #d6e0f5;
+    }
+  }
+  td.tertiary {
+    background-color: #d6e0f5;
+  }
+  tr {
+    &.odd td.tertiary {
+      background-color: #d6e0f5;
+    }
+    &.even td.tertiary {
+      background-color: #ebf0fa;
+    }
+  }
+}
+
+/* header */
+
+/* tfoot */
+
+/* tbody */
+
+/* hovered row colors
+ you'll need to add additional lines for
+ rows with more than 2 child rows
+ */
+
+/* table processing indicator */
+
+/* Zebra Widget - row alternating colors */
+
+/* Column Widget - column sort colors */
+
+/* caption */
+
+caption {
+  background: #fff;
+}
+
+/* filter widget */
+
+.tablesorter-blue {
+  .tablesorter-filter-row {
+    td {
+      background: #eee;
+      line-height: normal;
+      text-align: center;
+      /* center the input */
+      -webkit-transition: line-height 0.1s ease;
+      -moz-transition: line-height 0.1s ease;
+      -o-transition: line-height 0.1s ease;
+      transition: line-height 0.1s ease;
+    }
+    .disabled {
+      opacity: 0.5;
+      filter: alpha(opacity = 50);
+      cursor: not-allowed;
+    }
+    &.hideme {
+      td {
+        /*** *********************************************** ***/
+        /*** change this padding to modify the thickness     ***/
+        /*** of the closed filter row (height = padding x 2) ***/
+        padding: 2px;
+        /*** *********************************************** ***/
+        margin: 0;
+        line-height: 0;
+        cursor: pointer;
+      }
+      .tablesorter-filter {
+        height: 1px;
+        min-height: 0;
+        border: 0;
+        padding: 0;
+        margin: 0;
+        /* don't use visibility: hidden because it disables tabbing */
+        opacity: 0;
+        filter: alpha(opacity = 0);
+      }
+    }
+  }
+  .tablesorter-filter {
+    width: 98%;
+    height: auto;
+    margin: 0;
+    padding: 4px;
+    background-color: #fff;
+    border: 1px solid #bbb;
+    color: #333;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-transition: height 0.1s ease;
+    -moz-transition: height 0.1s ease;
+    -o-transition: height 0.1s ease;
+    transition: height 0.1s ease;
+  }
+}
+
+/* optional disabled input styling */
+
+/* hidden filter row */
+
+/* filters */
+
+/* ajax error row */
+
+.tablesorter .tablesorter-errorRow td {
+  cursor: pointer;
+  background-color: #e6bf99;
+}
+
+
+/*************
+  Dark Theme (by thezoggy)
+ *************/
+/* overall */
+
+.tablesorter-dark {
+  width: 100%;
+  font: 11px/18px Arial, Sans-serif;
+  color: #ccc;
+  text-align: left;
+  background-color: #000;
+  border-spacing: 0;
+  th {
+    padding: 4px;
+    font: bold 12px/20px Arial, Sans-serif;
+    color: #fff;
+    background-color: #000;
+    border-collapse: collapse;
+  }
+  thead {
+    td {
+      padding: 4px;
+      font: bold 12px/20px Arial, Sans-serif;
+      color: #fff;
+      background-color: #000;
+      border-collapse: collapse;
+    }
+    th {
+      border-bottom: #333 2px solid;
+    }
+  }
+  .header, .tablesorter-header {
+    padding: 4px 20px 4px 4px;
+    cursor: pointer;
+    background-image: url(data:image/gif;base64,R0lGODlhFQAJAIAAAP///////yH5BAEAAAEALAAAAAAVAAkAAAIXjI+AywnaYnhUMoqt3gZXPmVg94yJVQAAOw==);
+    background-position: center right;
+    background-repeat: no-repeat;
+  }
+  thead {
+    .headerSortUp, .tablesorter-headerSortUp, .tablesorter-headerAsc {
+      background-image: url(data:image/gif;base64,R0lGODlhFQAEAIAAAP///////yH5BAEAAAEALAAAAAAVAAQAAAINjI8Bya2wnINUMopZAQA7);
+      border-bottom: #888 1px solid;
+    }
+    .headerSortDown, .tablesorter-headerSortDown, .tablesorter-headerDesc {
+      background-image: url(data:image/gif;base64,R0lGODlhFQAEAIAAAP///////yH5BAEAAAEALAAAAAAVAAQAAAINjB+gC+jP2ptn0WskLQA7);
+      border-bottom: #888 1px solid;
+    }
+    .sorter-false {
+      background-image: none;
+      padding: 4px;
+    }
+  }
+  tfoot {
+    .tablesorter-headerSortUp, .tablesorter-headerSortDown, .tablesorter-headerAsc, .tablesorter-headerDesc {
+      border-top: #888 1px solid;
+      /* remove sort arrows from footer */
+      background-image: none;
+    }
+  }
+  td {
+    padding: 4px;
+    background-color: #000;
+    border-bottom: #333 1px solid;
+    color: #ccc;
+  }
+  tbody > tr {
+    &:hover > td, &.even:hover > td, &.odd:hover > td {
+      background: #000;
+    }
+  }
+  .tablesorter-processing {
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+    /* background-image: url(../addons/pager/icons/loading.gif) !important; */
+    background-image: url('data:image/gif;base64,R0lGODlhFAAUAKEAAO7u7lpaWgAAAAAAACH/C05FVFNDQVBFMi4wAwEAAAAh+QQBCgACACwAAAAAFAAUAAACQZRvoIDtu1wLQUAlqKTVxqwhXIiBnDg6Y4eyx4lKW5XK7wrLeK3vbq8J2W4T4e1nMhpWrZCTt3xKZ8kgsggdJmUFACH5BAEKAAIALAcAAAALAAcAAAIUVB6ii7jajgCAuUmtovxtXnmdUAAAIfkEAQoAAgAsDQACAAcACwAAAhRUIpmHy/3gUVQAQO9NetuugCFWAAAh+QQBCgACACwNAAcABwALAAACE5QVcZjKbVo6ck2AF95m5/6BSwEAIfkEAQoAAgAsBwANAAsABwAAAhOUH3kr6QaAcSrGWe1VQl+mMUIBACH5BAEKAAIALAIADQALAAcAAAIUlICmh7ncTAgqijkruDiv7n2YUAAAIfkEAQoAAgAsAAAHAAcACwAAAhQUIGmHyedehIoqFXLKfPOAaZdWAAAh+QQFCgACACwAAAIABwALAAACFJQFcJiXb15zLYRl7cla8OtlGGgUADs=') !important;
+  }
+  tr {
+    &.odd td {
+      background-color: #202020;
+    }
+    &.even td {
+      background-color: #101010;
+    }
+  }
+  td.primary {
+    background-color: #0a0a0a;
+  }
+  tr {
+    &.odd td.primary {
+      background-color: #0a0a0a;
+    }
+    &.even td.primary {
+      background-color: #050505;
+    }
+  }
+  td.secondary {
+    background-color: #0f0f0f;
+  }
+  tr {
+    &.odd td.secondary {
+      background-color: #0f0f0f;
+    }
+    &.even td.secondary {
+      background-color: #0a0a0a;
+    }
+  }
+  td.tertiary {
+    background-color: #191919;
+  }
+  tr {
+    &.odd td.tertiary {
+      background-color: #191919;
+    }
+    &.even td.tertiary {
+      background-color: #0f0f0f;
+    }
+  }
+}
+
+/* header */
+
+/* tfoot */
+
+/* tbody */
+
+/* hovered row colors */
+
+/* table processing indicator */
+
+/* Zebra Widget - row alternating colors */
+
+/* Column Widget - column sort colors */
+
+/* caption */
+
+caption {
+  background: #fff;
+}
+
+/* filter widget */
+
+.tablesorter-dark {
+  .tablesorter-filter-row {
+    td {
+      background: #202020;
+      line-height: normal;
+      text-align: center;
+      /* center the input */
+      -webkit-transition: line-height 0.1s ease;
+      -moz-transition: line-height 0.1s ease;
+      -o-transition: line-height 0.1s ease;
+      transition: line-height 0.1s ease;
+    }
+    .disabled {
+      opacity: 0.5;
+      filter: alpha(opacity = 50);
+      cursor: not-allowed;
+    }
+    &.hideme {
+      td {
+        /*** *********************************************** ***/
+        /*** change this padding to modify the thickness     ***/
+        /*** of the closed filter row (height = padding x 2) ***/
+        padding: 2px;
+        /*** *********************************************** ***/
+        margin: 0;
+        line-height: 0;
+        cursor: pointer;
+      }
+      .tablesorter-filter {
+        height: 1px;
+        min-height: 0;
+        border: 0;
+        padding: 0;
+        margin: 0;
+        /* don't use visibility: hidden because it disables tabbing */
+        opacity: 0;
+        filter: alpha(opacity = 0);
+      }
+    }
+  }
+  .tablesorter-filter {
+    width: 98%;
+    height: auto;
+    margin: 4px;
+    padding: 4px;
+    background-color: #111;
+    border: 1px solid #222;
+    color: #ddd;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-transition: height 0.1s ease;
+    -moz-transition: height 0.1s ease;
+    -o-transition: height 0.1s ease;
+    transition: height 0.1s ease;
+  }
+}
+
+/* optional disabled input styling */
+
+/* hidden filter row */
+
+/* filters */
+
+/* ajax error row */
+
+.tablesorter .tablesorter-errorRow td {
+  cursor: pointer;
+  background-color: #e6bf99;
+}
+
+
+/*************
+Default Theme
+*************/
+/* overall */
+
+.tablesorter-default {
+  width: 100%;
+  font: 12px/18px Arial, Sans-serif;
+  color: #333;
+  background-color: #fff;
+  border-spacing: 0;
+  margin: 10px 0 15px;
+  text-align: left;
+  th, thead td {
+    font: bold 12px/18px Arial, Sans-serif;
+    color: #000;
+    background-color: #fff;
+    border-collapse: collapse;
+    border-bottom: #ccc 2px solid;
+    padding: 0;
+  }
+  tfoot {
+    th, td {
+      border: 0;
+    }
+  }
+  .header, .tablesorter-header {
+    background-image: url(data:image/gif;base64,R0lGODlhFQAJAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAkAAAIXjI+AywnaYnhUMoqt3gZXPmVg94yJVQAAOw==);
+    background-position: center right;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    white-space: normal;
+    padding: 4px 20px 4px 4px;
+  }
+  thead {
+    .headerSortUp, .tablesorter-headerSortUp, .tablesorter-headerAsc {
+      background-image: url(data:image/gif;base64,R0lGODlhFQAEAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAQAAAINjI8Bya2wnINUMopZAQA7);
+      border-bottom: #000 2px solid;
+    }
+    .headerSortDown, .tablesorter-headerSortDown, .tablesorter-headerDesc {
+      background-image: url(data:image/gif;base64,R0lGODlhFQAEAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAQAAAINjB+gC+jP2ptn0WskLQA7);
+      border-bottom: #000 2px solid;
+    }
+    .sorter-false {
+      background-image: none;
+      padding: 4px;
+    }
+  }
+  tfoot {
+    .tablesorter-headerSortUp, .tablesorter-headerSortDown, .tablesorter-headerAsc, .tablesorter-headerDesc {
+      border-top: #000 2px solid;
+    }
+  }
+  td {
+    background-color: #fff;
+    border-bottom: #ccc 1px solid;
+    padding: 4px;
+    vertical-align: top;
+  }
+  tbody > tr {
+    &:hover > td, &.even:hover > td, &.odd:hover > td {
+      background: #fff;
+      color: #000;
+    }
+  }
+  .tablesorter-processing {
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+    /* background-image: url(../addons/pager/icons/loading.gif) !important; */
+    background-image: url('data:image/gif;base64,R0lGODlhFAAUAKEAAO7u7lpaWgAAAAAAACH/C05FVFNDQVBFMi4wAwEAAAAh+QQBCgACACwAAAAAFAAUAAACQZRvoIDtu1wLQUAlqKTVxqwhXIiBnDg6Y4eyx4lKW5XK7wrLeK3vbq8J2W4T4e1nMhpWrZCTt3xKZ8kgsggdJmUFACH5BAEKAAIALAcAAAALAAcAAAIUVB6ii7jajgCAuUmtovxtXnmdUAAAIfkEAQoAAgAsDQACAAcACwAAAhRUIpmHy/3gUVQAQO9NetuugCFWAAAh+QQBCgACACwNAAcABwALAAACE5QVcZjKbVo6ck2AF95m5/6BSwEAIfkEAQoAAgAsBwANAAsABwAAAhOUH3kr6QaAcSrGWe1VQl+mMUIBACH5BAEKAAIALAIADQALAAcAAAIUlICmh7ncTAgqijkruDiv7n2YUAAAIfkEAQoAAgAsAAAHAAcACwAAAhQUIGmHyedehIoqFXLKfPOAaZdWAAAh+QQFCgACACwAAAIABwALAAACFJQFcJiXb15zLYRl7cla8OtlGGgUADs=') !important;
+  }
+  tr {
+    &.odd td {
+      background-color: #dfdfdf;
+    }
+    &.even td {
+      background-color: #efefef;
+    }
+    &.odd td.primary {
+      background-color: #bfbfbf;
+    }
+  }
+  td.primary {
+    background-color: #d9d9d9;
+  }
+  tr {
+    &.even td.primary, &.odd td.secondary {
+      background-color: #d9d9d9;
+    }
+  }
+  td.secondary {
+    background-color: #e6e6e6;
+  }
+  tr {
+    &.even td.secondary, &.odd td.tertiary {
+      background-color: #e6e6e6;
+    }
+  }
+  td.tertiary, tr.even td.tertiary {
+    background-color: #f2f2f2;
+  }
+}
+
+/* header */
+
+/* tfoot */
+
+/* tbody */
+
+/* hovered row colors */
+
+/* table processing indicator */
+
+/* Zebra Widget - row alternating colors */
+
+/* Column Widget - column sort colors */
+
+/* caption */
+
+caption {
+  background: #fff;
+}
+
+/* filter widget */
+
+.tablesorter-default {
+  .tablesorter-filter-row {
+    td {
+      background: #eee;
+      border-bottom: #ccc 1px solid;
+      line-height: normal;
+      text-align: center;
+      /* center the input */
+      -webkit-transition: line-height 0.1s ease;
+      -moz-transition: line-height 0.1s ease;
+      -o-transition: line-height 0.1s ease;
+      transition: line-height 0.1s ease;
+    }
+    .disabled {
+      opacity: 0.5;
+      filter: alpha(opacity = 50);
+      cursor: not-allowed;
+    }
+    &.hideme {
+      td {
+        /*** *********************************************** ***/
+        /*** change this padding to modify the thickness     ***/
+        /*** of the closed filter row (height = padding x 2) ***/
+        padding: 2px;
+        /*** *********************************************** ***/
+        margin: 0;
+        line-height: 0;
+        cursor: pointer;
+      }
+      .tablesorter-filter {
+        height: 1px;
+        min-height: 0;
+        border: 0;
+        padding: 0;
+        margin: 0;
+        /* don't use visibility: hidden because it disables tabbing */
+        opacity: 0;
+        filter: alpha(opacity = 0);
+      }
+    }
+  }
+  .tablesorter-filter {
+    width: 95%;
+    height: auto;
+    margin: 4px;
+    padding: 4px;
+    background-color: #fff;
+    border: 1px solid #bbb;
+    color: #333;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-transition: height 0.1s ease;
+    -moz-transition: height 0.1s ease;
+    -o-transition: height 0.1s ease;
+    transition: height 0.1s ease;
+  }
+}
+
+/* optional disabled input styling */
+
+/* hidden filter row */
+
+/* filters */
+
+/* ajax error row */
+
+.tablesorter .tablesorter-errorRow td {
+  cursor: pointer;
+  background-color: #e6bf99;
+}
+
+
+/*************
+  Dropbox Theme (by thezoggy)
+ *************/
+/* overall */
+
+.tablesorter-dropbox {
+  width: 100%;
+  margin-bottom: 20px;
+  font: 13px/32px "Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans unicode",tahoma,sans-serif;
+  color: #555;
+  text-align: left;
+  background-color: #fff;
+  border-collapse: collapse;
+  border-top: 1px solid #82cffa;
+  border-spacing: 0;
+  th, thead td {
+    background-color: #f0f9ff;
+    border-color: #82cffa #e7f2fb #96c4ea;
+    border-style: solid;
+    border-width: 1px;
+    padding: 3px 6px;
+    font-size: 13px;
+    font-weight: normal;
+    line-height: 29px;
+    color: #2281CF;
+    text-align: left;
+  }
+  .pager-steps {
+    padding: 0 14px;
+    margin-top: 4px;
+    height: 32px;
+  }
+  .pager-list-btn-left, .pager-list-btn-right {
+    margin-bottom: 2px !important;
+  }
+  tfoot {
+    th, td {
+      background-color: #f0f9ff;
+      border-color: #82cffa #e7f2fb #96c4ea;
+      border-style: solid;
+      border-width: 1px;
+      padding: 3px 6px;
+      font-size: 13px;
+      font-weight: normal;
+      line-height: 29px;
+      color: #2281CF;
+      text-align: left;
+    }
+  }
+  .header, thead tr, .tablesorter-headerRow {
+    background-color: #f0f9ff;
+    border-bottom: 1px solid #96c4ea;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 0 0 black inset;
+    cursor: pointer;
+    white-space: normal;
+  }
+  .tablesorter-headerSortUp, .tablesorter-headerSortDown, .tablesorter-headerAsc, .tablesorter-headerDesc {
+    font-weight: 600;
+  }
+  .tablesorter-header i {
+    width: 9px;
+    height: 9px;
+    padding: 4px 20px 4px 4px;
+    cursor: pointer;
+    background-position: center right;
+    background-repeat: no-repeat;
+    content: "";
+    display: inline-block;
+    float: right;
+    margin-top: 10px;
+  }
+  .tablesorter-headerSortUp i, .tablesorter-headerAsc i {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAYAAADgkQYQAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAALhJREFUeNpi/P//PwMhwILMiexYx8bIxNTy/9+/muUVQb9g4kzIitg4edI4+YRLQTSyOCPMupjerUI8whK3OXgEhH58+fDuy9sXqkuKvd+hmMTOxdvCxS8sxMUvxACiQXwU6+Im7DDg5BNKY+fiY2BmYWMA0SA+SByuiJ2bbzIHrwAzMxsb0AGMDCAaxAeJg+SZ7wtaqfAISfQAdTIwMUM8ywhUyMTEzPD/71+5FXvPLWUkJpwAAgwAZqYvvHStbD4AAAAASUVORK5CYII=');
+    /* background-image: url(images/dropbox-asc.png); */
+  }
+  .tablesorter-headerSortUp:hover i, .tablesorter-headerAsc:hover i {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAYAAADgkQYQAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAALVJREFUeNpi/P//PwMhwILMCc+qZGNkYmr5/+9fzcpp7b9g4kzIitjYOdM4uXlLQTSyOCPMuqi8OiEefsHbHFzcQj++fX335eN71WWTmt6hmMTOwdXCycMnBDSJAUSD+CjWxRQ0GHBw86Sxc3AyMDOzMIBoEB8kDlfEzsk1mYOLByjPCnQAIwOIBvFB4iB55rsfmVS4+QV7QNYwMTNDHApUyMTExPDv/z+5Feu3L2UkJpwAAgwA244u+I9CleAAAAAASUVORK5CYII=');
+    /* background-image: url(images/dropbox-asc-hovered.png); */
+  }
+  .tablesorter-headerSortDown i, .tablesorter-headerDesc i {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAYAAADgkQYQAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAALdJREFUeNpi/P//PwMhwBLdtVGFhZ3zNhMzC4bkv79/GP78/K7KCDIpZ9mVw+xcfDaMTExwBf///WP4+e3TkSlROrZg7UxMLLns3HxnmFnZmGGK/v7+9ff3j2+5YHkQMSlC48Kv719m/f//D2IKkAbxQeJwRSDw4/OHmr+/fr0DqmAA0SA+TA6uaEq0zjugG+r//vkFcks9iA/3HbJvvn18O+vf379yP758mMXAoAAXZyQmnAACDADX316BiTFbMQAAAABJRU5ErkJggg==');
+    /* background-image: url(images/dropbox-desc.png); */
+  }
+  .tablesorter-headerSortDown:hover i, .tablesorter-headerDesc:hover i {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAYAAADgkQYQAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAALNJREFUeNpi/P//PwMhwBJf3uP879e3PUzMzBiS//7+ZWBi43JhBJmU2z7nIzMzEx8jIyNcAUj8799/nyZXpvCzgARYuXjTWBkZVjCzIEz7++cvw+//DGkgNiPMTWVT1l5hZvynDTINbMp/pqtdOcE6IDkmmM5fv3/5//v37z9QBQOIBvFhcnBFEwoj7/5jZFnz9+8fBhAN4sN9h+ybH9++JrGxscr/+vE1CVmckZhwAggwANvlUyq5Dd1wAAAAAElFTkSuQmCC');
+    /* background-image: url(images/dropbox-desc-hovered.png); */
+  }
+  thead .sorter-false {
+    i, &:hover i {
+      background-image: none;
+      padding: 4px;
+    }
+  }
+  td {
+    padding: 5px 6px;
+    line-height: 32px;
+    color: #555;
+    text-align: left;
+    border-top: 1px solid #edf1f5;
+    border-bottom: 1px solid #edf1f5;
+  }
+  tbody > tr {
+    &:hover > td, &.even:hover > td, &.odd:hover > td {
+      background-color: rgba(230, 245, 255, 0.3);
+      border-right: 0;
+      border-left: 0;
+      border-color: #c6d8e4;
+      /* trick to do border-top and bottom colors */
+      border-style: double;
+    }
+  }
+  .tablesorter-processing {
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+    /* background-image: url(../addons/pager/icons/loading.gif) !important; */
+    background-image: url('data:image/gif;base64,R0lGODlhFAAUAKEAAO7u7lpaWgAAAAAAACH/C05FVFNDQVBFMi4wAwEAAAAh+QQBCgACACwAAAAAFAAUAAACQZRvoIDtu1wLQUAlqKTVxqwhXIiBnDg6Y4eyx4lKW5XK7wrLeK3vbq8J2W4T4e1nMhpWrZCTt3xKZ8kgsggdJmUFACH5BAEKAAIALAcAAAALAAcAAAIUVB6ii7jajgCAuUmtovxtXnmdUAAAIfkEAQoAAgAsDQACAAcACwAAAhRUIpmHy/3gUVQAQO9NetuugCFWAAAh+QQBCgACACwNAAcABwALAAACE5QVcZjKbVo6ck2AF95m5/6BSwEAIfkEAQoAAgAsBwANAAsABwAAAhOUH3kr6QaAcSrGWe1VQl+mMUIBACH5BAEKAAIALAIADQALAAcAAAIUlICmh7ncTAgqijkruDiv7n2YUAAAIfkEAQoAAgAsAAAHAAcACwAAAhQUIGmHyedehIoqFXLKfPOAaZdWAAAh+QQFCgACACwAAAIABwALAAACFJQFcJiXb15zLYRl7cla8OtlGGgUADs=') !important;
+  }
+  tr! {
+    &.odd td, &.even td {}
+  }
+  td.primary! {}
+  tr! {
+    &.odd td.primary, &.even td.primary {}
+  }
+  td.secondary! {}
+  tr! {
+    &.odd td.secondary, &.even td.secondary {}
+  }
+  td.tertiary! {}
+  tr! {
+    &.odd td.tertiary, &.even td.tertiary {}
+  }
+}
+
+/* header */
+
+/* tbody */
+
+/* hovered row colors */
+
+/* table processing indicator */
+
+/* Zebra Widget - row alternating colors */
+
+/* Column Widget - column sort colors */
+
+/* caption */
+
+caption {
+  background: #fff;
+}
+
+/* Filter Widget */
+
+.tablesorter-dropbox {
+  .tablesorter-filter-row {
+    td {
+      background: #fff;
+      line-height: normal;
+      text-align: center;
+      /* center the input */
+      -webkit-transition: line-height 0.1s ease;
+      -moz-transition: line-height 0.1s ease;
+      -o-transition: line-height 0.1s ease;
+      transition: line-height 0.1s ease;
+    }
+    .disabled {
+      opacity: 0.5;
+      filter: alpha(opacity = 50);
+      cursor: not-allowed;
+    }
+    &.hideme {
+      td {
+        /*** *********************************************** ***/
+        /*** change this padding to modify the thickness     ***/
+        /*** of the closed filter row (height = padding x 2) ***/
+        padding: 2px;
+        /*** *********************************************** ***/
+        margin: 0;
+        line-height: 0;
+        cursor: pointer;
+      }
+      .tablesorter-filter {
+        height: 1px;
+        min-height: 0;
+        border: 0;
+        padding: 0;
+        margin: 0;
+        /* don't use visibility: hidden because it disables tabbing */
+        opacity: 0;
+        filter: alpha(opacity = 0);
+      }
+    }
+  }
+  .tablesorter-filter {
+    width: 98%;
+    height: auto;
+    margin: 4px;
+    background-color: #fff;
+    border: 1px solid #bbb;
+    color: #333;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-transition: height 0.1s ease;
+    -moz-transition: height 0.1s ease;
+    -o-transition: height 0.1s ease;
+    transition: height 0.1s ease;
+  }
+}
+
+/* optional disabled input styling */
+
+/* hidden filter row */
+
+/* filters */
+
+/* ajax error row */
+
+.tablesorter .tablesorter-errorRow td {
+  cursor: pointer;
+  background-color: #e6bf99;
+}
+
+
+/*************
+  Green Theme
+ *************/
+/* overall */
+
+.tablesorter-green {
+  width: 100%;
+  text-align: left;
+  border-spacing: 0;
+  font: 12px/18px Arial, Sans-serif;
+  border: #cdcdcd 1px solid;
+  border-spacing: 0;
+  padding: 0;
+  text-align: left;
+  th, td {
+    font: 12px/18px Arial, Sans-serif;
+    border: #cdcdcd 1px solid;
+    border-spacing: 0;
+    padding: 0;
+    text-align: left;
+  }
+  thead tr, tfoot tr {
+    background: center center repeat-x;
+    background-image: url(data:image/gif;base64,R0lGODlhAQBkAOYAAN/e39XU1fX19tTU1eXm5uTl5ePk5OLj4+Hi4vX29fT19PP08/Lz8vHy8fDx8O/w7+7v7uzt7Orr6ufo5/T08/Pz8ufn5uLi4eDg39/f3t3d3Nzc29HR0NDQz8/Pzuvq6urp6eno6Ojn5+fm5tfW1tbV1dTT09PS0tLR0dHQ0NDPz/f39/b29vX19fT09PPz8/Ly8vHx8e/v7+7u7u3t7ezs7Ovr6+rq6unp6ejo6Ofn5+bm5uXl5eTk5OPj4+Li4uHh4eDg4N/f397e3t3d3dzc3Nvb29ra2tnZ2djY2NfX19XV1dPT09LS0tHR0dDQ0M/Pz8rKysXFxf///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAAFMALAAAAAABAGQAAAdegCsrLC0tLi+ILi6FCSwsCS0KkhQVDA0OMjM0NTYfICEiIzw9P0AYGUQaG0ZHSEoDTU9Qs08pTk1MSyRJR0VDQT8+PTw7Ojg3NTMyMTAvi4WOhC0vMTI1OT9GTlFSgQA7);
+    /* background-image: url(images/green-header.gif); */
+  }
+  th, thead td {
+    font-weight: bold;
+    border-right: #cdcdcd 1px solid;
+    border-collapse: collapse;
+    padding: 6px;
+  }
+  .header, .tablesorter-header {
+    background: no-repeat 5px center;
+    background-image: url(data:image/gif;base64,R0lGODlhEAAQAOYAAA5NDBBYDlWWUzRUM5DVjp7inJ/fnQ1ECiCsGhyYFxqKFRFdDhBXDQxCCiO8HSK2HCCqGh2aGByUFxuPFhqNFhmHFRZ2EhVvERRpEBBVDSS8HiGyHB+mGh6fGRuTFxiAFBd5Eww/Cgs5CRp7Fiu+JRx8GCy/JjHAKyynKCuhJzXCMDbCMDnDMyNuHz3EODy9N0LFPSl7JkvIRjycOFDKS1LKTVPLT1XLUFTCT17OWTBkLmbQYnDTbHXVcXnWdoXago/djGmUZ112XCJEIEdjRf///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAAEUALAAAAAAQABAAAAdlgEWCg4SFhoIvh4cVLECKhCMeJjwFj0UlEwgaMD4Gii0WFAkRHQ47BIY6IQAZDAwBCyAPOJa1toRBGBAwNTY3OT0/AoZCDQoOKi4yNDOKRCIfGycrKZYDBxIkKLZDFxy3RTHgloEAOw==);
+    /* background-image: url(images/green-unsorted.gif); */
+    border-collapse: collapse;
+    white-space: normal;
+    cursor: pointer;
+  }
+  thead {
+    .headerSortUp, .tablesorter-headerSortUp, .tablesorter-headerAsc {
+      background-image: url(data:image/gif;base64,R0lGODlhEAAQANUAAA5NDBBYDpDVjp7inJ/fnSCsGhyYFxFdDhBXDSO8HSK2HB2aGBuPFhqNFhmHFRZ2EhBVDSS8Hh6fGRuTFxd5Eww/Chp7Fhx8GCy/JjnDMyNuHzy9N0LFPVTCTzBkLmbQYnDTbHnWdo/djP///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAACMALAAAAAAQABAAAAY4wJFwSCwaj8ikcslMbpojR0bEtEwwoIHywihEOCECUvNoGBaSxEdg9FQAEAQicKAoOtC8fs8fBgEAOw==);
+    }
+    .headerSortDown, .tablesorter-headerSortDown, .tablesorter-headerDesc {
+      background-image: url(data:image/gif;base64,R0lGODlhEAAQANUAAFWWUzRUMw1EChqKFQxCCiO8HSCqGhyUFxVvERRpECGyHB+mGhiAFAs5CSu+JTHAKyynKCuhJzXCMDbCMD3EOELFPSl7JkvIRjycOFDKS1LKTVPLT1XLUF7OWXXVcYXagmmUZ112XCJEIEdjRf///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAACQALAAAAAAQABAAAAY4QJJwSCwaj8ikcskkghKGimbD6Xg+AGOIMChIKJcMBjlqMBSPSUQZEBwcEKYIsWiSLPa8fs9HBgEAOw==);
+    }
+  }
+  th.tablesorter-header .tablesorter-header-inner, td.tablesorter-header .tablesorter-header-inner {
+    padding-left: 23px;
+  }
+  thead .tablesorter-header.sorter-false {
+    background-image: none;
+    padding: 4px;
+  }
+  tbody td, tfoot th {
+    padding: 6px;
+    vertical-align: top;
+  }
+  td {
+    color: #3d3d3d;
+    padding: 6px;
+  }
+  tbody > tr {
+    &:hover {
+      > td {
+        background: #d9d9d9;
+      }
+      + tr.tablesorter-childRow {
+        > td, + tr.tablesorter-childRow > td {
+          background: #d9d9d9;
+        }
+      }
+    }
+    &.even:hover {
+      > td {
+        background: #d9d9d9;
+      }
+      + tr.tablesorter-childRow {
+        > td, + tr.tablesorter-childRow > td {
+          background: #d9d9d9;
+        }
+      }
+    }
+    &.odd:hover {
+      > td {
+        background: #bfbfbf;
+      }
+      + tr.tablesorter-childRow {
+        > td, + tr.tablesorter-childRow > td {
+          background: #bfbfbf;
+        }
+      }
+    }
+  }
+  .tablesorter-processing {
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+    /* background-image: url(../addons/pager/icons/loading.gif) !important; */
+    background-image: url('data:image/gif;base64,R0lGODlhFAAUAKEAAO7u7lpaWgAAAAAAACH/C05FVFNDQVBFMi4wAwEAAAAh+QQBCgACACwAAAAAFAAUAAACQZRvoIDtu1wLQUAlqKTVxqwhXIiBnDg6Y4eyx4lKW5XK7wrLeK3vbq8J2W4T4e1nMhpWrZCTt3xKZ8kgsggdJmUFACH5BAEKAAIALAcAAAALAAcAAAIUVB6ii7jajgCAuUmtovxtXnmdUAAAIfkEAQoAAgAsDQACAAcACwAAAhRUIpmHy/3gUVQAQO9NetuugCFWAAAh+QQBCgACACwNAAcABwALAAACE5QVcZjKbVo6ck2AF95m5/6BSwEAIfkEAQoAAgAsBwANAAsABwAAAhOUH3kr6QaAcSrGWe1VQl+mMUIBACH5BAEKAAIALAIADQALAAcAAAIUlICmh7ncTAgqijkruDiv7n2YUAAAIfkEAQoAAgAsAAAHAAcACwAAAhQUIGmHyedehIoqFXLKfPOAaZdWAAAh+QQFCgACACwAAAIABwALAAACFJQFcJiXb15zLYRl7cla8OtlGGgUADs=') !important;
+  }
+  tr {
+    &.odd td {
+      background-color: #ebfaeb;
+    }
+    &.even td {
+      background-color: #fff;
+    }
+  }
+  td.primary {
+    background-color: #99e6a6;
+  }
+  tr {
+    &.odd td.primary {
+      background-color: #99e6a6;
+    }
+    &.even td.primary {
+      background-color: #c2f0c9;
+    }
+  }
+  td.secondary {
+    background-color: #c2f0c9;
+  }
+  tr {
+    &.odd td.secondary {
+      background-color: #c2f0c9;
+    }
+    &.even td.secondary {
+      background-color: #d6f5db;
+    }
+  }
+  td.tertiary {
+    background-color: #d6f5db;
+  }
+  tr {
+    &.odd td.tertiary {
+      background-color: #d6f5db;
+    }
+    &.even td.tertiary {
+      background-color: #ebfaed;
+    }
+  }
+}
+
+/* header */
+
+/* tfoot */
+
+/* tbody */
+
+/* hovered row colors
+ you'll need to add additional lines for
+ rows with more than 2 child rows
+ */
+
+/* table processing indicator */
+
+/* Zebra Widget - row alternating colors */
+
+/* Column Widget - column sort colors */
+
+/* caption */
+
+caption {
+  background: #fff;
+}
+
+/* filter widget */
+
+.tablesorter-green {
+  .tablesorter-filter-row {
+    td {
+      background: #eee;
+      line-height: normal;
+      text-align: center;
+      /* center the input */
+      -webkit-transition: line-height 0.1s ease;
+      -moz-transition: line-height 0.1s ease;
+      -o-transition: line-height 0.1s ease;
+      transition: line-height 0.1s ease;
+    }
+    .disabled {
+      opacity: 0.5;
+      filter: alpha(opacity = 50);
+      cursor: not-allowed;
+    }
+    &.hideme {
+      td {
+        /*** *********************************************** ***/
+        /*** change this padding to modify the thickness     ***/
+        /*** of the closed filter row (height = padding x 2) ***/
+        padding: 2px;
+        /*** *********************************************** ***/
+        margin: 0;
+        line-height: 0;
+        cursor: pointer;
+      }
+      .tablesorter-filter {
+        height: 1px;
+        min-height: 0;
+        border: 0;
+        padding: 0;
+        margin: 0;
+        /* don't use visibility: hidden because it disables tabbing */
+        opacity: 0;
+        filter: alpha(opacity = 0);
+      }
+    }
+  }
+  .tablesorter-filter {
+    width: 98%;
+    height: auto;
+    margin: 4px;
+    padding: 4px;
+    background-color: #fff;
+    border: 1px solid #bbb;
+    color: #333;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-transition: height 0.1s ease;
+    -moz-transition: height 0.1s ease;
+    -o-transition: height 0.1s ease;
+    transition: height 0.1s ease;
+  }
+}
+
+/* optional disabled input styling */
+
+/* hidden filter row */
+
+/* filters */
+
+/* ajax error row */
+
+.tablesorter .tablesorter-errorRow td {
+  cursor: pointer;
+  background-color: #e6bf99;
+}
+
+
+/*************
+  Grey Theme
+ *************/
+/* overall */
+
+.tablesorter-grey {
+  width: 100%;
+  margin: 10px 0 15px;
+  text-align: left;
+  border-spacing: 0;
+  border-left: #555 1px solid;
+  th, thead td {
+    font: bold 12px/18px Arial, Sans-serif;
+    color: #c8c8c8;
+    background-color: #3c3c3c;
+    background-image: -moz-linear-gradient(top, #555555, #3c3c3c);
+    background-image: -ms-linear-gradient(top, #555555, #3c3c3c);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#555555), to(#3c3c3c));
+    background-image: -webkit-linear-gradient(top, #555555, #3c3c3c);
+    background-image: -o-linear-gradient(top, #555555, #3c3c3c);
+    background-image: linear-gradient(to bottom, #555555, #3c3c3c);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#555555', endColorstr='#3c3c3c',GradientType=0 );
+    background-repeat: repeat-x;
+    border-right: #555 1px solid;
+    text-shadow: 0 1px 0 rgba(128, 128, 128, 0.7);
+    -webkit-box-shadow: inset 0 1px 0 #222;
+    -moz-box-shadow: inset 0 1px 0 #222;
+    box-shadow: inset 0 1px 0 #222;
+    padding: 4px;
+  }
+  .tablesorter-header-inner {
+    position: relative;
+    padding: 4px 15px 4px 4px;
+  }
+  .header i, .tablesorter-header i {
+    width: 18px;
+    height: 10px;
+    position: absolute;
+    right: 2px;
+    top: 50%;
+    margin-top: -10px;
+    /* white (unsorted) double arrow */
+    background-image: url(data:image/gif;base64,R0lGODlhFQAJAIAAAP///////yH5BAEAAAEALAAAAAAVAAkAAAIXjI+AywnaYnhUMoqt3gZXPmVg94yJVQAAOw==);
+    background-repeat: no-repeat;
+    background-position: center right;
+    padding: 4px;
+    white-space: normal;
+    cursor: pointer;
+  }
+  th {
+    &.headerSortUp, &.tablesorter-headerSortUp, &.headerSortDown, &.tablesorter-headerSortDown {
+      color: #ddd;
+      background-color: #135185;
+      background-image: -moz-linear-gradient(top, #195c93, #0e4776);
+      background-image: -ms-linear-gradient(top, #195c93, #0e4776);
+      background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#195c93), to(#0e4776));
+      background-image: -webkit-linear-gradient(top, #195c93, #0e4776);
+      background-image: -o-linear-gradient(top, #195c93, #0e4776);
+      background-image: linear-gradient(to bottom, #195c93, #0e4776);
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#195c93', endColorstr='#0e4776',GradientType=0 );
+    }
+  }
+  .headerSortUp i, .tablesorter-headerSortUp i, .tablesorter-headerAsc i {
+    /* white asc arrow */
+    background-image: url(data:image/gif;base64,R0lGODlhFQAEAIAAAP///////yH5BAEAAAEALAAAAAAVAAQAAAINjI8Bya2wnINUMopZAQA7);
+  }
+  .headerSortDown i, .tablesorter-headerSortDown i, .tablesorter-headerDesc i {
+    /* white desc arrow */
+    background-image: url(data:image/gif;base64,R0lGODlhFQAEAIAAAP///////yH5BAEAAAEALAAAAAAVAAQAAAINjB+gC+jP2ptn0WskLQA7);
+  }
+  thead .sorter-false i {
+    background-image: none;
+    padding: 4px;
+  }
+  tbody td {
+    padding: 4px;
+    vertical-align: top;
+    border-right: #555 1px solid;
+  }
+  tfoot {
+    th, td {
+      padding: 4px;
+      vertical-align: top;
+      border-right: #555 1px solid;
+    }
+    th, td {
+      padding: 8px;
+    }
+  }
+  td {
+    color: #eee;
+    background-color: #6d6d6d;
+    padding: 4px;
+    vertical-align: top;
+  }
+  tbody > tr {
+    &:hover {
+      > td {
+        background: #134b78;
+      }
+      + tr.tablesorter-childRow {
+        > td, + tr.tablesorter-childRow > td {
+          background: #134b78;
+        }
+      }
+    }
+    &.even:hover {
+      > td {
+        background: #134b78;
+      }
+      + tr.tablesorter-childRow {
+        > td, + tr.tablesorter-childRow > td {
+          background: #134b78;
+        }
+      }
+    }
+    &.odd:hover {
+      > td {
+        background: #134b78;
+      }
+      + tr.tablesorter-childRow {
+        > td, + tr.tablesorter-childRow > td {
+          background: #134b78;
+        }
+      }
+    }
+  }
+  .tablesorter-processing {
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+    /* background-image: url(../addons/pager/icons/loading.gif) !important; */
+    background-image: url('data:image/gif;base64,R0lGODlhFAAUAKEAAO7u7lpaWgAAAAAAACH/C05FVFNDQVBFMi4wAwEAAAAh+QQBCgACACwAAAAAFAAUAAACQZRvoIDtu1wLQUAlqKTVxqwhXIiBnDg6Y4eyx4lKW5XK7wrLeK3vbq8J2W4T4e1nMhpWrZCTt3xKZ8kgsggdJmUFACH5BAEKAAIALAcAAAALAAcAAAIUVB6ii7jajgCAuUmtovxtXnmdUAAAIfkEAQoAAgAsDQACAAcACwAAAhRUIpmHy/3gUVQAQO9NetuugCFWAAAh+QQBCgACACwNAAcABwALAAACE5QVcZjKbVo6ck2AF95m5/6BSwEAIfkEAQoAAgAsBwANAAsABwAAAhOUH3kr6QaAcSrGWe1VQl+mMUIBACH5BAEKAAIALAIADQALAAcAAAIUlICmh7ncTAgqijkruDiv7n2YUAAAIfkEAQoAAgAsAAAHAAcACwAAAhQUIGmHyedehIoqFXLKfPOAaZdWAAAh+QQFCgACACwAAAIABwALAAACFJQFcJiXb15zLYRl7cla8OtlGGgUADs=') !important;
+  }
+  tbody tr {
+    &.odd td {
+      background-color: #5e5e5e;
+    }
+    &.even td {
+      background-color: #6d6d6d;
+    }
+  }
+  td.primary {
+    color: #ddd;
+    background-color: #165388;
+  }
+  tr {
+    &.odd td.primary {
+      color: #ddd;
+      background-color: #165388;
+    }
+    &.even td.primary {
+      color: #ddd;
+      background-color: #195c93;
+    }
+  }
+  td.secondary {
+    color: #ddd;
+    background-color: #185C9A;
+  }
+  tr {
+    &.odd td.secondary {
+      color: #ddd;
+      background-color: #185C9A;
+    }
+    &.even td.secondary {
+      color: #ddd;
+      background-color: #1D67A5;
+    }
+  }
+  td.tertiary {
+    color: #ddd;
+    background-color: #1B67AD;
+  }
+  tr {
+    &.odd td.tertiary {
+      color: #ddd;
+      background-color: #1B67AD;
+    }
+    &.even td.tertiary {
+      color: #ddd;
+      background-color: #2073B7;
+    }
+  }
+}
+
+/* header */
+
+/* tfoot */
+
+/* tbody */
+
+/* hovered row colors
+ you'll need to add additional lines for
+ rows with more than 2 child rows
+ */
+
+/* table processing indicator */
+
+/* Zebra Widget - row alternating colors */
+
+/* Column Widget - column sort colors */
+
+/* caption */
+
+caption {
+  background: #fff;
+}
+
+/* filter widget */
+
+.tablesorter-grey {
+  .tablesorter-filter-row {
+    td {
+      background: #3c3c3c;
+      line-height: normal;
+      text-align: center;
+      /* center the input */
+      -webkit-transition: line-height 0.1s ease;
+      -moz-transition: line-height 0.1s ease;
+      -o-transition: line-height 0.1s ease;
+      transition: line-height 0.1s ease;
+    }
+    .disabled {
+      opacity: 0.5;
+      filter: alpha(opacity = 50);
+      cursor: not-allowed;
+    }
+    &.hideme {
+      td {
+        /*** *********************************************** ***/
+        /*** change this padding to modify the thickness     ***/
+        /*** of the closed filter row (height = padding x 2) ***/
+        padding: 2px;
+        /*** *********************************************** ***/
+        margin: 0;
+        line-height: 0;
+        cursor: pointer;
+      }
+      .tablesorter-filter {
+        height: 1px;
+        min-height: 0;
+        border: 0;
+        padding: 0;
+        margin: 0;
+        /* don't use visibility: hidden because it disables tabbing */
+        opacity: 0;
+        filter: alpha(opacity = 0);
+      }
+    }
+  }
+  .tablesorter-filter {
+    width: 98%;
+    height: auto;
+    margin: 0;
+    padding: 4px;
+    background-color: #6d6d6d;
+    border: 1px solid #555;
+    color: #ddd;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-transition: height 0.1s ease;
+    -moz-transition: height 0.1s ease;
+    -o-transition: height 0.1s ease;
+    transition: height 0.1s ease;
+  }
+}
+
+/* optional disabled input styling */
+
+/* hidden filter row */
+
+/* filters */
+
+/* ajax error row */
+
+.tablesorter .tablesorter-errorRow td {
+  cursor: pointer;
+  background-color: #e6bf99;
+}
+
+
+/*************
+  Ice Theme (by thezoggy)
+ *************/
+/* overall */
+
+.tablesorter-ice {
+  width: 100%;
+  background-color: #fff;
+  margin: 10px 0 15px;
+  text-align: left;
+  border-spacing: 0;
+  border: #ccc 1px solid;
+  border-width: 1px 0 0 1px;
+  th, td {
+    border: #ccc 1px solid;
+    border-width: 0 1px 1px 0;
+  }
+  th, thead td {
+    font: 12px/18px Arial, Sans-serif;
+    color: #555;
+    background-color: #f6f8f9;
+    border-collapse: collapse;
+    padding: 4px;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
+  }
+  tbody td {
+    padding: 4px;
+    vertical-align: top;
+  }
+  tfoot {
+    th, td {
+      padding: 4px;
+      vertical-align: top;
+    }
+  }
+  .header, .tablesorter-header {
+    background: #f6f8f9 no-repeat center right;
+    background-image: url(data:image/gif;base64,R0lGODlhDAAMAMQAAAJEjAJCiwJBigJAiANFjgNGjgNEjQRIkQRHkANIkAVMlAVQmAZWnQZUnAdYoAhdpAhZoAlhqQlepQliqQppsApmrQxutgtutQtutAxwtwxwtg1yug1zugxtsw1yuP8A/yH5BAEAAB8ALAAAAAAMAAwAAAUx4Cd+3GiOW4ado2d9VMVm1xg9ptadTsP+QNZEcjoQTBDGCAFgLRSfQgCYMAiCn8EvBAA7);
+    /* background-image: url(images/ice-unsorted.gif) */
+    padding: 4px 20px 4px 4px;
+    white-space: normal;
+    cursor: pointer;
+  }
+  .headerSortUp, .tablesorter-headerSortUp, .tablesorter-headerAsc {
+    color: #333;
+    background: #ebedee no-repeat center right;
+    background-image: url(data:image/gif;base64,R0lGODlhDAAMANUAAAJCiwNHkANFjgNEjQRIkQNJkQRMlARKkwRKkgVPlwZSmgdaogdYnwhfpghcowlhqgliqglgqAlgpwljqwporwpmrQplrAtsswtqsgtrsgtqsQxttAtvtQtttAxyuQxwtwxxtwxvtg10uw1zuQ1xuP8A/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAACUALAAAAAAMAAwAAAY6wJKwJBoahyNQ6Dj0fDoZCpPEuWgqk4jxs8FQLI+Gg8Esm5kQydFQMC7IwkOAqUiUCAIzIjA4lwBlQQA7);
+    /* background-image: url(images/ice-desc.gif) */
+  }
+  .headerSortDown, .tablesorter-headerSortDown, .tablesorter-headerDesc {
+    color: #333;
+    background: #ebedee no-repeat center right;
+    background-image: url(data:image/gif;base64,R0lGODlhDAAMANUAAAE/iAJBigNFjgNEjQNFjQNDiwRHkQRHjwNHjwROlgRMlQRMlARJkgRKkgZQmAVPlgZWnQZSmgZRmAdXoAdXnwdUnAdbogdZoQhbowlhqAlepglkrAliqQtstAtqsQxyugxyuQxwuAxxuAxxtwxwtgxvtQ10vA12vA10u/8A/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAACkALAAAAAAMAAwAAAY6wJQwdRoah6bP6DhEiVIdDxNEGm4yxlDpiJkwv2AmR2OhVCSJBsJ4gUQeCwOB6VAwBAXwYRAIpwBfQQA7);
+    /* background-image: url(images/ice-asc.gif); */
+  }
+  thead .sorter-false {
+    background-image: none;
+    padding: 4px;
+  }
+  tfoot {
+    .tablesorter-headerSortUp, .tablesorter-headerSortDown, .tablesorter-headerAsc, .tablesorter-headerDesc {
+      background: #ebedee;
+    }
+  }
+  td {
+    color: #333;
+  }
+  tbody > tr {
+    &:hover > td, &.even:hover > td, &.odd:hover > td {
+      background: #ebf2fa;
+    }
+  }
+  .tablesorter-processing {
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+    /* background-image: url(../addons/pager/icons/loading.gif) !important; */
+    background-image: url('data:image/gif;base64,R0lGODlhFAAUAKEAAO7u7lpaWgAAAAAAACH/C05FVFNDQVBFMi4wAwEAAAAh+QQBCgACACwAAAAAFAAUAAACQZRvoIDtu1wLQUAlqKTVxqwhXIiBnDg6Y4eyx4lKW5XK7wrLeK3vbq8J2W4T4e1nMhpWrZCTt3xKZ8kgsggdJmUFACH5BAEKAAIALAcAAAALAAcAAAIUVB6ii7jajgCAuUmtovxtXnmdUAAAIfkEAQoAAgAsDQACAAcACwAAAhRUIpmHy/3gUVQAQO9NetuugCFWAAAh+QQBCgACACwNAAcABwALAAACE5QVcZjKbVo6ck2AF95m5/6BSwEAIfkEAQoAAgAsBwANAAsABwAAAhOUH3kr6QaAcSrGWe1VQl+mMUIBACH5BAEKAAIALAIADQALAAcAAAIUlICmh7ncTAgqijkruDiv7n2YUAAAIfkEAQoAAgAsAAAHAAcACwAAAhQUIGmHyedehIoqFXLKfPOAaZdWAAAh+QQFCgACACwAAAIABwALAAACFJQFcJiXb15zLYRl7cla8OtlGGgUADs=') !important;
+  }
+  tr {
+    &.odd td {
+      background-color: #dfdfdf;
+    }
+    &.even td {
+      background-color: #efefef;
+    }
+  }
+  td.primary {
+    background-color: #9ae5e5;
+  }
+  tr {
+    &.odd td.primary {
+      background-color: #9ae5e5;
+    }
+    &.even td.primary {
+      background-color: #c2f0f0;
+    }
+  }
+  td.secondary {
+    background-color: #c2f0f0;
+  }
+  tr {
+    &.odd td.secondary {
+      background-color: #c2f0f0;
+    }
+    &.even td.secondary {
+      background-color: #d5f5f5;
+    }
+  }
+  td.tertiary {
+    background-color: #d5f5f5;
+  }
+  tr {
+    &.odd td.tertiary {
+      background-color: #d5f5f5;
+    }
+    &.even td.tertiary {
+      background-color: #ebfafa;
+    }
+  }
+}
+
+/* header */
+
+/* tfoot */
+
+/* tbody */
+
+/* hovered row colors */
+
+/* table processing indicator */
+
+/* Zebra Widget - row alternating colors */
+
+/* Column Widget - column sort colors */
+
+/* caption */
+
+caption {
+  background: #fff;
+}
+
+/* filter widget */
+
+.tablesorter-ice {
+  .tablesorter-filter-row {
+    td {
+      background: #eee;
+      line-height: normal;
+      text-align: center;
+      /* center the input */
+      -webkit-transition: line-height 0.1s ease;
+      -moz-transition: line-height 0.1s ease;
+      -o-transition: line-height 0.1s ease;
+      transition: line-height 0.1s ease;
+    }
+    .disabled {
+      opacity: 0.5;
+      filter: alpha(opacity = 50);
+      cursor: not-allowed;
+    }
+    &.hideme {
+      td {
+        /*** *********************************************** ***/
+        /*** change this padding to modify the thickness     ***/
+        /*** of the closed filter row (height = padding x 2) ***/
+        padding: 2px;
+        /*** *********************************************** ***/
+        margin: 0;
+        line-height: 0;
+        cursor: pointer;
+      }
+      .tablesorter-filter {
+        height: 1px;
+        min-height: 0;
+        border: 0;
+        padding: 0;
+        margin: 0;
+        /* don't use visibility: hidden because it disables tabbing */
+        opacity: 0;
+        filter: alpha(opacity = 0);
+      }
+    }
+  }
+  .tablesorter-filter {
+    width: 98%;
+    height: auto;
+    margin: 4px;
+    padding: 4px;
+    background-color: #fff;
+    border: 1px solid #bbb;
+    color: #333;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-transition: height 0.1s ease;
+    -moz-transition: height 0.1s ease;
+    -o-transition: height 0.1s ease;
+    transition: height 0.1s ease;
+  }
+}
+
+/* optional disabled input styling */
+
+/* hidden filter row */
+
+/* filters */
+
+/* ajax error row */
+
+.tablesorter .tablesorter-errorRow td {
+  cursor: pointer;
+  background-color: #e6bf99;
+}
+
+
+/*************
+  jQuery UI Theme
+ *************/
+/* overall */
+
+.tablesorter-jui {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 2px;
+  /* adjust spacing between table cells */
+  margin: 10px 0 15px;
+  padding: 5px;
+  font-size: 0.8em;
+  th, thead td {
+    position: relative;
+    background-repeat: no-repeat;
+    background-position: right center;
+    /* UI hover and active states make the font normal and the table resizes, this fixes it */
+    font-weight: bold !important;
+    border-width: 1px !important;
+    text-align: left;
+  }
+  .header, .tablesorter-header {
+    cursor: pointer;
+    white-space: normal;
+    padding: 8px;
+    /* wider than the icon */
+  }
+  .tablesorter-header-inner {
+    padding-right: 20px;
+  }
+  thead tr th .ui-icon {
+    position: absolute;
+    right: 3px;
+    top: 50%;
+    margin-top: -8px;
+    /* half the icon height; older IE doesn't like this */
+  }
+  tfoot {
+    th, td {
+      font-weight: normal !important;
+      font-size: .9em;
+      padding: 2px;
+    }
+  }
+  td {
+    padding: 4px;
+    vertical-align: top;
+  }
+  tbody > tr:hover td {
+    opacity: 0.7;
+    filter: alpha(opacity = 70);
+  }
+  .tablesorter-processing .tablesorter-header-inner {
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+    /* background-image: url(../addons/pager/icons/loading.gif) !important; */
+    background-image: url('data:image/gif;base64,R0lGODlhFAAUAKEAAO7u7lpaWgAAAAAAACH/C05FVFNDQVBFMi4wAwEAAAAh+QQBCgACACwAAAAAFAAUAAACQZRvoIDtu1wLQUAlqKTVxqwhXIiBnDg6Y4eyx4lKW5XK7wrLeK3vbq8J2W4T4e1nMhpWrZCTt3xKZ8kgsggdJmUFACH5BAEKAAIALAcAAAALAAcAAAIUVB6ii7jajgCAuUmtovxtXnmdUAAAIfkEAQoAAgAsDQACAAcACwAAAhRUIpmHy/3gUVQAQO9NetuugCFWAAAh+QQBCgACACwNAAcABwALAAACE5QVcZjKbVo6ck2AF95m5/6BSwEAIfkEAQoAAgAsBwANAAsABwAAAhOUH3kr6QaAcSrGWe1VQl+mMUIBACH5BAEKAAIALAIADQALAAcAAAIUlICmh7ncTAgqijkruDiv7n2YUAAAIfkEAQoAAgAsAAAHAAcACwAAAhQUIGmHyedehIoqFXLKfPOAaZdWAAAh+QQFCgACACwAAAIABwALAAACFJQFcJiXb15zLYRl7cla8OtlGGgUADs=') !important;
+  }
+  tr.ui-state-default {
+    background-image: none;
+    font-weight: normal;
+  }
+  .tablesorter-processing {
+    background-color: #ddd;
+    /* older browsers that don't support rgba */
+    background-color: rgba(255, 255, 255, 0.8);
+  }
+}
+
+/* header */
+
+/* tfoot */
+
+/* tbody */
+
+/* hovered row colors */
+
+/* table processing indicator */
+
+/* Zebra widget - This allows you to use ui-state-default as the zebra stripe color */
+
+/* processing background color */
+
+/* caption */
+
+caption {
+  background: #fff;
+}
+
+/* filter widget */
+
+.tablesorter-jui {
+  .tablesorter-filter-row {
+    td {
+      background: transparent;
+      line-height: normal;
+      text-align: center;
+      /* center the input */
+      -webkit-transition: line-height 0.1s ease;
+      -moz-transition: line-height 0.1s ease;
+      -o-transition: line-height 0.1s ease;
+      transition: line-height 0.1s ease;
+    }
+    .disabled {
+      opacity: 0.5;
+      filter: alpha(opacity = 50);
+      cursor: not-allowed;
+    }
+    &.hideme {
+      td {
+        /*** *********************************************** ***/
+        /*** change this padding to modify the thickness     ***/
+        /*** of the closed filter row (height = padding x 2) ***/
+        padding: 2px;
+        /*** *********************************************** ***/
+        margin: 0;
+        line-height: 0;
+        cursor: pointer;
+      }
+      .tablesorter-filter {
+        height: 1px;
+        min-height: 0;
+        border: 0;
+        padding: 0;
+        margin: 0;
+        /* don't use visibility: hidden because it disables tabbing */
+        opacity: 0;
+        filter: alpha(opacity = 0);
+      }
+    }
+  }
+  .tablesorter-filter {
+    width: 98%;
+    height: auto;
+    margin: 0;
+    padding: 4px;
+    background-color: #fff;
+    border: 1px solid #bbb;
+    color: #333;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-transition: height 0.1s ease;
+    -moz-transition: height 0.1s ease;
+    -o-transition: height 0.1s ease;
+    transition: height 0.1s ease;
+  }
+}
+
+/* optional disabled input styling */
+
+/* hidden filter row */
+
+/* filters */
+
+/* ajax error row */
+
+.tablesorter .tablesorter-errorRow td {
+  cursor: pointer;
+  background-color: #e6bf99;
+}
+
+
+
+/*************
+  Bootstrap theme
+ *************/
+/* jQuery Bootstrap Theme */
+
+.tablesorter-bootstrap {
+  width: 100%;
+  .header, .tablesorter-header {
+    font: bold 14px/20px Arial, Sans-serif;
+    position: relative;
+    padding: 8px;
+    margin: 0 0 18px;
+    list-style: none;
+    background-color: #efefef;
+  }
+  .tablesorter-headerRow {
+    .header, .tablesorter-header {
+      cursor: pointer;
+      background-image: url(data:image/gif;base64,R0lGODlhFQAJAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAkAAAIXjI+AywnaYnhUMoqt3gZXPmVg94yJVQAAOw==);
+      background-position: center right;
+      background-repeat: no-repeat;
+    }
+    .headerSortUp, .tablesorter-headerSortUp, .tablesorter-headerAsc {
+      background-image: url(data:image/gif;base64,R0lGODlhFQAEAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAQAAAINjI8Bya2wnINUMopZAQA7);
+    }
+    .headerSortDown, .tablesorter-headerSortDown, .tablesorter-headerDesc {
+      background-image: url(data:image/gif;base64,R0lGODlhFQAEAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAQAAAINjB+gC+jP2ptn0WskLQA7);
+    }
+  }
+  thead .sorter-false {
+    background-image: none;
+    padding: 4px;
+  }
+  tfoot {
+    th, td {
+      font: bold 14px/20px Arial, Sans-serif;
+      position: relative;
+      padding: 8px;
+      margin: 0 0 18px;
+      list-style: none;
+      background-color: #efefef;
+    }
+  }
+  .tablesorter-header {
+    cursor: pointer;
+  }
+  .tablesorter-header-inner {
+    position: relative;
+    padding: 4px 18px 4px 4px;
+  }
+  .tablesorter-header i {
+    position: absolute;
+    right: 2px;
+    top: 50%;
+    margin-top: -7px;
+    /* half the icon height; older IE doesn't like this */
+    width: 14px;
+    height: 14px;
+    background-repeat: no-repeat;
+    line-height: 14px;
+    display: inline-block;
+  }
+  tr.odd td {
+    background-color: #f9f9f9;
+    font-size: 0.875em;
+  }
+  tbody > {
+    .odd:hover > td, .even:hover > td {
+      background-color: #f5f5f5;
+    }
+  }
+  tr.even td {
+    background-color: #fff;
+    font-size: 0.875em;
+  }
+  @extend .table;
+  @extend .table-bordered;
+  @extend .table-striped;
+  @extend .table-hover;
+  @extend .table-responsive;
+}
+
+/* bootstrap uses <i> for icons */
+
+/* since bootstrap (table-striped) uses nth-child(), we just use this to add a zebra stripe color */
+
+/* processing icon */
+
+/* caption */
+
+caption {
+  background: #fff;
+}
+
+/* filter widget */
+
+.tablesorter-bootstrap {
+  .tablesorter-filter-row {
+    .tablesorter-filter {
+      width: 98%;
+      height: auto;
+      margin: 0 auto;
+      padding: 4px 6px;
+      background-color: #fff;
+      color: #333;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      -webkit-transition: height 0.1s ease;
+      -moz-transition: height 0.1s ease;
+      -o-transition: height 0.1s ease;
+      transition: height 0.1s ease;
+      &.disabled {
+        background: #eee;
+        cursor: not-allowed;
+      }
+    }
+    td {
+      background: #eee;
+      line-height: normal;
+      text-align: center;
+      padding: 4px 6px;
+      vertical-align: middle;
+      -webkit-transition: line-height 0.1s ease;
+      -moz-transition: line-height 0.1s ease;
+      -o-transition: line-height 0.1s ease;
+      transition: line-height 0.1s ease;
+    }
+    &.hideme {
+      td {
+        padding: 2px;
+        /* change this to modify the thickness of the closed border row */
+        margin: 0;
+        line-height: 0;
+      }
+      .tablesorter-filter {
+        height: 1px;
+        min-height: 0;
+        border: 0;
+        padding: 0;
+        margin: 0;
+        /* don't use visibility: hidden because it disables tabbing */
+        opacity: 0;
+        filter: alpha(opacity = 0);
+      }
+    }
+  }
+  .tablesorter-pager {
+    select {
+      padding: 4px 6px;
+      height: 30px;
+    }
+    .pagedisplay {
+      border: 0;
+    }
+  }
+}
+
+.tablesorter .tablesorter-errorRow td {
+  cursor: pointer;
+  background-color: #e6bf99;
+}
+
+
+.tablesorter {
+	.btn {
+		padding: 0px 10px;
+		margin: 0 1px;
+	}
+  .pagesize, .pagenum {
+    height: 24px;
+    min-width: 50px;
+    margin: 0 1px;
+    padding: 0 !important;
+  }
+  .no-border {
+    border: 1px solid #999;
+    border-radius: 0;
+  }
+}
+
+.pager-list {
+  display: inline-block;
+  border-radius: 4px;
+  text-align: center;
+  li {
+    a {
+      padding: 5 14px;
+      background-color: #fff;
+      color: #428bca;
+      border-radius: 0px;
+    }
+  }
+}
+
+.pager-list-btn-left {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 0;
+    margin-right: -5px !important;
+    margin-top: -2px !important;
+    padding: 5 14px !important;
+    &:hover {
+        background-color: #eeeeee;
+    }
+    &:first-of-type {
+      border-bottom-left-radius: 4px;
+      border-top-left-radius: 4px;
+    }
+}
+
+.pager-list-btn-right {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 0;
+    margin-left: -5px !important;
+    margin-top: -2px !important;
+    padding: 5 14px !important;
+    &:hover {
+        background-color: #eeeeee;
+    }
+    &:last-of-type {
+      border-bottom-right-radius: 4px;
+      border-top-right-radius: 4px;
+    }
+}

@@ -1,0 +1,183 @@
+
+/*Header css*/
+header {
+	font-family: $base-font-family;
+}
+
+.menu-toggle {
+	line-height: 100px;
+	font-size: 2em;
+	padding: 0 1em;
+	color: #333;
+}
+
+.menu-toggle-container{
+	float: left;
+}
+
+.header-main-block {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	background: #f6f6f6;
+	z-index: 110;
+	height: 100px;
+	overflow: visible;
+	-webkit-transition: height 0.3s;
+	-moz-transition: height 0.3s;
+	transition: height 0.3s;
+}
+
+.header-main-block .header-inner-block {
+	width: 90%;
+	max-width: 69em;
+	margin: 0 auto;
+	padding: 0 1.875em;
+}
+
+.header-main-block h1,
+.header-main-block nav {
+	display: inline-block;
+	position: relative;
+}
+
+ /* We just have one-lined elements, so we'll center the elements with the line-height set to the height of the header */
+.header-main-block h1,
+.header-main-block nav a {
+	line-height: 100px;
+}
+
+.header-main-block h1 {
+	color: #333;
+	letter-spacing: 4px;
+	font-size: 2em;
+	margin: 0;
+	float: left;
+}
+
+.header-main-block nav {
+	float: right;
+}
+
+.header-main-block nav a {
+	color: #aaa;
+	font-weight: 700;
+	margin: 0 0 0 20px;
+	font-size: 1.4em;
+}
+
+.header-main-block nav a:hover {
+	color: #333;
+}
+
+/* Transitions and class for reduced height */
+.header-main-block h1,
+.header-main-block nav a {
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;
+}
+
+.header-main-block.header-main-block-shrink {
+	height: 50px;
+}
+
+.header-main-block.header-main-block-shrink h1, .header-main-block.header-main-block-shrink .menu-toggle{
+	line-height: 50px;
+	font-size: 1em;
+}
+
+.header-main-block.header-main-block-shrink {
+	.header-right-button-text {
+		display: none;	
+	}
+	.header-right-button {
+		height: 50px;
+		padding: 0 1em; 
+	}
+	
+}
+
+
+/* Example Media Queries */
+@media screen and (max-width: 55em) {
+	
+	.header-main-block .header-inner-block {
+		width: 100%;
+	}
+
+	.header-main-block h1,
+	.header-main-block nav {
+		display: block;
+		margin: 0 auto;
+	}
+
+	.header-main-block h1,
+	.header-main-block nav a {
+		line-height: 115px;
+	}
+
+	.header-main-block nav a {
+		margin: 0 10px;
+	}
+
+	.header-main-block.header-main-block-shrink h1{
+		line-height: 45px;
+	}
+
+	.header-main-block.header-main-block-shrink h1 {
+		font-size: 1em;
+	}
+
+}
+
+@media screen and (max-width: 32.25em) {
+	.header-main-block nav a {
+		font-size: 1em;
+	}
+	.header-main-block.header-main-block-shrink h1 {
+		font-size: 1em;
+	}
+}
+
+
+@media screen and (max-width: 24em) {
+	.header-main-block nav a,
+	.header-main-block.header-main-block-shrink nav a {
+		line-height: 1;
+	}
+	.header-main-block.header-main-block-shrink h1 {
+		font-size: 1em;
+	}
+}
+
+.header-right-button {
+	color: #333;
+	padding: 0 .5em; 
+	width: 50px;
+	display: table-cell;
+	vertical-align: middle;
+	.header-right-button-icon {
+		text-align: center;
+		display: block;
+	}
+	.header-right-button-text {
+	}
+}
+
+.header-right-button:hover, .header-right-button:active {
+	background-color: #d6d6d6;
+}
+.header-navbar {
+	margin-right: 2em;
+}
+
+#header-profile {
+	.ui-dropdown-list {
+		i {
+			margin-left: 20px;
+		}
+	}
+}
+/*Header css ends*/

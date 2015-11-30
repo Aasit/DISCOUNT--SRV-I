@@ -1,0 +1,107 @@
+
+/*card layout css - to be exported*/
+.n5-card {
+	@include border-radius(2px);
+	@include box-shadow(0 1px 0 1px #e4e6eb);
+	margin: 0 0 30px 0;
+	min-width: 200px;
+	float: left;
+	display: inline-block;
+	max-width: 100%;
+}
+.blue {
+	color: #7bc8a8;
+}
+.n5-card .n5-card-header {
+	background: #7bc8a8;
+	color: white;
+	font-size: 16px;
+	overflow: hidden;
+	@include border-radius(2px 2px 0 0);
+}
+
+.n5-card-title {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.n5-card .n5-card-header h2 {
+	float: left;
+	padding: 10px 0;
+	margin: 0 0 0 20px;
+	font-size: 16px;
+	line-height: 16px;
+	font-weight: 300;
+}
+
+.n5-card .n5-card-header h2 i {
+	background: #5b967e;
+	color: white;
+	padding: 10px 0;
+	width: 36px;
+	display: inline-block;
+	text-align: center;
+	margin: -10px 0 -10px -20px;
+}
+
+.n5-card .n5-card-header .n5-card-icon {
+	background: #5b967e;
+	float: right;
+}
+
+.n5-card-icon a {
+	color: #383e4b;
+	text-decoration: none;
+}
+
+.n5-card .n5-card-header .n5-card-icon i {
+	display: inline-block;
+	color: white;
+	text-align: center;
+	width: 36px;
+	padding: 10px 0;
+	@include basicTransition(all .1s ease-in-out);
+	opacity: .8;
+	filter: alpha(opacity=80);
+	-ms-filter: "alpha(opacity=80)";
+	border-left: 1px solid #7bc8a8;
+	text-decoration: none;
+}
+.n5-card .n5-card-header .n5-card-icon .n5-card-closeIcon {
+	display: inline-block;
+	color: white;
+	text-align: center;
+	width: 36px;
+	padding: 10px 0;
+	@include basicTransition(all .1s ease-in-out);
+	opacity: .8;
+	filter: alpha(opacity=80);
+	-ms-filter: "alpha(opacity=80)";
+	border-left: 1px solid #7bc8a8;
+	text-decoration: none;
+	cursor: pointer;
+
+}
+.n5-card .n5-card-header .n5-card-icon .n5-card-toggleIcon {
+	display: inline-block;
+	color: white;
+	text-align: center;
+	width: 36px;
+	padding: 10px 0;
+	@include basicTransition(all .1s ease-in-out);
+	opacity: .8;
+	filter: alpha(opacity=80);
+	-ms-filter: "alpha(opacity=80)";
+	border-left: 1px solid #7bc8a8;
+	text-decoration: none;
+	cursor: pointer;
+
+}
+
+
+.n5-card .n5-card-content {
+	background: white;
+	@include border-radius(0 0 2px 2px);
+}
+
+/*card layout ends*/
