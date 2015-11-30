@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+
+{% block title %}Create Scheme{% endblock %}
+
+{% block header %} 
+    {% include 'header.tmpl' %} 
+{% endblock %}
+
+{% block content %}
+    <div class = "body-template">
+        <aside id="responsive-admin-menu">
+        <!--Menu-->
+            <div id="menu">
+                    <a href={{"./dashboard" | nonce}} title="Dashboard"><i class="fa fa-tachometer"></i><span> 
+                    Dashboard</span></a>
+                    <a href={{"./template" | nonce}} title="Create Scheme"><i class="fa fa-bullhorn"></i><span> Create Scheme</span></a>
+                    <a href="" title="Pages"><i class="fa fa-anchor"></i><span> Pages</span></a>
+                    <a href="" title="Media" class="submenu" name="media-sub"><i class="fa fa-eye"></i><span>  
+                    Media</span></a>
+                        <div id="media-sub" style="display: none;">
+                            <a href="" title="Video Gallery"><i class="fa fa-film"></i><span>  
+                            Video Gallery</span></a>
+                            <a href="" title="Photo Gallery"><i class="fa fa-picture-o"></i><span>  
+                            Photo Gallery</span></a>
+                        </div>
+                    
+                    <a href="" title="Graph &amp; Charts"><i class="fa fa-home"></i><span>  
+                    Graph &amp; Charts</span></a>
+                    <a href="" title="Events"><i class="fa fa-ticket"></i><span>  
+                    Events</span></a>
+
+                    <a href="" class="submenu" name="other-sub" title="Other Contents"><i class="fa fa-random"></i><span> 
+                    Other Contents</span></a>
+                        <div id="other-sub">
+                            <a href="" title="Forms"><i class="fa fa-female"></i><span>  
+                            Forms</span></a>
+                            <a href="" title="Mail Lists"><i class="fa fa-male"></i><span>  
+                            Mail Lists</span></a>
+                            <a href="" title="Maps"><i class="fa fa-plane"></i><span>  
+                            Maps</span></a>
+                        </div>
+                    <a href="" title="Admin Tools"><i class="fa fa-gear"></i><span>  
+                    Admin Tools</span></a>
+            </div>
+        <!--Menu-->
+        </aside>
+        <section id="content-wrapper">  
+            <div class = "dashboard-content">
+                <div class="container n5-template-container" id = "scheme-details">
+                    <div class = "n5-template-header">Scheme Details</div>
+                    <div class="n5-ui-sc-row">  
+                        <span class="n5-ui-sc-col">
+                            <label class="n5-ui-sc-label" for="templateno">Scheme Name</label>
+                            <input class="n5-template-box n5-ui-qc-input-placeholder scheme-name" placeholder="Enter Scheme Name" type="text" />
+                            <!-- <div class="n5-template-sd-temno-label" name="templateno">XYZVVN</div> -->
+                        </span>
+                        <span class="n5-ui-sc-col">
+                            <label for="segment" class="n5-ui-sc-label">Segment</label>
+                            <span  id="n5-segment-type" name="segment">
+                                <select multiple class = "n5-segment-select">
+                                    {% for item in items.segmentTypes %}
+                                        <option value="{{item.attr.value}}">{{item.textStr}}</option>
+                                    {% endfor %}
+                                </select>
+                            </span>
+                        </span>
+                    </div>
+                    <div class="n5-ui-sc-row">  
+                        <span class="n5-ui-sc-col">
+                            <label for="first_name" class="n5-ui-sc-label">Scheme Type</label>
+                            <span id="n5-scheme-type">
+                                <select class = "n5-schemetype-select" >
+                                    {% for item in items.schemeTypes %}
+                                        <option value="{{item.attr.value}}">{{item.textStr}}</option>
+                                    {% endfor %}
+                                </select>
+                            </span>
+                        </span>
+                        <span class="n5-ui-sc-col">
+                            <label for="first_name" class="n5-ui-sc-label">Sales Geography</label>
+                            <span  id="n5-sales-geography">
+                                <input class = "sales-geo-select">
+                            </span>
+                        </span>
+                    </div>
+                    <div class="n5-ui-sc-row">	
+                        <span class="n5-ui-sc-col n5-ui-sc-col-sp-cor">
+                            <label for="first_name" class="n5-ui-sc-label">Sales Period</label>
+                            <div class="input-prepend input-group">
+                                <span class="add-on input-group-addon">
+                                    <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                                </span>
+                                <input type="text" name="sales-period" id="sales-period" class="form-control" readonly placeholder = "Select Period" /> 
+                            </div>		
+                        </span>
+                        <span class="n5-ui-sc-col">
+                            <label for="first_name" class="n5-ui-sc-label">Dealers Attribute</label>
+                            <span  id="n5-dealers-attribute">
+                                <select multiple class = "n5-dealers-select">
+                                    {% for item in items.dealerTypes %}
+                                        <optgroup label='{{item.name}}'>
+                                            {% for object in item.children %}
+                                                <option value='{{object.attr.value}}'>
+                                                    {{object.textStr}}
+                                                </option>
+                                            {% endfor %} 
+                                        </optgroup>
+                                    {% endfor %}
+                                </select>
+                            </span>
+                        </span>
+                    </div>
+                    <div class="n5-ui-sc-row last">
+                        <span class = "n5-ui-sc-col-sp-cor">
+                            <label for="termsConditions" class="n5-ui-sc-label">Terms and Conditions</label>
+                            <textarea class = "input-terms-conditions"></textarea>    
+                        </span>  
+                        
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+{% endblock %}
+
+{% block footer %}{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+
+    <!-- External libs -->
+    <script type="text/javascript" src={{resolvePath("app.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("moment.min.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("daterangepicker.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("native5.select2.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("underscore.min.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("backbone.min.js")}}></script>
+    <!-- n5 wrappers -->
+    <script type="text/javascript" src={{resolvePath("native5.ui.card.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("native5.ui.modal.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("native5.ui.tab.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("native5.ui.table.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("native5.ui.select.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("native5.ui.loader.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("native5.notifications.js")}}></script>
+    <!-- akzo wrappers -->
+    <script type="text/javascript" src={{resolvePath("akzo.ui.select.multiple.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("akzo.ui.ppiTemplate.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("akzo.ui.inBillTemplate.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("akzo.ui.priTemplate.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("akzo.ui.slabTemplate.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("akzo_menu.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("models_header.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("template.js")}}></script>
+
+    
+{% endblock %}

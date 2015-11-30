@@ -1,0 +1,81 @@
+{% if items.schemeData.slabTpls| length > 0 %}
+<div class="pdf-content js-slab">
+    <hr />
+    {% for template in items.schemeData.slabTpls %}
+        <h2><b>{{templateCounter}}. Slab Template - {{template.slabDnI.templateName}}</b></h2>
+        {% set templateCounter = templateCounter + 1 %}
+
+        <p class="section"><span><b>Applicable for Segments:</b></span> <span class="right"> 
+            {% for segment in template.slabDnI.segment %}
+                {{segment}} {% if not loop.last%},{% endif %}
+            {% endfor %}
+        </span></p>
+
+        <p class="section"><span>
+            <b>Scheme Products:</b>
+            <span class="right">
+                {% for product in template.slabDnI.products %}
+                    <b>{% if product.excluded %} - {% else %} + {%endif%}</b> {{product.name}} {% if not loop.last%}, {% endif %}
+                {% endfor %}
+            </span>
+        </span></p>
+
+        <p class="section"><span>
+            <b>Packs:</b>
+            <span class="right">
+                {% for pack in template.slabDnI.packs %}
+                    {{pack}} {% if not loop.last%}, {% endif %}
+                {% endfor %}
+            </span>
+        </span></p>
+
+        <p>{% if template.slabDnI.projectSku %}Including{% else %}Excluding{% endif %} Project SKU</p>
+
+        {% for table in template.slabDnI.laps %}
+            <p class="section"><span>
+                <b>Scheme Period: {{loop.index}}</b>
+                <span class="right">{{table.period.startDate}} to {{table.period.endDate}}</span>
+            </span></p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Sl. No</th>
+                        <th>Slab {% if template.slabDnI.ppiType == "VOLUME" %} Volume (Ltrs) {% else %} Value (Rs) {% endif %}</th>
+                        <th>Payout</th>
+                        <th>Payout Type</th>
+                        <th>Payout Description</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for row in table.payouts %}
+                        <tr>
+                            <td>{{loop.index}}</td>
+                            <td>{{row.slabStartValue}} to {{row.slabEndValue}}</td>
+                            <td>{{row.payoutValue}}</td>
+                            <td>{{row.payoutType}}</td>
+                            <td>{{row.payoutDescription}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endfor %}
+        <div class = "pdf-qualifying-conditions">
+            <h3>{{"Qualifying Conditions:"| upper}}</h3>
+            <h3>Slab Qualifying Conditions:</h3>
+            {% for row in template.slabDnI.laps[0].payouts %}
+                {% if row.qcList is defined and row.qcList is not empty %}
+                    <h4><u>Slab Number: <strong>#{{loop.index}}</strong></u></h4>
+                    {% include "schemepdf_QC.tmpl" with {'qcList': row.qcList} %}
+                {% endif %}
+            {% endfor %}
+            {% if template.qcList|length > 0 %}
+                <h3>Template Qualifying Conditions:</h3>
+                {% include "schemepdf_QC.tmpl" with {'qcList': template.qcList} %}
+            {% endif %}
+                
+        </div>
+    {% endfor %}
+</div>
+{% endif %}

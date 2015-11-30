@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% block title %}Create Scheme{% endblock %}
+
+{% block header %} 
+    {% include 'header.tmpl' %} 
+{% endblock %}
+
+{% block content %}
+    <div class = "body-template scheme-details-page">
+        <!--Menu-->
+        {% include 'menu.tmpl' %}
+        <div id="modelDetails" style="display: none;" data-model="{{items.schemeDataRaw}}" data-state = "{{items.state}}" data-id = "{{items.schemeCode}}" data-user = "{{items.userType}}"></div>
+        <section id="content-wrapper">
+            <div>
+                <button class="button-simple pull-right margin-bottom-20"><a id="schemePDF1" href="scheme/generatePDF?schemeId={{items.schemeCode}}&rand_token={{items.nonce}}">PDF</a></button>
+
+                {% if items.state == items.defaultStates.approved %}
+                <button  class="button-simple pull-right margin-bottom-20"><a id="schemePDF1" href="scheme/downloadDealerWisePDFs?schemeId={{items.schemeCode}}&rand_token={{items.nonce}}">Download Scheme Circulars</a></button>
+                {% endif %}
+
+                {% if items.state == items.defaultStates.approved and items.userType == "initiator" %}
+                    <button id="editApprovedScheme" class="button-simple pull-right margin-bottom-20" style = "margin-right: 20px;">Edit Active Scheme</button>
+                {% endif %}
+
+            </div>
+            
+            <div class="dashboard-content">
+                <div class = "scheme-details-container">
+                    {% include 'scheme_details.tmpl' %}
+                </div>
+                <div class = "scheme-qc-container">
+                    {% include 'scheme_qualifyingconditions.tmpl' with {'qcList': items.schemeData.schemeHeaderTemplate.qcList}  %}
+                </div>
+
+                <div id="scheme-inbill-parent">
+                    {% include "scheme_inbill.tmpl" %}
+                </div>
+
+                <div id="scheme-ppi-parent">
+                    {% include "scheme_ppi.tmpl" %}
+                </div>
+
+                <div id="scheme-pri-parent">
+                    {% include "scheme_pri.tmpl" %}
+                </div>
+
+                <div id="scheme-slab-parent">
+                    {% include "scheme_slab.tmpl" %}
+                </div>
+
+                <div id="scheme-newslab-parent">
+                    {% include "scheme_newslab.tmpl" %}
+                </div>
+
+                <div id="n5-ui-template-add-temp-qc" style="margin-bottom:20px;">
+                    {% if (items.userType == "reviewer") and (items.state == items.defaultStates.initiated) %}
+                        <div class="page-footer page-buttons" style = "display: none;">
+                            <button id="checkTemplateData" class="page-scheme-submit">Submit</button>
+                            <button id="updateTemplateData" class="page-scheme-submit">Update</button>
+                            <button id="sendTemplateData" class="page-scheme-submit">Send</button>
+                        </div>
+                    {% elseif (items.userType == "approver") and (items.state == items.defaultStates.reviewed) %}
+                        <div class="page-footer page-buttons" style = "display: none;">
+                            <button id="checkTemplateData" class="page-scheme-submit">Submit</button>
+                            <button id="updateTemplateData" class="page-scheme-submit">Update</button>
+                            <button id="sendTemplateData" class="page-scheme-submit">Send</button>
+                        </div>
+                    {% endif %}
+                </div>
+
+
+                <div class="comment-popup" id="n5-comment-popup" style="display: none;">
+                    <div class="n5-template-popup-header">
+                        <i class="modal_close fa fa-times-circle-o fa-lg"></i>
+                    </div>
+                    <div class="row">
+                        <textarea placeholder="Comment" id="n5-comment-box"></textarea>
+                    </div>
+                    <div class="row">
+                        <button class="btn btn-primary pull-right" id="n5-comment-submit">Submit</button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </div>
+    <div id="editor"></div>
+
+{% endblock %}
+
+{% block footer %}{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+
+    <!-- External libs -->
+    <script type="text/javascript" src={{resolvePath("underscore.min.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("backbone.min.js")}}></script>
+    <!-- n5 wrappers -->
+    <script type="text/javascript" src={{resolvePath("native5.ui.card.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("native5.ui.modal.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("native5.ui.loader.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("native5.notifications.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("native5.ui.table.js")}}></script>
+    <!-- akzo wrappers -->
+    <script type="text/javascript" src={{resolvePath("akzo_menu.js")}}></script>
+    <script type="text/javascript">
+        window.defaultStates = {
+            "staged": "{{items.defaultStates.staged}}",
+            "initiated": "{{items.defaultStates.initiated}}",
+            "updateRequested": "{{items.defaultStates.updateRequested}}",
+            "reviewed": "{{items.defaultStates.reviewed}}",
+            "approved": "{{items.defaultStates.approved}}"
+        };
+    </script>
+    <script type="text/javascript" src={{resolvePath("models_default.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("scheme.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("scheme_inbill.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("scheme_ppi.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("scheme_pri.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("scheme_slab.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("scheme_newslab.js")}}></script>
+
+    
+{% endblock %}

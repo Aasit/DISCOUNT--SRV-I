@@ -1,0 +1,306 @@
+{% extends "base.html" %}
+
+{% block title %}Create Scheme{% endblock %}
+
+{% block header %} 
+    {% include 'header.tmpl' %} 
+{% endblock %}
+
+{% block content %}
+    <div class = "body-template">
+        <!--Menu-->
+        {% include 'menu.tmpl' %}
+        <section id="content-wrapper">  
+            <div class = "dashboard-content simulation-content" align = "center">
+            </div>
+            <div class = "sales-data" align = "center">
+            </div>  
+            <div class = "simulation-result" align = "center">
+            </div>            
+
+        </section>
+    </div>
+
+    <script type="text/html" id = "simulation-template">
+        <% _.each(groups, function(group) { %>
+            <div class = "simulation-group" data-number = "<%=group.number%>">
+                <div class = "group-header">
+                    <button class = "button-simple button-right remove-group">Remove Group</button>
+                    <div class = "group-title"><%= group.name %></div>
+                </div>
+
+                <select class='simulation-select' multiple='multiple'>
+                    {% for item in items.draftSchemes %}
+                        <option value='{{item.code}}'   <% if (group.value.indexOf("{{item.code}}") >= 0 ) { %>selected <% } %> >{{item.name}} ({{item.uid}})</option> 
+                    {% endfor %}                   
+                </select>
+            </div>
+        <% }); %>
+        <div class = "button-group" align = "left">
+            <button class = "button-simple" id='add_group'>Add Group</button>
+            <button class = "button-simple" id='simulate'>Simulate Selection</button>
+            <div class = "actual-container">
+                <input type="checkbox" id = "actual-data-checkbox" name="actual" >
+                <span>Use Actual data to simulate</span>
+            </div>
+        </div>
+        
+    </script>
+
+    <script type="text/html" id = "salesdata-template">
+        <div class = "group-header">
+            <div class="n5-card n5-card-blue  col-lg-12 col-sm-12" style = "padding: 0; background: #fff">
+                <div class="n5-card-header">
+                    <h2>
+                        <span>
+                            <i class="fa fa-list-alt"></i>
+                        </span>
+                        <span class="n5-card-title">Sales Data</span>
+                    </h2>
+                    <div class="n5-card-icon"><span class="n5-card-toggleIcon fa fa-chevron-up"></span></div>
+                </div>
+                <div class="n5-card-content">
+                    <div class = "result-content-wrapper col-lg-6 col-md-6 col-sm-12 col-xs-12 results-detail" >
+                        <div class = "results-panel">
+                            <div class = "result-list-header">YTD Status (Till previous month)</div>
+                            <div class = "result-list-elm"><span class = "result-list-title">Value Sales YTD(Lacs): </span><%= salesdata.ytdPrevMonth.val %></div>
+                            <% if(salesdata.typeLength == 1) { %>
+                            <div class = "result-list-elm"><span class = "result-list-title">Budget %: </span><%= salesdata.ytdPrevMonth.budgetpercentage.total %>%</div>
+                            <div class = "result-list-elm"><span class = "result-list-title">Budget Available: </span><%= salesdata.ytdPrevMonth.budgetavailable.total %></div>
+                            <% } else { %>
+                                <% if(salesdata.types.monthly == true) { %>
+                                    <div class = "result-list-elm"><span class = "result-list-title">Budget %(Monthly): </span><%= salesdata.ytdPrevMonth.budgetpercentage.monthly %>%</div>
+                                    <div class = "result-list-elm"><span class = "result-list-title">Budget Available(Monthly): </span><%= salesdata.ytdPrevMonth.budgetavailable.monthly %></div>
+                                <% }%>
+                                <% if(salesdata.types.atrqtr == true) { %>
+                                    <div class = "result-list-elm"><span class = "result-list-title">Budget %(ATR/QTR): </span><%= salesdata.ytdPrevMonth.budgetpercentage.atrqtr %>%</div>
+                                    <div class = "result-list-elm"><span class = "result-list-title">Budget Available(ATR/QTR): </span><%= salesdata.ytdPrevMonth.budgetavailable.atrqtr %></div>
+                                <% }%>
+                                <% if(salesdata.types.custom == true) { %>
+                                    <div class = "result-list-elm"><span class = "result-list-title">Budget %(Custom): </span><%= salesdata.ytdPrevMonth.budgetpercentage.custom %>%</div>
+                                    <div class = "result-list-elm"><span class = "result-list-title">Budget Available(Custom): </span><%= salesdata.ytdPrevMonth.budgetavailable.custom %></div>
+                                <% }%>
+                            <% } %>
+                            
+                            <div class = "result-list-elm"><span class = "result-list-title">Actual Spend YTD: </span>--</div>
+                            <div class = "result-list-elm"><span class = "result-list-title">Variance: </span>--</div>
+                            <div class = "result-list-elm"><span class = "result-list-title">% Variance: </span>--</div>
+                        </div>
+                    </div>
+
+                    <div class = "result-content-wrapper col-lg-6 col-md-6 col-sm-12 col-xs-12 results-detail" >
+                        <div class = "results-panel">
+                            <div class = "result-list-header">Current month</div>
+                            <div class = "result-list-elm"><span class = "result-list-title">Value Sales YTD(Lacs): </span><%= salesdata.ytdCurrMonth.val %></div>
+                            <% if(salesdata.typeLength == 1) { %>
+                            <div class = "result-list-elm"><span class = "result-list-title">Budget %: </span><%= salesdata.ytdCurrMonth.budgetpercentage.total %>%</div>
+                            <div class = "result-list-elm"><span class = "result-list-title">Budget Available: </span><%= salesdata.ytdCurrMonth.budgetavailable.total %></div>
+                            <% } else { %>
+                                <% if(salesdata.types.monthly == true) { %>
+                                    <div class = "result-list-elm"><span class = "result-list-title">Budget %(Monthly): </span><%= salesdata.ytdCurrMonth.budgetpercentage.monthly %>%</div>
+                                    <div class = "result-list-elm"><span class = "result-list-title">Budget Available(Monthly): </span><%= salesdata.ytdCurrMonth.budgetavailable.monthly %></div>
+                                <% }%>
+                                <% if(salesdata.types.atrqtr == true) { %>
+                                    <div class = "result-list-elm"><span class = "result-list-title">Budget %(ATR/QTR): </span><%= salesdata.ytdCurrMonth.budgetpercentage.atrqtr %>%</div>
+                                    <div class = "result-list-elm"><span class = "result-list-title">Budget Available(ATR/QTR): </span><%= salesdata.ytdCurrMonth.budgetavailable.atrqtr %></div>
+                                <% }%>
+                                <% if(salesdata.types.custom == true) { %>
+                                    <div class = "result-list-elm"><span class = "result-list-title">Budget %(Custom): </span><%= salesdata.ytdCurrMonth.budgetpercentage.custom %>%</div>
+                                    <div class = "result-list-elm"><span class = "result-list-title">Budget Available(Custom): </span><%= salesdata.ytdCurrMonth.budgetavailable.custom %></div>
+                                <% }%>
+                            <% } %>
+                            
+                            <div class = "result-list-elm"><span class = "result-list-title">Actual Spend YTD: </span>--</div>
+                            <div class = "result-list-elm"><span class = "result-list-title">Variance: </span>--</div>
+                            <div class = "result-list-elm"><span class = "result-list-title">% Variance: </span>--</div>
+                        </div>
+                    </div>
+
+                    <div class = "result-content-wrapper col-lg-6 col-md-6 col-sm-12 col-xs-12 results-detail" >
+                        <div class = "results-panel">
+                            <div class = "result-list-header">YTD Status (Including Current month)</div>
+                            <div class = "result-list-elm"><span class = "result-list-title">Value Sales YTD(Lacs): </span><%= salesdata.ytdOvr.val %></div>
+                            <% if(salesdata.typeLength == 1) { %>
+                            <div class = "result-list-elm"><span class = "result-list-title">Budget %: </span><%= salesdata.ytdOvr.budgetpercentage.total %>%</div>
+                            <div class = "result-list-elm"><span class = "result-list-title">Budget Available: </span><%= salesdata.ytdOvr.budgetavailable.total %></div>
+                            <% } else { %>
+                                <% if(salesdata.types.monthly == true) { %>
+                                    <div class = "result-list-elm"><span class = "result-list-title">Budget %(Monthly): </span><%= salesdata.ytdOvr.budgetpercentage.monthly %>%</div>
+                                    <div class = "result-list-elm"><span class = "result-list-title">Budget Available(Monthly): </span><%= salesdata.ytdOvr.budgetavailable.monthly %></div>
+                                <% }%>
+                                <% if(salesdata.types.atrqtr == true) { %>
+                                    <div class = "result-list-elm"><span class = "result-list-title">Budget %(ATR/QTR): </span><%= salesdata.ytdOvr.budgetpercentage.atrqtr %>%</div>
+                                    <div class = "result-list-elm"><span class = "result-list-title">Budget Available(ATR/QTR): </span><%= salesdata.ytdOvr.budgetavailable.atrqtr %></div>
+                                <% }%>
+                                <% if(salesdata.types.custom == true) { %>
+                                    <div class = "result-list-elm"><span class = "result-list-title">Budget %(Custom): </span><%= salesdata.ytdOvr.budgetpercentage.custom %>%</div>
+                                    <div class = "result-list-elm"><span class = "result-list-title">Budget Available(Custom): </span><%= salesdata.ytdOvr.budgetavailable.custom %></div>
+                                <% }%>
+                            <% } %>
+                            
+                            <div class = "result-list-elm"><span class = "result-list-title">Actual Spend YTD: </span>--</div>
+                            <div class = "result-list-elm"><span class = "result-list-title">Variance: </span>--</div>
+                            <div class = "result-list-elm"><span class = "result-list-title">% Variance: </span>--</div>
+                        </div>
+                    </div>
+
+                    <div class = "result-content-wrapper col-lg-6 col-md-6 col-sm-12 col-xs-12 results-detail" >
+                        <div class = "results-panel">
+                            <div class = "result-list-header">Budget Percentage Splits</div>
+                            <div class = "result-list-elm"><span class = "result-list-title">Total Budget %: </span><%= salesdata.percentage.total %>%</div>
+                            <div class = "result-list-elm"><span class = "result-list-title">Club Spend %: </span><%= salesdata.percentage.club %>%</div>
+                            <div class = "result-list-elm"><span class = "result-list-title">ATR + QTR Spend %: </span><%= salesdata.percentage.atrqtr %>%</div>
+                            <div class = "result-list-elm"><span class = "result-list-title">Monthly Spend %: </span><%= salesdata.percentage.monthly %>%</div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </script>
+
+    <script type="text/html" id = "result-template">
+        <% _.each(results, function(result, i) { %>
+            <div class = "group-header" >
+            <div class="n5-card n5-card-blue  col-lg-12 col-sm-12" style = "padding: 0; background: #fff">
+                <div class="n5-card-header">
+                    <h2>
+                        <span>
+                            <i class="fa fa-list-alt"></i>
+                        </span>
+                        <span class="n5-card-title"><%= result.schemeName %></span>
+                    </h2>
+                    <div class="n5-card-icon"><span class="n5-card-toggleIcon fa fa-chevron-up"></span></div>
+                </div>
+                <div class="n5-card-content">
+                    <div class = "result-content-wrapper col-lg-6 col-sm-12 results-detail" data-name = "<%= result.schemeName %>" data-index = "resultElement<%= i %>">
+                        <div class = "results-panel">
+                            <div class = "result-list-elm"><span class = "result-list-title">Status: </span><%= result.status %></div>
+                            <div class = "result-list-elm"><span class = "result-list-title">Dealers: </span><%= result.dealers %></div>
+                            <% _.each(result.inbill, function(template, i) { %>
+                                <div class = "result-list-elm"><span class = "result-list-title">Inbill( <%= i %> ): </span><%= template.{{items.WITHOUT_QC}} %></div>
+                            <% }); %>
+                            <% _.each(result.ppi, function(template, i) { %>
+                                <% if(template.{{items.WITHOUT_QC}} ) { %>
+                                    <div class = "result-list-elm"><span class = "result-list-title">PPI( <%= i %> ): </span><%= template.{{items.WITHOUT_QC}} %></div>
+                                <% }%>
+                                <% if(template.{{items.WITH_QC}} ) { %>
+                                    <div class = "result-list-elm"><span class = "result-list-title">PPI with QC( <%= i %> ): </span><%= template.{{items.WITH_QC}} %></div>
+                                <% }%>
+
+                            <% }); %>
+                            <% _.each(result.pri, function(template, i) { %>
+                                <% if(template.{{items.WITHOUT_QC}} ) { %>
+                                    <div class = "result-list-elm"><span class = "result-list-title">PRI( <%= i %> ): </span><%= template.{{items.WITHOUT_QC}} %></div>
+                                <% }%>
+                                <% if(template.{{items.WITH_QC}} ) { %>
+                                    <div class = "result-list-elm"><span class = "result-list-title">PRI with QC( <%= i %> ): </span><%= template.{{items.WITH_QC}} %></div>
+                                <% }%>
+                            <% }); %>
+                            <% _.each(result.slab, function(template, i) { %>
+                                <% if(template.{{items.WITHOUT_QC}} ) { %>
+                                    <div class = "result-list-elm"><span class = "result-list-title">Slab( <%= i %> ): </span><%= template.{{items.WITHOUT_QC}} %></div>
+                                <% }%>
+                                <% if(template.{{items.WITH_QC}} ) { %>
+                                    <div class = "result-list-elm"><span class = "result-list-title">Slab with QC( <%= i %> ): </span><%= template.{{items.WITH_QC}} %></div>
+                                <% }%>
+                            <% }); %>
+                            <% _.each(result.slabV2, function(template, i) { %>
+                                <% if(template.{{items.WITHOUT_QC}} ) { %>
+                                    <div class = "result-list-elm"><span class = "result-list-title">Slab( <%= i %> ): </span><%= template.{{items.WITHOUT_QC}} %></div>
+                                <% }%>
+                                <% if(template.{{items.WITH_QC}} ) { %>
+                                    <div class = "result-list-elm"><span class = "result-list-title">Slab with QC( <%= i %> ): </span><%= template.{{items.WITH_QC}} %></div>
+                                <% }%>
+                            <% }); %>
+                        </div>
+                    </div>
+
+                    <div class = "result-content-wrapper col-lg-6 col-sm-12" >
+                        <div class = "results-panel">
+                            <div class = "result-list-elm"><span class = "result-list-title">Scheme Start Date: </span><%= result.startDate %></div>
+                            <div class = "result-list-elm"><span class = "result-list-title">Scheme End Date: </span><%= result.endDate %></div>
+                            <div class = "result-list-elm"><span class = "result-list-title">Scheme Created On: </span><%= result.createdOn %></div>
+                            <div class = "result-list-elm"><span class = "result-list-title">To be Initiated By: </span><%= result.initiatedBy %></div>
+                            <div class = "result-list-elm"><span class = "result-list-title">To be Updated By: </span><%= result.updatedBy %></div>
+                            <div class = "result-list-elm"><span class = "result-list-title">To be Reviewed By: </span><%= result.reviewedBy %></div>
+                            <div class = "result-list-elm"><span class = "result-list-title">To be Approved By: </span><%= result.approvedBy %></div>
+                        </div>
+                    </div>
+                    <div class = "result-content-wrapper col-lg-6 col-sm-12 dealer-search-container" >
+                        <input type = "text" class = "dealer-search-input" placeholder = "Search Dealers" >
+                        <a href = "simulation/simulationDump?code=<%=result.code%>&uid=<%=result.uid%>&actuals=<%=result.actuals%>&rand_token={{items.nonce}}"><button class = "button-simple dealer-data-btn" data-code = "<%= result.code %>" data-uid = "<%= result.uid %>">Download Dealer Data</button></a>
+                    </div>
+                    <div class = "result-content-wrapper col-lg-12 col-sm-12 " >
+                        <div class = "row dealer-result-container"></div>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+        <% }); %>
+    </script>
+    <script type="text/html" id = "dealer-template">
+        <div class = "col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class = "results-panel" style = "background: #fff">
+                <div class = "list-header">Details</div>
+                <div class = "result-list-elm"><span class = "result-list-title">Name: </span><%= dealer.name + " (" + dealer.code +")" %></div>
+                <div class = "result-list-elm"><span class = "result-list-title">Credit Code: </span><%= dealer.credit_code %></div>
+                <div class = "result-list-elm"><span class = "result-list-title">Address line 1: </span><%= dealer.address_street %></div>
+                <div class = "result-list-elm"><span class = "result-list-title">Address line 2: </span><%= dealer.address_part2 %></div>
+                <div class = "result-list-elm"><span class = "result-list-title">City: </span><%= dealer.address_city %></div>
+                <div class = "result-list-elm"><span class = "result-list-title">Postal Code: </span><%= dealer.address_postal_code %></div>
+                <div class = "result-list-elm"><span class = "result-list-title">Phone: </span><%= dealer.mobileno %></div>
+            </div>
+        </div>
+        <div class = "col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class = "results-panel" style = "background: #fff">
+                <div class = "list-header">Attributes</div>
+                <div class = "result-list-elm"><span class = "result-list-title">Segmentation:</span><%= dealer.segmentation %></div>
+                <div class = "result-list-elm"><span class = "result-list-title">CSS Type:</span><%= dealer.css_type %></div>
+                <div class = "result-list-elm"><span class = "result-list-title">Dealer Type:</span><%= dealer.dealer_type %></div>
+                <div class = "result-list-elm"><span class = "result-list-title">Town Tier:</span><%= dealer.town_tier %></div>
+                <div class = "result-list-elm"><span class = "result-list-title">Tie Up Type:</span><%= dealer.tieup_type %></div>
+                <div class = "result-list-elm"><span class = "result-list-title">CSS Date:</span><%= dealer.css_date %></div>
+                <div class = "result-list-elm"><span class = "result-list-title">Segment:</span><%= dealer.segment %></div>
+                <div class = "result-list-elm"><span class = "result-list-title">Attribute 5:</span><%= dealer.attr5 %></div>
+                <div class = "result-list-elm"><span class = "result-list-title">Attribute 9:</span><%= dealer.attr9 %></div>
+            </div>
+        </div>
+    </script>
+
+    <div id="n5-dealer-popup" class="n5-popup" style = "display: none">
+        <div class="n5-template-popup-header">
+            <i class="modal_close fa fa-times-circle-o fa-lg"></i>
+        </div>
+        <div class = "row" id = "dealer-description">
+            
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block footer %}{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+    window.simStatus = {
+            "ready": "{{items.simStatus.ready}}",
+            "partial": "{{items.simStatus.partial}}",
+            "locked": "{{items.simStatus.locked}}",
+            "not_started": "{{items.simStatus.not_started}}",
+            "just_started": "{{items.simStatus.just_started}}"
+        };
+    </script>
+    <script type="text/javascript" src={{resolvePath("akzo_menu.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("native5.ui.modal.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("autocomplete.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("jquery.multi-select.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("underscore.min.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("backbone.min.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("native5.ui.loader.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("native5.notifications.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("simulation.js")}}></script>
+{% endblock %}

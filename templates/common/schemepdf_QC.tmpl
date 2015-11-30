@@ -1,0 +1,35 @@
+{% for qc in qcList %}
+    <h4><b>#{{loop.index}}</b> {{items.qcBasevalue[qc.name]}} {{qc.type | capitalize}}<br></h4>
+    <p class="section">
+        <b>Condition:</b> 
+        <span class="right">
+            Get <b>{{qc.payoutCondition}}%</b> Payout if
+            {% if qc.name == "TARGET_ACHIEVEMENT" %}
+               <b>{{qc.val}}%</b> of Target {{qc.type | capitalize}} is achieved between <b>{{qc.period.startDate}}</b> and <b>{{qc.period.endDate}}</b>
+            {% else %}
+                Target {{qc.type | capitalize}} is {{items.qcOperator[qc.op]}} <b>{{qc.val}}</b>
+            {% endif %}
+        </span>
+    </p>
+    <p class="section">
+        <b>Applicable on:</b>
+        <span class="right">
+            {% for product in qc.products %}
+                <b>{% if product.excluded %} - {% else %} + {%endif%}</b>
+                {{product.name}} {% if not loop.last%}, {% endif %}
+            {% endfor %}
+        </span>
+    </p>
+    
+        {% if qc.name == "HISTORICAL" %}
+            <p class = "section">Your Base {{qc.type | capitalize}}: <span class="right">&lt; &gt;</span></p>
+        {% elseif qc.name == "TARGET" %}
+            <p class = "section">Your Target {{qc.type | capitalize}}: <span class="right">&lt; &gt;</span></p>
+        {% elseif qc.name == "GROWTH" %}
+            <p class = "section">Base {{qc.type | capitalize}} from {{qc.previousPeriod.startDate}} to {{qc.previousPeriod.startDate}}: <span class="right">XX</span></p>
+            <p class = "section">Target {{qc.type | capitalize}} from {{qc.currentPeriod.startDate}} to {{qc.currentPeriod.startDate}}: <span class="right">XX</span></p>
+        {% elseif qc.name == "TARGET_ACHIEVEMENT" %}
+            <p class = "section">Total Target {{qc.type | capitalize}}: <span class="right">&lt; &gt;</span></p>
+            <p class = "section">Target {{qc.type | capitalize}} between {{qc.period.startDate}} to {{qc.period.endDate}}: <span class="right">&lt; &gt;</span></p>
+        {% endif %}
+{% endfor %}

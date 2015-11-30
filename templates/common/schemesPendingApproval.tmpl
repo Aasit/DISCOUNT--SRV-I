@@ -1,0 +1,754 @@
+{% if items.initiatedSchemes|length > 0 %}
+    <div class = "list-header">
+		Schemes Initiated By Me
+	</div>
+{% endif %}
+	
+{% for scheme in items.initiatedSchemes %}
+	{% if (scheme.state == items.states.staged) or (scheme.state == items.states.updateRequested) or (scheme.state == items.states.initiated) or (scheme.state == items.states.reviewed) %}
+    <div class="state-panel panel-solid-default col-lg-6 col-md-6 col-sm-12 col-xs-12">
+		<div class="panel-heading">
+
+			<div class="scheme-minimize-button"><i class="fa fa-chevron-down"></i></div>
+
+			{% if ((scheme.state == items.states.staged) or (scheme.state == items.states.updateRequested)) %}
+				<a class="scheme-link-button" href = "template?schemeId={{ scheme.code }}&rand_token={{ items.nonce }}"><i class="fa fa-external-link"></i></a>
+			{% else %}
+				<a class="scheme-link-button" href = "scheme?schemeId={{ scheme.code }}&rand_token={{ items.nonce }}"><i class="fa fa-external-link"></i></a>
+			{% endif %}
+			
+			<h3 class="panel-title">{{scheme.name}} {% if not(scheme.uid is empty) %}({{scheme.uid}}){% endif %}</h3>
+		</div>
+		<div class="panel-body">
+			
+			{% if scheme.state == items.states.staged %}
+				<ul class="line-graph titles">
+					<li class="unit size1of3">
+						<ul class="line">
+							Initiated
+						</ul>
+					</li>
+					<li class="unit size1of3">
+						<ul class="line">
+							Reviewed
+						</ul>
+					</li>
+					<li class="unit size1of3">
+						<ul class="line">
+							Approved
+						</ul>
+					</li>
+				</ul>
+			    <ul class="line-graph">
+					<li class="unit size1of3">
+						<ul class="line">
+							<li class="process-step processed-continuous"></li>
+						</ul>
+					</li>
+					<li class="unit size1of3">
+						<ul class="line">
+							<li class="process-step inactive"></li>
+						</ul>
+					</li>
+					<li class="unit size1of3">
+						<ul class="line">
+							<li class="process-step inactive"></li>
+						</ul>
+					</li>
+				</ul>
+				<div class="scheme-state-details">
+					<div class="granular-info-box" style="display: none;">
+						<div class="arrow"></div>
+						<div class="details-content">
+							<!-- <p class="scheme-title">Scheme Name 001</p>
+							<p class="notification-info">Notification received from Mr. A</p> -->
+							<ul class="granular-info">
+								<li class="unit "><span class="start-date-label info-label">Start Date: </span><span class="start-date info-data">{{scheme.start_date}}</span></li>
+								<li class="unit "><span class="end-date-labe info-label">End Date: </span><span class="end-date info-data">{{scheme.end_date}}</span></li>
+								<li class="unit "><span class="forecast-amount-label info-label">Forecast Amount: </span><span class="forecast-amount info-data">-</span></li>
+								<li class="unit "><span class="initiated-label info-label">Created on: </span><span class="initiated-date info-data">{{scheme.created_at}}</span></li>
+								<li class="unit "><span class="initiator-label info-label">To be Initiated by: </span><span class="initiated-by info-data">Mr. S</span></li>
+								<li class="unit "><span class="reviewer-label info-label">To be Reviewed by: </span><span class="reviewed-by info-data">Mr. D</span></li>
+								<li class="unit "><span class="status-label info-label">Status: </span><span class="status info-data">Saved as a Draft</span></li>
+
+							</ul>
+						</div>
+					</div>
+
+				</div>
+			{% elseif scheme.state == items.states.updateRequested %}
+				<ul class="line-graph titles">
+					<li class="unit size1of3">
+						<ul class="line">
+							Update Requested
+						</ul>
+					</li>
+					<li class="unit size1of3">
+						<ul class="line">
+							To Be Reviewed
+						</ul>
+					</li>
+					<li class="unit size1of3">
+						<ul class="line">
+							To Be Approved
+						</ul>
+					</li>
+				</ul>
+			    <ul class="line-graph">
+					<li class="unit size1of3">
+						<ul class="line">
+							<li class="process-step processed-continuous"></li>
+						</ul>
+					</li>
+					<li class="unit size1of3">
+						<ul class="line">
+							<li class="process-step inactive"></li>
+						</ul>
+					</li>
+					<li class="unit size1of3">
+						<ul class="line">
+							<li class="process-step inactive"></li>
+						</ul>
+					</li>
+				</ul>
+				<div class="scheme-state-details">
+					<div class="granular-info-box" style="display: none;">
+						<div class="arrow"></div>
+						<div class="details-content">
+							<!-- <p class="scheme-title">Scheme Name 001</p>
+							<p class="notification-info">Notification received from Mr. A</p> -->
+							<ul class="granular-info">
+								<li class="unit "><span class="start-date-label info-label">Start Date: </span><span class="start-date info-data">{{scheme.start_date}}</span></li>
+								<li class="unit "><span class="end-date-labe info-label">End Date: </span><span class="end-date info-data">{{scheme.end_date}}</span></li>
+								<li class="unit "><span class="forecast-amount-label info-label">Forecast Amount: </span><span class="forecast-amount info-data">-</span></li>
+								<li class="unit "><span class="initiated-label info-label">Created on: </span><span class="initiated-date info-data">{{scheme.created_at}}</span></li>
+								<li class="unit "><span class="initiator-label info-label">Initiated by: </span><span class="initiated-by info-data">{{scheme.initiator.name}}</span></li>
+								<li class="unit "><span class="initiator-label info-label">To be Updated by: </span><span class="initiated-by info-data">{{scheme.initiator.name}}</span></li>
+								<li class="unit "><span class="reviewer-label info-label">To be Reviewed by: </span><span class="reviewed-by info-data">{{scheme.reviewer.name}}</span></li>
+								<li class="unit "><span class="reviewer-label info-label">To be Approved by: </span><span class="reviewed-by info-data">{{scheme.approver.name}}</span></li>
+								<li class="unit "><span class="status-label info-label">Status: </span><span class="status info-data">Saved as a Draft</span></li>
+
+							</ul>
+						</div>
+					</div>
+
+				</div>
+			{% elseif scheme.state == items.states.initiated %}
+				<ul class="line-graph titles">
+					<li class="unit size1of3">
+						<ul class="line">
+							Initiated
+						</ul>
+					</li>
+					<li class="unit size1of3">
+						<ul class="line">
+							To Be Reviewed
+						</ul>
+					</li>
+					<li class="unit size1of3">
+						<ul class="line">
+							To Be Approved
+						</ul>
+					</li>
+				</ul>
+			    <ul class="line-graph">
+					<li class="unit size1of3">
+						<ul class="line">
+							<li class="process-step processed"></li>
+						</ul>
+					</li>
+					<li class="unit size1of3">
+						<ul class="line">
+							<li class="process-step processed-continuous"></li>
+						</ul>
+					</li>
+					<li class="unit size1of3">
+						<ul class="line">
+							<li class="process-step inactive"></li>
+						</ul>
+					</li>
+				</ul>
+				<div class="scheme-state-details">
+					<div class="granular-info-box" style="display: none;">
+						<div class="arrow"></div>
+						<div class="details-content">
+							<!-- <p class="scheme-title">Scheme Name 001</p>
+							<p class="notification-info">Notification received from Mr. A</p> -->
+							<ul class="granular-info">
+								<li class="unit "><span class="start-date-label info-label">Start Date: </span><span class="start-date info-data">{{scheme.start_date}}</span></li>
+								<li class="unit "><span class="end-date-labe info-label">End Date: </span><span class="end-date info-data">{{scheme.end_date}}</span></li>
+								<li class="unit "><span class="forecast-amount-label info-label">Forecast Amount: </span><span class="forecast-amount info-data">-</span></li>
+								<li class="unit "><span class="initiated-label info-label">Created on: </span><span class="initiated-date info-data">{{scheme.created_at}}</span></li>
+								<li class="unit "><span class="initiator-label info-label">Initiated by: </span><span class="initiated-by info-data">Mr. S</span></li>
+								<li class="unit "><span class="reviewed-label info-label">Initiated on: </span><span class="reviewed-date info-data">-</span></li>
+								<li class="unit "><span class="reviewer-label info-label">To be Reviewed by: </span><span class="reviewed-by info-data">Mr. D</span></li>
+								<li class="unit "><span class="status-label info-label">Status: </span><span class="status info-data">Initiated</span></li>
+
+							</ul>
+						</div>
+					</div>
+
+				</div>
+			{% elseif scheme.state == items.states.reviewed %}
+				<ul class="line-graph titles">
+					<li class="unit size1of3">
+						<ul class="line">
+							Initiated
+						</ul>
+					</li>
+					<li class="unit size1of3">
+						<ul class="line">
+							Reviewed
+						</ul>
+					</li>
+					<li class="unit size1of3">
+						<ul class="line">
+							To Be Approved
+						</ul>
+					</li>
+				</ul>
+			    <ul class="line-graph">
+					<li class="unit size1of3">
+						<ul class="line">
+							<li class="process-step processed"></li>
+						</ul>
+					</li>
+					<li class="unit size1of3">
+						<ul class="line">
+							<li class="process-step processed"></li>
+						</ul>
+					</li>
+					<li class="unit size1of3">
+						<ul class="line">
+							<li class="process-step processed-continuous"></li>
+						</ul>
+					</li>
+				</ul>
+				<div class="scheme-state-details">
+					<div class="granular-info-box" style="display: none;">
+						<div class="arrow"></div>
+						<div class="details-content">
+							<!-- <p class="scheme-title">Scheme Name 001</p>
+							<p class="notification-info">Notification received from Mr. A</p> -->
+							<ul class="granular-info">
+								<li class="unit "><span class="start-date-label info-label">Start Date: </span><span class="start-date info-data">{{scheme.start_date}}</span></li>
+								<li class="unit "><span class="end-date-labe info-label">End Date: </span><span class="end-date info-data">{{scheme.end_date}}</span></li>
+								<li class="unit "><span class="forecast-amount-label info-label">Forecast Amount: </span><span class="forecast-amount info-data">-</span></li>
+								<li class="unit "><span class="initiated-label info-label">Created on: </span><span class="initiated-date info-data">{{scheme.created_at}}</span></li>
+								<li class="unit "><span class="initiator-label info-label">Initiated by: </span><span class="initiated-by info-data">Mr. S</span></li>
+								<li class="unit "><span class="reviewed-label info-label">Reviewed on: </span><span class="reviewed-date info-data">21 Sept 2013</span></li>
+								<li class="unit "><span class="reviewer-label info-label">Reviewed by: </span><span class="reviewed-by info-data">Mr. D</span></li>
+								<li class="unit "><span class="status-label info-label">Status: </span><span class="status info-data">Reviewd</span></li>
+
+							</ul>
+						</div>
+					</div>
+
+				</div>
+			{% endif %}
+
+				
+		</div>
+	</div>
+	{% endif %}
+{% endfor %}
+
+{% if items.toBeReviewedSchemes|length > 0 %}
+    <div class = "list-header">
+		Schemes Under My Review
+	</div>
+{% endif %}
+
+{% for scheme in items.toBeReviewedSchemes %}
+	{% if (scheme.state == items.states.staged) or (scheme.state == items.states.updateRequested) or (scheme.state == items.states.initiated) or (scheme.state == items.states.reviewed) %}
+    <div class="state-panel panel-solid-default col-lg-6 col-md-6 col-sm-12 col-xs-12">
+		<div class="panel-heading">
+
+			<div class="scheme-minimize-button"><i class="fa fa-chevron-down"></i></div>
+			<a class="scheme-link-button" href = "scheme?schemeId={{ scheme.code }}&rand_token={{ items.nonce }}"><i class="fa fa-external-link"></i></a>
+			<h3 class="panel-title">{{scheme.name}} {% if not(scheme.uid is empty) %}({{scheme.uid}}){% endif %}</h3>
+		</div>
+		<div class="panel-body">
+			
+			{% if scheme.state == items.states.staged %}
+				<ul class="line-graph titles">
+					<li class="unit size1of3">
+						<ul class="line">
+							Initiated
+						</ul>
+					</li>
+					<li class="unit size1of3">
+						<ul class="line">
+							Reviewed
+						</ul>
+					</li>
+					<li class="unit size1of3">
+						<ul class="line">
+							Approved
+						</ul>
+					</li>
+				</ul>
+			    <ul class="line-graph">
+					<li class="unit size1of3">
+						<ul class="line">
+							<li class="process-step processed-continuous"></li>
+						</ul>
+					</li>
+					<li class="unit size1of3">
+						<ul class="line">
+							<li class="process-step inactive"></li>
+						</ul>
+					</li>
+					<li class="unit size1of3">
+						<ul class="line">
+							<li class="process-step inactive"></li>
+						</ul>
+					</li>
+				</ul>
+				<div class="scheme-state-details">
+					<div class="granular-info-box" style="display: none;">
+						<div class="arrow"></div>
+						<div class="details-content">
+							<!-- <p class="scheme-title">Scheme Name 001</p>
+							<p class="notification-info">Notification received from Mr. A</p> -->
+							<ul class="granular-info">
+								<li class="unit "><span class="start-date-label info-label">Start Date: </span><span class="start-date info-data">{{scheme.start_date}}</span></li>
+								<li class="unit "><span class="end-date-labe info-label">End Date: </span><span class="end-date info-data">{{scheme.end_date}}</span></li>
+								<li class="unit "><span class="forecast-amount-label info-label">Forecast Amount: </span><span class="forecast-amount info-data">-</span></li>
+								<li class="unit "><span class="initiated-label info-label">Created on: </span><span class="initiated-date info-data">{{scheme.created_at}}</span></li>
+								<li class="unit "><span class="initiator-label info-label">To be Initiated by: </span><span class="initiated-by info-data">Mr. S</span></li>
+								<li class="unit "><span class="reviewer-label info-label">To be Reviewed by: </span><span class="reviewed-by info-data">Mr. D</span></li>
+								<li class="unit "><span class="status-label info-label">Status: </span><span class="status info-data">Saved as a Draft</span></li>
+
+							</ul>
+						</div>
+					</div>
+
+				</div>
+			{% elseif scheme.state == items.states.updateRequested %}
+				<ul class="line-graph titles">
+					<li class="unit size1of3">
+						<ul class="line">
+							Update Requested
+						</ul>
+					</li>
+					<li class="unit size1of3">
+						<ul class="line">
+							To Be Reviewed
+						</ul>
+					</li>
+					<li class="unit size1of3">
+						<ul class="line">
+							To Be Approved
+						</ul>
+					</li>
+				</ul>
+			    <ul class="line-graph">
+					<li class="unit size1of3">
+						<ul class="line">
+							<li class="process-step processed-continuous"></li>
+						</ul>
+					</li>
+					<li class="unit size1of3">
+						<ul class="line">
+							<li class="process-step inactive"></li>
+						</ul>
+					</li>
+					<li class="unit size1of3">
+						<ul class="line">
+							<li class="process-step inactive"></li>
+						</ul>
+					</li>
+				</ul>
+				<div class="scheme-state-details">
+					<div class="granular-info-box" style="display: none;">
+						<div class="arrow"></div>
+						<div class="details-content">
+							<!-- <p class="scheme-title">Scheme Name 001</p>
+							<p class="notification-info">Notification received from Mr. A</p> -->
+							<ul class="granular-info">
+								<li class="unit "><span class="start-date-label info-label">Start Date: </span><span class="start-date info-data">{{scheme.start_date}}</span></li>
+								<li class="unit "><span class="end-date-labe info-label">End Date: </span><span class="end-date info-data">{{scheme.end_date}}</span></li>
+								<li class="unit "><span class="forecast-amount-label info-label">Forecast Amount: </span><span class="forecast-amount info-data">-</span></li>
+								<li class="unit "><span class="initiated-label info-label">Created on: </span><span class="initiated-date info-data">{{scheme.created_at}}</span></li>
+								<li class="unit "><span class="initiator-label info-label">Initiated by: </span><span class="initiated-by info-data">{{scheme.initiator.name}}</span></li>
+								<li class="unit "><span class="initiator-label info-label">To be Updated by: </span><span class="initiated-by info-data">{{scheme.initiator.name}}</span></li>
+								<li class="unit "><span class="reviewer-label info-label">To be Reviewed by: </span><span class="reviewed-by info-data">{{scheme.reviewer.name}}</span></li>
+								<li class="unit "><span class="reviewer-label info-label">To be Approved by: </span><span class="reviewed-by info-data">{{scheme.approver.name}}</span></li>
+								<li class="unit "><span class="status-label info-label">Status: </span><span class="status info-data">Saved as a Draft</span></li>
+
+							</ul>
+						</div>
+					</div>
+
+				</div>
+			{% elseif scheme.state == items.states.initiated %}
+				<ul class="line-graph titles">
+					<li class="unit size1of3">
+						<ul class="line">
+							Initiated
+						</ul>
+					</li>
+					<li class="unit size1of3">
+						<ul class="line">
+							To Be Reviewed
+						</ul>
+					</li>
+					<li class="unit size1of3">
+						<ul class="line">
+							To Be Approved
+						</ul>
+					</li>
+				</ul>
+			    <ul class="line-graph">
+					<li class="unit size1of3">
+						<ul class="line">
+							<li class="process-step processed"></li>
+						</ul>
+					</li>
+					<li class="unit size1of3">
+						<ul class="line">
+							<li class="process-step processed-continuous"></li>
+						</ul>
+					</li>
+					<li class="unit size1of3">
+						<ul class="line">
+							<li class="process-step inactive"></li>
+						</ul>
+					</li>
+				</ul>
+				<div class="scheme-state-details">
+					<div class="granular-info-box" style="display: none;">
+						<div class="arrow"></div>
+						<div class="details-content">
+							<!-- <p class="scheme-title">Scheme Name 001</p>
+							<p class="notification-info">Notification received from Mr. A</p> -->
+							<ul class="granular-info">
+								<li class="unit "><span class="start-date-label info-label">Start Date: </span><span class="start-date info-data">{{scheme.start_date}}</span></li>
+								<li class="unit "><span class="end-date-labe info-label">End Date: </span><span class="end-date info-data">{{scheme.end_date}}</span></li>
+								<li class="unit "><span class="forecast-amount-label info-label">Forecast Amount: </span><span class="forecast-amount info-data">-</span></li>
+								<li class="unit "><span class="initiated-label info-label">Created on: </span><span class="initiated-date info-data">{{scheme.created_at}}</span></li>
+								<li class="unit "><span class="initiator-label info-label">Initiated by: </span><span class="initiated-by info-data">Mr. S</span></li>
+								<li class="unit "><span class="reviewed-label info-label">Initiated on: </span><span class="reviewed-date info-data">-</span></li>
+								<li class="unit "><span class="reviewer-label info-label">To be Reviewed by: </span><span class="reviewed-by info-data">Mr. D</span></li>
+								<li class="unit "><span class="status-label info-label">Status: </span><span class="status info-data">Initiated</span></li>
+
+							</ul>
+						</div>
+					</div>
+
+				</div>
+			{% elseif scheme.state == items.states.reviewed %}
+				<ul class="line-graph titles">
+					<li class="unit size1of3">
+						<ul class="line">
+							Initiated
+						</ul>
+					</li>
+					<li class="unit size1of3">
+						<ul class="line">
+							Reviewed
+						</ul>
+					</li>
+					<li class="unit size1of3">
+						<ul class="line">
+							To Be Approved
+						</ul>
+					</li>
+				</ul>
+			    <ul class="line-graph">
+					<li class="unit size1of3">
+						<ul class="line">
+							<li class="process-step processed"></li>
+						</ul>
+					</li>
+					<li class="unit size1of3">
+						<ul class="line">
+							<li class="process-step processed"></li>
+						</ul>
+					</li>
+					<li class="unit size1of3">
+						<ul class="line">
+							<li class="process-step processed-continuous"></li>
+						</ul>
+					</li>
+				</ul>
+				<div class="scheme-state-details">
+					<div class="granular-info-box" style="display: none;">
+						<div class="arrow"></div>
+						<div class="details-content">
+							<!-- <p class="scheme-title">Scheme Name 001</p>
+							<p class="notification-info">Notification received from Mr. A</p> -->
+							<ul class="granular-info">
+								<li class="unit "><span class="start-date-label info-label">Start Date: </span><span class="start-date info-data">{{scheme.start_date}}</span></li>
+								<li class="unit "><span class="end-date-labe info-label">End Date: </span><span class="end-date info-data">{{scheme.end_date}}</span></li>
+								<li class="unit "><span class="forecast-amount-label info-label">Forecast Amount: </span><span class="forecast-amount info-data">-</span></li>
+								<li class="unit "><span class="initiated-label info-label">Created on: </span><span class="initiated-date info-data">{{scheme.created_at}}</span></li>
+								<li class="unit "><span class="initiator-label info-label">Initiated by: </span><span class="initiated-by info-data">Mr. S</span></li>
+								<li class="unit "><span class="reviewed-label info-label">Reviewed on: </span><span class="reviewed-date info-data">21 Sept 2013</span></li>
+								<li class="unit "><span class="reviewer-label info-label">Reviewed by: </span><span class="reviewed-by info-data">Mr. D</span></li>
+								<li class="unit "><span class="status-label info-label">Status: </span><span class="status info-data">Reviewd</span></li>
+
+							</ul>
+						</div>
+					</div>
+
+				</div>
+			
+			{% endif %}
+
+				
+		</div>
+	</div>
+	{% endif %}
+{% endfor %}
+
+
+{% if items.toBeApprovedSchemes|length > 0 %}
+    <div class = "list-header">
+		Schemes Under My Approval
+	</div>
+{% endif %}
+	
+{% for scheme in items.toBeApprovedSchemes %}
+	{% if (scheme.state == items.states.staged) or (scheme.state == items.states.updateRequested) or (scheme.state == items.states.initiated) or (scheme.state == items.states.reviewed) %}
+    <div class="state-panel panel-solid-default col-lg-6 col-md-6 col-sm-12 col-xs-12">
+		<div class="panel-heading">
+
+			<div class="scheme-minimize-button"><i class="fa fa-chevron-down"></i></div>
+			<a class="scheme-link-button" href = "scheme?schemeId={{ scheme.code }}&rand_token={{ items.nonce }}"><i class="fa fa-external-link"></i></a>
+			<h3 class="panel-title">{{scheme.name}} {% if not(scheme.uid is empty) %}({{scheme.uid}}){% endif %}</h3>
+		</div>
+		<div class="panel-body">
+			
+			{% if scheme.state == items.states.staged %}
+				<ul class="line-graph titles">
+					<li class="unit size1of3">
+						<ul class="line">
+							Initiated
+						</ul>
+					</li>
+					<li class="unit size1of3">
+						<ul class="line">
+							Reviewed
+						</ul>
+					</li>
+					<li class="unit size1of3">
+						<ul class="line">
+							Approved
+						</ul>
+					</li>
+				</ul>
+			    <ul class="line-graph">
+					<li class="unit size1of3">
+						<ul class="line">
+							<li class="process-step processed-continuous"></li>
+						</ul>
+					</li>
+					<li class="unit size1of3">
+						<ul class="line">
+							<li class="process-step inactive"></li>
+						</ul>
+					</li>
+					<li class="unit size1of3">
+						<ul class="line">
+							<li class="process-step inactive"></li>
+						</ul>
+					</li>
+				</ul>
+				<div class="scheme-state-details">
+					<div class="granular-info-box" style="display: none;">
+						<div class="arrow"></div>
+						<div class="details-content">
+							<!-- <p class="scheme-title">Scheme Name 001</p>
+							<p class="notification-info">Notification received from Mr. A</p> -->
+							<ul class="granular-info">
+								<li class="unit "><span class="start-date-label info-label">Start Date: </span><span class="start-date info-data">{{scheme.start_date}}</span></li>
+								<li class="unit "><span class="end-date-labe info-label">End Date: </span><span class="end-date info-data">{{scheme.end_date}}</span></li>
+								<li class="unit "><span class="forecast-amount-label info-label">Forecast Amount: </span><span class="forecast-amount info-data">-</span></li>
+								<li class="unit "><span class="initiated-label info-label">Created on: </span><span class="initiated-date info-data">{{scheme.created_at}}</span></li>
+								<li class="unit "><span class="initiator-label info-label">To be Initiated by: </span><span class="initiated-by info-data">Mr. S</span></li>
+								<li class="unit "><span class="reviewer-label info-label">To be Reviewed by: </span><span class="reviewed-by info-data">Mr. D</span></li>
+								<li class="unit "><span class="status-label info-label">Status: </span><span class="status info-data">Saved as a Draft</span></li>
+
+							</ul>
+						</div>
+					</div>
+
+				</div>
+			{% elseif scheme.state == items.states.updateRequested %}
+				<ul class="line-graph titles">
+					<li class="unit size1of3">
+						<ul class="line">
+							Update Requested
+						</ul>
+					</li>
+					<li class="unit size1of3">
+						<ul class="line">
+							To Be Reviewed
+						</ul>
+					</li>
+					<li class="unit size1of3">
+						<ul class="line">
+							To Be Approved
+						</ul>
+					</li>
+				</ul>
+			    <ul class="line-graph">
+					<li class="unit size1of3">
+						<ul class="line">
+							<li class="process-step processed-continuous"></li>
+						</ul>
+					</li>
+					<li class="unit size1of3">
+						<ul class="line">
+							<li class="process-step inactive"></li>
+						</ul>
+					</li>
+					<li class="unit size1of3">
+						<ul class="line">
+							<li class="process-step inactive"></li>
+						</ul>
+					</li>
+				</ul>
+				<div class="scheme-state-details">
+					<div class="granular-info-box" style="display: none;">
+						<div class="arrow"></div>
+						<div class="details-content">
+							<!-- <p class="scheme-title">Scheme Name 001</p>
+							<p class="notification-info">Notification received from Mr. A</p> -->
+							<ul class="granular-info">
+								<li class="unit "><span class="start-date-label info-label">Start Date: </span><span class="start-date info-data">{{scheme.start_date}}</span></li>
+								<li class="unit "><span class="end-date-labe info-label">End Date: </span><span class="end-date info-data">{{scheme.end_date}}</span></li>
+								<li class="unit "><span class="forecast-amount-label info-label">Forecast Amount: </span><span class="forecast-amount info-data">-</span></li>
+								<li class="unit "><span class="initiated-label info-label">Created on: </span><span class="initiated-date info-data">{{scheme.created_at}}</span></li>
+								<li class="unit "><span class="initiator-label info-label">Initiated by: </span><span class="initiated-by info-data">{{scheme.initiator.name}}</span></li>
+								<li class="unit "><span class="initiator-label info-label">To be Updated by: </span><span class="initiated-by info-data">{{scheme.initiator.name}}</span></li>
+								<li class="unit "><span class="reviewer-label info-label">To be Reviewed by: </span><span class="reviewed-by info-data">{{scheme.reviewer.name}}</span></li>
+								<li class="unit "><span class="reviewer-label info-label">To be Approved by: </span><span class="reviewed-by info-data">{{scheme.approver.name}}</span></li>
+								<li class="unit "><span class="status-label info-label">Status: </span><span class="status info-data">Saved as a Draft</span></li>
+
+							</ul>
+						</div>
+					</div>
+
+				</div>
+			{% elseif scheme.state == items.states.initiated %}
+				<ul class="line-graph titles">
+					<li class="unit size1of3">
+						<ul class="line">
+							Initiated
+						</ul>
+					</li>
+					<li class="unit size1of3">
+						<ul class="line">
+							To Be Reviewed
+						</ul>
+					</li>
+					<li class="unit size1of3">
+						<ul class="line">
+							To Be Approved
+						</ul>
+					</li>
+				</ul>
+			    <ul class="line-graph">
+					<li class="unit size1of3">
+						<ul class="line">
+							<li class="process-step processed"></li>
+						</ul>
+					</li>
+					<li class="unit size1of3">
+						<ul class="line">
+							<li class="process-step processed-continuous"></li>
+						</ul>
+					</li>
+					<li class="unit size1of3">
+						<ul class="line">
+							<li class="process-step inactive"></li>
+						</ul>
+					</li>
+				</ul>
+				<div class="scheme-state-details">
+					<div class="granular-info-box" style="display: none;">
+						<div class="arrow"></div>
+						<div class="details-content">
+							<!-- <p class="scheme-title">Scheme Name 001</p>
+							<p class="notification-info">Notification received from Mr. A</p> -->
+							<ul class="granular-info">
+								<li class="unit "><span class="start-date-label info-label">Start Date: </span><span class="start-date info-data">{{scheme.start_date}}</span></li>
+								<li class="unit "><span class="end-date-labe info-label">End Date: </span><span class="end-date info-data">{{scheme.end_date}}</span></li>
+								<li class="unit "><span class="forecast-amount-label info-label">Forecast Amount: </span><span class="forecast-amount info-data">-</span></li>
+								<li class="unit "><span class="initiated-label info-label">Created on: </span><span class="initiated-date info-data">{{scheme.created_at}}</span></li>
+								<li class="unit "><span class="initiator-label info-label">Initiated by: </span><span class="initiated-by info-data">Mr. S</span></li>
+								<li class="unit "><span class="reviewed-label info-label">Initiated on: </span><span class="reviewed-date info-data">-</span></li>
+								<li class="unit "><span class="reviewer-label info-label">To be Reviewed by: </span><span class="reviewed-by info-data">Mr. D</span></li>
+								<li class="unit "><span class="status-label info-label">Status: </span><span class="status info-data">Initiated</span></li>
+
+							</ul>
+						</div>
+					</div>
+
+				</div>
+			{% elseif scheme.state == items.states.reviewed %}
+				<ul class="line-graph titles">
+					<li class="unit size1of3">
+						<ul class="line">
+							Initiated
+						</ul>
+					</li>
+					<li class="unit size1of3">
+						<ul class="line">
+							Reviewed
+						</ul>
+					</li>
+					<li class="unit size1of3">
+						<ul class="line">
+							To Be Approved
+						</ul>
+					</li>
+				</ul>
+			    <ul class="line-graph">
+					<li class="unit size1of3">
+						<ul class="line">
+							<li class="process-step processed"></li>
+						</ul>
+					</li>
+					<li class="unit size1of3">
+						<ul class="line">
+							<li class="process-step processed"></li>
+						</ul>
+					</li>
+					<li class="unit size1of3">
+						<ul class="line">
+							<li class="process-step processed-continuous"></li>
+						</ul>
+					</li>
+				</ul>
+				<div class="scheme-state-details">
+					<div class="granular-info-box" style="display: none;">
+						<div class="arrow"></div>
+						<div class="details-content">
+							<!-- <p class="scheme-title">Scheme Name 001</p>
+							<p class="notification-info">Notification received from Mr. A</p> -->
+							<ul class="granular-info">
+								<li class="unit "><span class="start-date-label info-label">Start Date: </span><span class="start-date info-data">{{scheme.start_date}}</span></li>
+								<li class="unit "><span class="end-date-labe info-label">End Date: </span><span class="end-date info-data">{{scheme.end_date}}</span></li>
+								<li class="unit "><span class="forecast-amount-label info-label">Forecast Amount: </span><span class="forecast-amount info-data">-</span></li>
+								<li class="unit "><span class="initiated-label info-label">Created on: </span><span class="initiated-date info-data">{{scheme.created_at}}</span></li>
+								<li class="unit "><span class="initiator-label info-label">Initiated by: </span><span class="initiated-by info-data">Mr. S</span></li>
+								<li class="unit "><span class="reviewed-label info-label">Reviewed on: </span><span class="reviewed-date info-data">21 Sept 2013</span></li>
+								<li class="unit "><span class="reviewer-label info-label">Reviewed by: </span><span class="reviewed-by info-data">Mr. D</span></li>
+								<li class="unit "><span class="status-label info-label">Status: </span><span class="status info-data">Reviewd</span></li>
+
+							</ul>
+						</div>
+					</div>
+
+				</div>
+			{% endif %}
+
+				
+		</div>
+	</div>
+	{% endif %}
+{% endfor %}

@@ -1,0 +1,600 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block header %} 
+    {% include 'header.tmpl' %} 
+{% endblock %}
+
+{% block content %}
+<section>
+{% include 'menu.tmpl' %}
+<section id="content-wrapper">  
+			<div class = "dashboard-content">
+				<div class = "dashboard-container">
+					<div class = "data-panels">
+						<div class="row state-overview">
+							<div class="col-lg-3 col-sm-6 col-xs-12">
+								<section class="panel">
+									<div class="symbol terques">
+										<i class="fa fa-info"></i>
+									</div>
+									<div class="value">
+										<h1 class="count">{{items.stats.initiated}}</h1>
+										<p>Schemes Initiated</p>
+									</div>
+								</section>
+							</div>
+							<div class="col-lg-3 col-sm-6 col-xs-12">
+								<section class="panel">
+								<div class="symbol orange">
+										<i class="fa fa-archive"></i>
+									</div>
+									<div class="value">
+										<h1 class=" count2">{{items.stats.pending}}</h1>
+										<p>Schemes Pending Approval</p>
+									</div>
+								</section>
+							</div>
+							<div class="col-lg-3 col-sm-6 col-xs-12">
+								<section class="panel">
+									<div class="symbol green">
+										<i class="fa fa-check"></i>
+									</div>
+									<div class="value">
+										<h1 class=" count3">{{items.stats.active}}</h1>
+										<p>Active Schemes</p>
+									</div>
+								</section>
+							</div>
+							<div class="col-lg-3 col-sm-6 col-xs-12">
+								<section class="panel">
+									<div class="symbol violet">
+										<i class="fa fa-thumbs-up"></i>
+									</div>
+									<div class="value">
+										<h1 class=" count4">{{items.stats.concluded}}</h1>
+										<p>Schemes Concluded</p>
+									</div>
+								</section>
+							</div>
+						</div>
+					</div>
+
+					<div class = "data-graphs">
+						<div class = "row">
+							<div class = "col-lg-12 col-sm-12 col-xs-12 active-schemes-container">
+								<div  id = "active-scheme-content-card" >
+
+									<div class = "filter-filter">
+										<div class = "filter-slider">
+											<div class = "slider-title">
+												Payout Estimate Till date / Forecast Amount :
+											</div>
+											<div class = "range-slider"></div>
+											<div class = "slider-labels">
+												<span class = "slider-label-left">0</span>
+												<span class = "slider-label-right">100</span>
+											</div>
+										</div>
+										<div class = "filter-type filter-checkbox-group">
+											<div class = "filter-block-title">
+												Type of Scheme:
+											</div>
+											<div class = "checkbox-container first">
+												<input type="checkbox" name="inBill"><span class = "checkbox-label">inBill</span>
+											</div>
+											<div class = "checkbox-container">
+												<input type="checkbox" name="monthly"><span class = "checkbox-label">Monthly</span>
+											</div>
+											<div class = "checkbox-container">
+												<input type="checkbox" name="tieup"><span class = "checkbox-label">Tie Up</span>
+											</div>
+											<div class = "checkbox-container">
+												<input type="checkbox" name="ppipri"><span class = "checkbox-label">PPI/PRI</span>
+											</div>
+											<div class = "checkbox-container">
+												<input type="checkbox" name="atrqtr"><span class = "checkbox-label">ATR/QTR</span>
+											</div>
+											<div class = "checkbox-container">
+												<input type="checkbox" name="club"><span class = "checkbox-label">Club</span>
+											</div>
+										</div>
+										<div class = "filter-geography">
+											<div class = "filter-block-title">
+												Geography:
+											</div>
+											<input type = "text" class = "filter-search" placeholder = "Search">
+										</div>
+
+										<div class = "filter-checkbox-tree"></div>
+									</div>
+									<div class = "filter-content">
+										<div class = "col-lg-12 col-sm-12 col-xs-12 elements-container">
+											<button class = "button-simple filter-toggle"><i class = "fa fa-filter"></i>Filter</button>
+											<span class = "button-group">
+												<button class = "button-simple">MTD</button>
+												<button class = "button-simple">YTD</button>
+												<button class = "button-simple">YTM</button>
+											</span>
+										</div>
+										<div id = "active-scheme-content" class = "col-lg-12 col-sm-12 col-xs-12"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class = "row">
+							<div class = "col-lg-12 col-sm-12 col-xs-12">
+								<div  id = "scheme-budget-utilization" >
+									<div class = "filter-filter">
+
+									</div>
+									<div class = "filter-content">
+										<div class = "col-lg-12 col-sm-12 col-xs-12 elements-container">
+											<button class = "button-simple filter-toggle"><i class = "fa fa-filter"></i>Filter</button>
+										</div>
+									
+										{% for item in items.badges %}
+										<div class = "col-lg-3 col-md-6 col-sm-6 col-xs-12 panel-chart-container">
+											<div class = "col-lg-12 col-sm-12 col-xs-12 panel-chart">
+												<div class="col-lg-6 col-xs-6 col-md-6 col-sm-6 text-center">
+													<div class="panel-chart-text">
+														<span class = "circular-chart-title">{{item.title}}</span>
+														<span class = "circular-chart-estimate tooltip" tip-title="Payout Estimate till date">&#8377;{{item.estimate}}</span>
+														<hr class = "circular-chart-divider">
+														<span class = "circular-chart-forecast tooltip" tip-title="Payout Forecast Amount">&#8377;{{item.forcast}}</span>
+													</div>
+												</div>
+												<div class="col-lg-6 col-sm-6 col-xs-6 col-md-6 text-center">
+													<div class="easy-pie-chart">
+														<div class="panel-circular-chart" data-percent="35" style="width: 135px; height: 135px; line-height: 135px;"><span>{{item.percent}}</span>%</div>
+													</div>
+												</div>
+											</div>										
+										</div>
+										{% endfor %}
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class = "row">
+							<div class = "col-lg-6 col-sm-12 col-xs-12">
+								<div id = "schemes-pending-approval">
+									<div class="state-panel panel-solid-default">
+										<div class="panel-heading">
+											<h3 class="panel-title">Scheme Name 001</h3>
+										</div>
+										<div class="panel-body">
+											<ul class="line-graph titles">
+												<li class="unit size1of3">
+													<ul class="line">
+														Initiated
+													</ul>
+												</li>
+												<li class="unit size1of3">
+													<ul class="line">
+														Reviewed
+													</ul>
+												</li>
+												<li class="unit size1of3">
+													<ul class="line">
+														Approved
+													</ul>
+												</li>
+											</ul>
+											<ul class="line-graph">
+												<li class="unit size1of3">
+													<ul class="line">
+														<li class="process-step processed"></li>
+													</ul>
+												</li>
+												<li class="unit size1of3">
+													<ul class="line">
+														<li class="process-step processed-continuous"></li>
+													</ul>
+												</li>
+												<li class="unit size1of3">
+													<ul class="line">
+														<li class="process-step inactive"></li>
+													</ul>
+												</li>
+											</ul>
+
+											<div class = "scheme-state-details">
+												<div class="granular-info-box" style="display: none;">
+													<div class="arrow"></div>
+													<div class="details-content">
+														<p class="scheme-title">Scheme Name 001</p>
+														<p class = "notification-info">Notification received from Mr. A</p>
+														<ul class="granular-info">
+															<li class="unit "><span class = "start-date-label info-label">Start Date: </span><span class = "start-date info-data">10 Aug 2015</span></li>
+															<li class="unit "><span class = "end-date-labe info-label">End Date: </span><span class = "end-date info-data">20 Dec 2015</span></li>
+															<li class="unit "><span class = "forecast-amount-label info-label">Forecast Amount: </span><span class = "forecast-amount info-data">&#8377;10,000,000</span></li>
+															<li class="unit "><span class = "initiated-label info-label">Initiated on: </span><span class = "initiated-date info-data">19 Sept 2013</span></li>
+															<li class="unit "><span class = "initiator-label info-label">Initiated by: </span><span class = "initiated-by info-data">Mr. S</span></li>
+															<li class="unit "><span class = "reviewed-label info-label">Reviewed on: </span><span class = "reviewed-date info-data">21 Sept 2013</span></li>
+															<li class="unit "><span class = "reviewer-label info-label">Reviewed by: </span><span class = "reviewed-by info-data">Mr. D</span></li>
+															<li class="unit "><span class = "status-label info-label">Status: </span><span class = "status info-data">To be reviewd</span></li>
+
+														</ul>
+													</div>
+												</div>
+
+											</div>
+										</div>
+									</div>
+
+									<div class="state-panel panel-solid-default">
+										<div class="panel-heading">
+											<h3 class="panel-title">Scheme Name 002</h3>
+										</div>
+										<div class="panel-body">
+											<ul class="line-graph titles">
+												<li class="unit size1of3">
+													<ul class="line">
+														Initiated
+													</ul>
+												</li>
+												<li class="unit size1of3">
+													<ul class="line">
+														Reviewed
+													</ul>
+												</li>
+												<li class="unit size1of3">
+													<ul class="line">
+														Approved
+													</ul>
+												</li>
+											</ul>
+											<ul class="line-graph">
+												<li class="unit size1of3">
+													<ul class="line">
+														<li class="process-step processed-continuous"></li>
+													</ul>
+												</li>
+												<li class="unit size1of3">
+													<ul class="line">
+														<li class="process-step inactive"></li>
+													</ul>
+												</li>
+												<li class="unit size1of3">
+													<ul class="line">
+														<li class="process-step inactive"></li>
+													</ul>
+												</li>
+											</ul>
+
+											<div class = "scheme-state-details">
+												<div class="granular-info-box" style="display: none;">
+													<div class="arrow"></div>
+													<div class="details-content">
+														<p class="scheme-title">Scheme Name 001</p>
+														<p class = "notification-info">Notification received from Mr. A</p>
+														<ul class="granular-info">
+															<li class="unit "><span class = "start-date-label info-label">Start Date: </span><span class = "start-date info-data">10 Aug 2015</span></li>
+															<li class="unit "><span class = "end-date-labe info-label">End Date: </span><span class = "end-date info-data">20 Dec 2015</span></li>
+															<li class="unit "><span class = "forecast-amount-label info-label">Forecast Amount: </span><span class = "forecast-amount info-data">&#8377;10,000,000</span></li>
+															<li class="unit "><span class = "initiated-label info-label">Initiated on: </span><span class = "initiated-date info-data">19 Sept 2013</span></li>
+															<li class="unit "><span class = "initiator-label info-label">Initiated by: </span><span class = "initiated-by info-data">Mr. S</span></li>
+															<li class="unit "><span class = "reviewed-label info-label">Reviewed on: </span><span class = "reviewed-date info-data">21 Sept 2013</span></li>
+															<li class="unit "><span class = "reviewer-label info-label">Reviewed by: </span><span class = "reviewed-by info-data">Mr. D</span></li>
+															<li class="unit "><span class = "status-label info-label">Status: </span><span class = "status info-data">To be reviewd</span></li>
+
+														</ul>
+													</div>
+												</div>
+
+											</div>
+										</div>
+									</div>
+
+									<div class="state-panel panel-solid-default">
+										<div class="panel-heading">
+											<h3 class="panel-title">Scheme Name 003</h3>
+										</div>
+										<div class="panel-body">
+											<ul class="line-graph titles">
+												<li class="unit size1of3">
+													<ul class="line">
+														Initiated
+													</ul>
+												</li>
+												<li class="unit size1of3">
+													<ul class="line">
+														Reviewed
+													</ul>
+												</li>
+												<li class="unit size1of3">
+													<ul class="line">
+														Approved
+													</ul>
+												</li>
+											</ul>
+											<ul class="line-graph">
+												<li class="unit size1of3">
+													<ul class="line">
+														<li class="process-step processed"></li>
+													</ul>
+												</li>
+												<li class="unit size1of3">
+													<ul class="line">
+														<li class="process-step processed"></li>
+													</ul>
+												</li>
+												<li class="unit size1of3">
+													<ul class="line">
+														<li class="process-step processed"></li>
+													</ul>
+												</li>
+											</ul>
+
+											<div class = "scheme-state-details">
+												<div class="granular-info-box" style="display: none;">
+													<div class="arrow"></div>
+													<div class="details-content">
+														<p class="scheme-title">Scheme Name 001</p>
+														<p class = "notification-info">Notification received from Mr. A</p>
+														<ul class="granular-info">
+															<li class="unit "><span class = "start-date-label info-label">Start Date: </span><span class = "start-date info-data">10 Aug 2015</span></li>
+															<li class="unit "><span class = "end-date-labe info-label">End Date: </span><span class = "end-date info-data">20 Dec 2015</span></li>
+															<li class="unit "><span class = "forecast-amount-label info-label">Forecast Amount: </span><span class = "forecast-amount info-data">&#8377;10,000,000</span></li>
+															<li class="unit "><span class = "initiated-label info-label">Initiated on: </span><span class = "initiated-date info-data">19 Sept 2013</span></li>
+															<li class="unit "><span class = "initiator-label info-label">Initiated by: </span><span class = "initiated-by info-data">Mr. S</span></li>
+															<li class="unit "><span class = "reviewed-label info-label">Reviewed on: </span><span class = "reviewed-date info-data">21 Sept 2013</span></li>
+															<li class="unit "><span class = "reviewer-label info-label">Reviewed by: </span><span class = "reviewed-by info-data">Mr. D</span></li>
+															<li class="unit "><span class = "status-label info-label">Status: </span><span class = "status info-data">To be reviewd</span></li>
+
+														</ul>
+													</div>
+												</div>
+
+											</div>
+										</div>
+									</div>
+
+									<div class="state-panel panel-solid-default">
+										<div class="panel-heading">
+											<h3 class="panel-title">Scheme Name 001</h3>
+										</div>
+										<div class="panel-body">
+											<ul class="line-graph titles">
+												<li class="unit size1of3">
+													<ul class="line">
+														Initiated
+													</ul>
+												</li>
+												<li class="unit size1of3">
+													<ul class="line">
+														Reviewed
+													</ul>
+												</li>
+												<li class="unit size1of3">
+													<ul class="line">
+														Approved
+													</ul>
+												</li>
+											</ul>
+											<ul class="line-graph">
+												<li class="unit size1of3">
+													<ul class="line">
+														<li class="process-step processed"></li>
+													</ul>
+												</li>
+												<li class="unit size1of3">
+													<ul class="line">
+														<li class="process-step processed"></li>
+													</ul>
+												</li>
+												<li class="unit size1of3">
+													<ul class="line">
+														<li class="process-step processed-continuous"></li>
+													</ul>
+												</li>
+											</ul>
+
+											<div class = "scheme-state-details">
+												<div class="granular-info-box" style="display: none;">
+													<div class="arrow"></div>
+													<div class="details-content">
+														<p class="scheme-title">Scheme Name 001</p>
+														<p class = "notification-info">Notification received from Mr. A</p>
+														<ul class="granular-info">
+															<li class="unit "><span class = "start-date-label info-label">Start Date: </span><span class = "start-date info-data">10 Aug 2015</span></li>
+															<li class="unit "><span class = "end-date-labe info-label">End Date: </span><span class = "end-date info-data">20 Dec 2015</span></li>
+															<li class="unit "><span class = "forecast-amount-label info-label">Forecast Amount: </span><span class = "forecast-amount info-data">&#8377;10,000,000</span></li>
+															<li class="unit "><span class = "initiated-label info-label">Initiated on: </span><span class = "initiated-date info-data">19 Sept 2013</span></li>
+															<li class="unit "><span class = "initiator-label info-label">Initiated by: </span><span class = "initiated-by info-data">Mr. S</span></li>
+															<li class="unit "><span class = "reviewed-label info-label">Reviewed on: </span><span class = "reviewed-date info-data">21 Sept 2013</span></li>
+															<li class="unit "><span class = "reviewer-label info-label">Reviewed by: </span><span class = "reviewed-by info-data">Mr. D</span></li>
+															<li class="unit "><span class = "status-label info-label">Status: </span><span class = "status info-data">To be reviewd</span></li>
+
+														</ul>
+													</div>
+												</div>
+
+											</div>
+										</div>
+									</div>
+
+									<div class="state-panel panel-solid-default">
+										<div class="panel-heading">
+											<h3 class="panel-title">Scheme Name 001</h3>
+										</div>
+										<div class="panel-body">
+											<ul class="line-graph titles">
+												<li class="unit size1of3">
+													<ul class="line">
+														Initiated
+													</ul>
+												</li>
+												<li class="unit size1of3">
+													<ul class="line">
+														Reviewed
+													</ul>
+												</li>
+												<li class="unit size1of3">
+													<ul class="line">
+														Approved
+													</ul>
+												</li>
+											</ul>
+											<ul class="line-graph">
+												<li class="unit size1of3">
+													<ul class="line">
+														<li class="process-step processed"></li>
+													</ul>
+												</li>
+												<li class="unit size1of3">
+													<ul class="line">
+														<li class="process-step processed-continuous"></li>
+													</ul>
+												</li>
+												<li class="unit size1of3">
+													<ul class="line">
+														<li class="process-step inactive"></li>
+													</ul>
+												</li>
+											</ul>
+
+											<div class = "scheme-state-details">
+												<div class="granular-info-box" style="display: none;">
+													<div class="arrow"></div>
+													<div class="details-content">
+														<p class="scheme-title">Scheme Name 001</p>
+														<p class = "notification-info">Notification received from Mr. A</p>
+														<ul class="granular-info">
+															<li class="unit "><span class = "start-date-label info-label">Start Date: </span><span class = "start-date info-data">10 Aug 2015</span></li>
+															<li class="unit "><span class = "end-date-labe info-label">End Date: </span><span class = "end-date info-data">20 Dec 2015</span></li>
+															<li class="unit "><span class = "forecast-amount-label info-label">Forecast Amount: </span><span class = "forecast-amount info-data">&#8377;10,000,000</span></li>
+															<li class="unit "><span class = "initiated-label info-label">Initiated on: </span><span class = "initiated-date info-data">19 Sept 2013</span></li>
+															<li class="unit "><span class = "initiator-label info-label">Initiated by: </span><span class = "initiated-by info-data">Mr. S</span></li>
+															<li class="unit "><span class = "reviewed-label info-label">Reviewed on: </span><span class = "reviewed-date info-data">21 Sept 2013</span></li>
+															<li class="unit "><span class = "reviewer-label info-label">Reviewed by: </span><span class = "reviewed-by info-data">Mr. D</span></li>
+															<li class="unit "><span class = "status-label info-label">Status: </span><span class = "status info-data">To be reviewd</span></li>
+
+														</ul>
+													</div>
+												</div>
+
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class = "col-lg-6 col-sm-12 col-xs-12">
+								<div id = "concluded-schemes">
+									{% for itemConclued in items.concludedSchemes %}
+									<div class="state-panel panel-solid-default">
+										<div class="panel-heading">
+											<h3 class="panel-title">{{itemConclued.title}}</h3>
+										</div>
+										<div class="panel-body">
+											<ul class="line-graph titles">
+												<li class="unit size1of3">
+													<ul class="line">
+														Initiated
+													</ul>
+												</li>
+												<li class="unit size1of3">
+													<ul class="line">
+														Reviewed
+													</ul>
+												</li>
+												<li class="unit size1of3">
+													<ul class="line">
+														Approved
+													</ul>
+												</li>
+											</ul>
+											<ul class="line-graph">
+												<li class="unit size1of3">
+													<ul class="line">
+														<li class="process-step {% if itemConclued.Status == 'Initiated' %}processed-continuous{% elseif itemConclued.Status =='Reviewed' %}processed {% elseif itemConclued.Status =='Approved' %}processed{% else %}processed{% endif %}"></li>
+													</ul>
+												</li>
+												<li class="unit size1of3">
+													<ul class="line">
+														<li class="process-step {% if itemConclued.Status == 'Initiated' %}inactive{% elseif itemConclued.Status == 'Reviewed' %}processed-continuous{% elseif itemConclued.Status == 'Approved' %}processed{% else %}processed{% endif %}"></li>
+													</ul>
+												</li>
+												<li class="unit size1of3">
+													<ul class="line">
+														<li class="process-step {% if itemConclued.Status == 'Initiated' %}inactive{% elseif itemConclued.Status =='Reviewed' %}inactive{% elseif itemConclued.Status == 'Approved' %}processed-continuous{% else %}processed{% endif %}"></li>
+													</ul>
+												</li>
+											</ul>
+
+											<div class = "scheme-state-details">
+												<div class="granular-info-box" style="display: none;">
+													<div class="arrow"></div>
+													<div class="details-content">
+														<p class="scheme-title">{{itemConclued.title}}</p>
+														<p class = "notification-info">{{itemConclued.notification}}</p>
+														<ul class="granular-info">
+															<li class="unit "><span class = "start-date-label info-label">Start Date: </span><span class = "start-date info-data">{{itemConclued.startDate}}</span></li>
+															<li class="unit "><span class = "end-date-labe info-label">End Date: </span><span class = "end-date info-data">{{itemConclued.endDate}}</span></li>
+															<li class="unit "><span class = "forecast-amount-label info-label">Forecast Amount: </span><span class = "forecast-amount info-data">&#8377;{{itemConclued.forcast}}</span></li>
+															<li class="unit "><span class = "initiated-label info-label">Initiated on: </span><span class = "initiated-date info-data">{{itemConclued.initiatedOn}}</span></li>
+															<li class="unit "><span class = "initiator-label info-label">Initiated by: </span><span class = "initiated-by info-data">{{itemConclued.initiatedBy}}</span></li>
+															<li class="unit "><span class = "reviewed-label info-label">Reviewed on: </span><span class = "reviewed-date info-data">{{itemConclued.reviewedOn}}</span></li>
+															<li class="unit "><span class = "reviewer-label info-label">Reviewed by: </span><span class = "reviewed-by info-data">{{itemConclued.reviewedBy}}</span></li>
+															<li class="unit "><span class = "status-label info-label">Status: </span><span class = "status info-data">{{itemConclued.Status}}</span></li>
+
+														</ul>
+													</div>
+												</div>
+
+											</div>
+										</div>
+									</div>
+									{% endfor %}
+										
+								</div>
+							</div>
+						</div>
+
+
+					</div>
+				</div>
+			</div>
+			
+		</div>
+
+    </div>
+ </section>
+</section>
+{% endblock %}
+
+{% block footer %}{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+    <!-- jqplot -->
+    <script type="text/javascript" src={{resolvePath("jquery.jqplot.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("jqplot.barRenderer.min.js")}}></script>
+	<script type="text/javascript" src={{resolvePath("jqplot.categoryAxisRenderer.min.js")}}></script>
+	<script type="text/javascript" src={{resolvePath("jqplot.pointLabels.min.js")}}></script>
+	<script type="text/javascript" src={{resolvePath("jqplot.canvasTextRenderer.min.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("jqplot.canvasAxisLabelRenderer.min.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("jqplot.highlighter.min.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("jqplot.cursor.min.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("jqplot.dateAxisRenderer.min.js")}}></script>
+    <!-- External libs -->
+	<script type="text/javascript" src={{resolvePath("jquery.easypiechart.min.js")}}></script>
+	<script type="text/javascript" src={{resolvePath("jquery.nouislider.min.js")}}></script>
+	<!-- n5 wrappers -->
+	<script type="text/javascript" src={{resolvePath("native5.ui.card.js")}}></script>
+	<script type="text/javascript" src={{resolvePath("native5.ui.graph.circularChart.js")}}></script>
+	<script type="text/javascript" src={{resolvePath("native5.ui.graph.bar.js")}}></script>
+	<script type="text/javascript" src={{resolvePath("native5.ui.filtermenu.js")}}></script>
+	<script type="text/javascript" src={{resolvePath("native5.ui.checkboxTree.js")}}></script>
+
+	<!-- akzo wrappers -->
+	<script type="text/javascript" src={{resolvePath("akzo.ui.budgetUtilization.js")}}></script>
+	<script type="text/javascript" src={{resolvePath("akzo.activeSchemes.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("akzo_menu.js")}}></script> 
+    <script type="text/javascript" src={{resolvePath("dashboard.js")}}></script> 
+    
+{% endblock %}

@@ -1,0 +1,118 @@
+<script type = "text/template" id="n5-ui-template-newSlab-template">
+    <div class =" n5-template-container" id="n5-ui-newSlab<%= counter %>">
+        <div class="row">
+            <div class="col-md-12">
+                <span class="col-md-4">
+                    <label class="n5-ui-sc-label" for="templateno">Template Name</label>
+                    <input class="n5-template-box template-name" value="<%= slabV2DnI.templateName %>" disabled type="text"/>
+                </span>
+                
+                <span class="col-md-4" style="margin: 10px 0;">
+                    <label class="n5-ui-sc-label">Segments</label>
+                    <span>
+                        <div class="template-segment-values"></div>
+                    </span>
+                </span>
+
+                <span class="col-md-4" style="margin: 10px 0;">
+                    <div class="ui-project-sku">
+                        <input class="js-project-sku" type='checkbox' <% if(slabV2DnI.projectSku) { %>checked <% } %> onclick=" return false;" />
+                        <span class="js-project-sku-text">Project SKU<span>
+                    </div>
+                </span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <span class="col-md-4">
+                    <label for="segment" class="n5-ui-sc-label">No Of Laps</label>
+                    <input class="n5-template-box" value="<%= slabV2DnI.laps.length %>"  disabled />
+                </span>
+
+                <span class="col-md-4">
+                    <label for="segment" class="n5-ui-sc-label">No Of Products</label>
+                    <input class="n5-template-box" value="<%= numProducts %>"  disabled />
+                </span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 js-calendar-container">
+                <% _.each(slabV2DnI.laps, function(lap, key, list) { %>
+                <span class="col-md-4" style="margin: 10px 0;">
+                    <label for="first_name" class="n5-ui-sc-label">Lap Period <%= key + 1 %></label>
+                    <input class="n5-template-box" id="n5-date-reservation-newSlab-table<%= key + 1 %>"  disabled />
+                </span>
+                <% }); %>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div id="n5-Q-cond-table-newSlab<%= counter %>">
+                    <table class="table table-bordered table-striped table-hover" id="dynamicTable">
+                        <% if (slabV2DnI.laps.length  > 0) { %>
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Slab Start</th>
+                                <% _.each(slabV2DnI.laps, function(lap, key, list) { %>
+                                    <th>Lap Rate<%= key + 1 %></th>
+                                <% }); %>
+                                <th>PayOut Type</th>
+                                <th>Product Type</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% _.each(tableArr, function(row, key, list) { %>
+                            <tr>
+                                <td><div class="product-select"></div></td>
+                                <td><input class="n5-template-selectmenu2 n5-ui-qc-input-placeholder js-slab-start" disabled placeholder="Slab Start" value="<%= row.slabStartValue %>" /></td>
+
+                                <% _.each(row.lap, function(col, k) { %>
+                                <td><input class='n5-template-selectmenu2 n5-ui-qc-input-placeholder lap-rate' disabled placeholder='Lap Rate' type='text' value="<%=col%>" /></td>
+                                <% }); %>
+
+                                <td>
+                                    <span id='n5-ui-newSlab-table-product<%= key + 1 %>'>
+                                        <span class='n5-template-selectmenu2 disabled'>
+                                            <span class='n5-ui-sc-label-sub' id='noofslabsTextStr-newSlab-payout<%= key + 1 %>'>Rs / Ltr</span>
+                                        </span>
+                                    </span>
+                                </td>
+                                <td>
+                                    &nbsp;Bulk&nbsp;&nbsp;&nbsp;<input class='n5-ui-newSlab-row-checkbox' type='checkbox' <% if(row.packs.indexOf("BULK") !== -1) { %>checked<% } %> onclick="return false;" />
+                                    <br/>&nbsp;Retail<input class='n5-ui-newSlab-row-checkbox' type='checkbox' <% if(row.packs.indexOf("RETAIL") !== -1) { %>checked<% } %> onclick="return false;" />
+                                </td>
+                            </tr>
+                            <% var qcData = JSON.stringify(row.qc) %>
+                            <% if(qcData !== "null") { %>
+                            <tr><td colspan="500"><span id = "newslab<%= counter %>-inslabqc<%= key + 1 %>"></div></td></tr>
+                            <% } %>
+                            <% }); %>
+                        </tbody>
+                        <% } %>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div id = "newSlab-template-qc<%= counter %>"></div>
+    </div>
+</script>
+
+{% for item in items.schemeData.slabV2Tpls %}
+<script type = "text/template" id="newSlab-qc{{loop.index}}">
+    <h5>Template Level QCs</h5>
+    {% include 'scheme_qualifyingconditions.tmpl' with {'qcList': items.schemeData.slabV2Tpls[loop.index0].qcList}  %}
+</script>
+{% endfor %}
+
+{% for item in items.schemeData.slabV2Tpls %}
+{% for slabPayout in item.slabV2DnI.laps[0].payouts %}
+<script type = "text/template" id="newslab{{loop.parent.loop.index}}-slab-qc{{loop.index}}">
+    <h5>In-Slab Qualifying Conditions</h5>
+    {% include 'scheme_qualifyingconditions.tmpl' with {'qcList': slabPayout.qcList}  %}
+</script>
+{% endfor %}
+{% endfor %}

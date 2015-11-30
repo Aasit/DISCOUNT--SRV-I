@@ -1,0 +1,13 @@
+
+Dear {{ items.initiatorName }},
+
+A scheme submitted by you at {{ items.scheme.created_at }} has been sent back for updates by the approver {{ items.approverName }} ( {{ items.approverCode }} ). Please login into the Discounts Management Application & navigate to the "Schemes Pending Approval" section on your Dashboard to update and re-initiate the scheme.
+
+You will be notified as and when any action has been performed on this scheme.
+
+{% include "emails/basicSchemeDetails.tmpl" %}
+
+Regards,
+Discounts Management Portal Administrator
+{{ items.url }}
+

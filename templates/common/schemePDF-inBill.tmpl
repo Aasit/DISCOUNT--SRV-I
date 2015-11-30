@@ -1,0 +1,55 @@
+{% if items.schemeData.inBillTplsRO| length > 0 %}
+<div class="pdf-content js-inBill">
+    <hr />
+    {% for template in items.schemeData.inBillTplsRO %}
+        <h2><b>{{templateCounter}}. InBill Template - {{template.inBillDnI.templateName}}</b></h2>
+        {% set templateCounter = templateCounter + 1 %}
+
+        <p class="section"><span><b>Applicable for Segments:</b></span> <span class="right"> 
+            {% for segment in template.inBillDnI.segment %}
+                {{segment}} {% if not loop.last%},{% endif %}
+            {% endfor %}
+        </span></p>
+
+        <p>{% if template.inBillDnI.projectSku %}Including{% else %}Excluding{% endif %} Project SKU</p>
+
+        {% for table in template.inBillDnI.inBillLaps %}
+            <p class="section"><span>
+                <b>Scheme Period: {{loop.index}}</b>
+                <span class="right">{{table.period.startDate}} to {{table.period.endDate}}</span>
+            </span></p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Sl. No</th>
+                        <th>Product</th>
+                        <th>Payout ( Rs / Ltr )</th>
+                        <th>Pack</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for row in table.payouts %}
+                        <tr>
+                            <td>{{loop.index}}</td>
+                            <td>
+                                {% for product in row.products %}
+                                    <b>{% if product.excluded %} - {% else %} + {%endif%}</b> {{product.name}} {% if not loop.last %}, {% endif %}
+                                {% endfor %}
+                            </td>
+                            <td>{{row.lapRate}}</td>
+                            <td>
+                                {% for pack in row.packs %}
+                                    {{pack}} {% if not loop.last%}, {% endif %}
+                                {% endfor %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endfor %}
+        <p class="section"></p>
+    {% endfor %}
+</div>
+{% endif %}

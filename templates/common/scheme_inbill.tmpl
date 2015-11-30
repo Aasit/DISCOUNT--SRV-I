@@ -1,0 +1,86 @@
+<script type = "text/template" id="n5-ui-template-inBill-template">
+    <div class =" n5-template-container" id="n5-ui-inBill<%= counter %>">
+        <div class="row">
+            <div class="col-md-12">                
+                <span class="col-md-4" style="margin: 10px 0;">
+                    <label class="n5-ui-sc-label">Segments</label>
+                    <span>
+                        <div class="template-segment-values"></div>
+                    </span>
+                </span>
+
+                <span class="col-md-4" style="margin: 10px 0;">
+                    <div class="ui-project-sku">
+                        <input class="js-project-sku" type='checkbox' onclick="return false;" <% if(inBillDnI.projectSku) { %>checked <% } %> />
+                        <span class="js-project-sku-text">Project SKU<span>
+                    </div>
+                </span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 js-calendar-container">
+                <span class="col-md-4">
+                    <label for="segment" class="n5-ui-sc-label">No Of Laps</label>
+                    <input class="n5-template-box" value="<%= inBillDnI.inBillLaps.length %>"  disabled />
+                </span>
+
+                <span class="col-md-4">
+                    <label for="segment" class="n5-ui-sc-label">No Of Products</label>
+                    <input class="n5-template-box" value="<%= numProducts %>"  disabled />
+                </span>
+
+                <% _.each(inBillDnI.inBillLaps, function(lap, key, list) { %>
+                <span class="col-md-4" style="margin: 10px 0;">
+                    <label for="first_name" class="n5-ui-sc-label">Lap Period <%= key + 1 %></label>
+                    <input class="n5-template-box" id="n5-date-reservation-inBill-table<%= key + 1 %>"  disabled />
+                </span>
+                <% }); %>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div id="n5-Q-cond-table-inBill<%= counter %>" class="ui-table-parent">
+                    <table class="table table-bordered table-striped table-hover" id="dynamicTable">
+                        <% if (inBillDnI.inBillLaps.length  > 0) { %>
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <% _.each(inBillDnI.inBillLaps, function(lap, key, list) { %>
+                                    <th>Lap Rate<%= key + 1 %></th>
+                                <% }); %>
+                                <th>PayOut Type</th>
+                                <th>Product Type</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% _.each(tableArr, function(row, key, list) { %>
+                            <tr>
+                                <td><div class="product-select"></div></td>
+
+                                <% _.each(row.lap, function(col, k) { %>
+                                <td><input class='n5-template-selectmenu2 n5-ui-qc-input-placeholder lap-rate' placeholder='Lap Rate' type='text' value="<%=col%>" disabled /></td>
+                                <% }); %>
+
+                                <td>
+                                    <span id='n5-ui-inBill-table-product<%= key + 1 %>'>
+                                        <span class='n5-template-selectmenu2 disabled'>
+                                            <span class='n5-ui-sc-label-sub' id='noofslabsTextStr-inBill-payout<%= key + 1 %>'>Rs / Ltr</span>
+                                        </span>
+                                    </span>
+                                </td>
+                                <td>
+                                    &nbsp;Bulk&nbsp;&nbsp;&nbsp;<input class='n5-ui-inBill-row-checkbox' type='checkbox' <% if(row.packs.indexOf("BULK") !== -1) { %>checked<% } %> onclick="return false" />
+                                    <br/>&nbsp;Retail<input class='n5-ui-inBill-row-checkbox' type='checkbox' <% if(row.packs.indexOf("RETAIL") !== -1) { %>checked<% } %> onclick="return false" />
+                                </td>
+                            </tr>
+                            <% }); %>
+                        </tbody>
+                        <% } %>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>

@@ -1,0 +1,149 @@
+<script type = "text/template" id="n5-ui-template-ppi-template">
+    <div class =" n5-template-container" id="n5-ui-ppi<%= counter %>">
+        <div class="row">
+            <div class="col-md-12">
+                <span class="col-md-4" style="margin: 10px 0;">
+                    <label class="n5-ui-sc-label">Segments</label>
+                    <span>
+                        <div class="template-segment-values"></div>
+                    </span>
+                </span>
+
+                <span class="col-md-4" style="margin: 10px 0;">
+                    <label for="segment" class="n5-ui-sc-label">No Of Slabs</label>
+                    <input class="n5-template-box" value="<%= ppiDnI.numSlabs %>"  disabled />
+                </span>
+
+                <span class="col-md-4" style="margin: 10px 0; padding-top: 25px;">
+                    <span class="n5-ui-sc-col">
+                        <input type="checkbox" class="css-checkbox" name="bulk" <% if(ppiDnI.packs.indexOf("BULK") !== -1) { %>checked<% } %> onclick="return false;" />
+                        <label class="css-label" for="bulk">Bulk &nbsp;&nbsp;</label>
+                        <input type="checkbox" class="css-checkbox" name="retail" <% if(ppiDnI.packs.indexOf("RETAIL") !== -1) { %>checked<% } %> onclick="return false;" />
+                        <label class="css-label" for="retail">Retail</label>
+                    </span>
+                </span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <span class="col-md-4" style="margin: 10px 0;">
+                    <label for="first_name" class="n5-ui-sc-label">Scheme Product</label>
+                    <div class="product-select"></div>
+                </span>
+
+                <span class="col-md-4" style="margin: 10px 0; padding-top: 25px;">
+                    <div class="n5-radio-toolbar">
+                        <input type="radio" id="radio-ppi-c" name="radios-ppi-val"value="value" <% if(ppiDnI.ppiType === "VALUE") { %>checked<% } %>>
+                        <label for="radio-ppi-c">Value</label>
+                        <input type="radio" id="radio-ppi-d" name="radios-ppi-val" value="volume" <% if(ppiDnI.ppiType !== "VALUE") { %>checked<% } %>>
+                        <label for="radio-ppi-d">Volume</label> 
+                    </div>
+                </span>
+
+                <span class="col-md-4" style="margin: 10px 0;">
+                    <div class="ui-project-sku">
+                        <input class="js-project-sku" type='checkbox' onclick="return false;" <% if(ppiDnI.projectSku) { %>checked <% } %> />
+                        <span class="js-project-sku-text">Project SKU<span>
+                    </div>
+                </span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">                
+                <span class="col-md-4" style="margin: 10px 0;">
+                    <label for="first_name" class="n5-ui-sc-label">Sales Period</label>
+                    <input id="n5-date-reservation<%= counter %>" class="n5-template-box" disabled />
+                </span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div id="n5-Q-cond-table-ppi<%= counter %>" class="ui-table-parent">
+                    <table class="table table-bordered table-striped table-hover" id="dynamicTable">
+                        <thead>
+                            <tr>
+                                <th>Slab Start</th>
+                                <th>Slab End</th>
+                                <th>Payout Rate</th>
+                                <th>Payout Type</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% if (ppiDnI.slabPayouts.length  > 0) { %>
+                            <% _.each(ppiDnI.slabPayouts, function(row, key, list) { %>
+                                <% if(key < (ppiDnI.slabPayouts.length - totalRows)) { %>
+                                    <tr>
+                                        <td><input class='n5-template-selectmenu2 n5-ui-qc-input-placeholder' value="<%=row.slabStartValue%>" placeholder='Slab Start' type='text' disabled/></td>
+                                        <td><input class='n5-template-selectmenu2 n5-ui-qc-input-placeholder' value="<%=row.slabEndValue%>" placeholder='Slab End' type='text' disabled/></td>
+                                        <td><input class='n5-template-selectmenu2 n5-ui-qc-input-placeholder' value="<%=row.payoutValue%>" placeholder='Lap Rate' type='text' disabled/></td>
+                                        <td>
+                                            <span id='n5-ui-ppi-table-product<%= key + 1 %>'>
+                                                <input class="n5-template-box" value="<%= row.payoutType %>" disabled />
+                                            </span>
+                                            <% if(row.payoutDescription) { %>
+                                                <input class="n5-template-box" value = "<%= row.payoutDescription %>" disabled />
+                                            <% } %>
+                                        </td>
+                                    </tr>
+                                <% } %>
+                                <% if(totalRows == 0) { %>
+                                    <% var qcData = JSON.stringify(row.qc) %>
+                                    <% if(qcData !== "null") { %>
+                                    <tr><td colspan="4"><span id = "ppi<%= counter %>-inslabqc<%= key + 1 %>"></div></td></tr>
+                                <% } %>
+                            <% } %>
+                            <% }); %>
+                            <% } %>
+                        </tbody>
+                    </table>
+                    <% if (totalRows > 0) { %>
+                        <div class="row">
+                            <div class="col-md-12 js-repeat-box" style="margin-top: 20px;">
+                                <div class="col-md-12">
+                                    <label class="n5-ui-sc-label"><b>Rows are repeated as</b></label>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="n5-ui-sc-label">Repeat Slab Values</label>
+                                    <input class="n5-template-box" placeholder="Slab Range" value="<%= ppiDnI.repeatData.slabRange %>" disabled />
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="n5-ui-sc-label">Increase in Lap Rate</label>
+                                    <input class="n5-template-box" placeholder="Lap Rate change" value="<%= ppiDnI.repeatData.lapChange %>" disabled />
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="n5-ui-sc-label">Repeat Slabs</label>
+                                    <input class="n5-template-box" placeholder="Number of rows" value="<%= ppiDnI.repeatData.rowRepeat %>" disabled />
+                                </div>
+                            </div>
+                            <!-- <div class="col-md-12" style="margin-top: 20px;">
+                                <div class="col-md-4">
+                                    <button class="button-simple js-repeat-rows-btn">Repeat Rows</button>
+                                </div>
+                            </div> -->
+                        </div>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+        <div id = "ppi-template-qc<%= counter %>"></div>
+    </div>
+</script>
+
+{% for item in items.schemeData.ppiTpls %}
+<script type = "text/template" id="ppi-qc{{loop.index}}">
+    <h5>Template Level QCs</h5>
+    {% include 'scheme_qualifyingconditions.tmpl' with {'qcList': items.schemeData.ppiTpls[loop.index0].qcList}  %}
+</script>
+{% endfor %}
+
+{% for item in items.schemeData.ppiTpls %}
+{% for slabPayout in item.ppiDnI.slabPayouts %}
+<script type = "text/template" id="ppi{{loop.parent.loop.index}}-slab-qc{{loop.index}}">
+    {% include 'scheme_qualifyingconditions.tmpl' with {'qcList': slabPayout.qcList}  %}
+</script>
+{% endfor %}
+{% endfor %}

@@ -1,0 +1,9 @@
+{% for scheme in items.draftSchemes %}
+    <div class="state-panel panel-solid-default no-margin">
+    	<a href="template?schemeId={{ scheme.code }}&rand_token={{ items.nonce }}&cpy=true">
+			<div class="panel-heading">
+				<h3 class="panel-title">{{scheme.name}} {% if not(scheme.uid is empty) %}({{scheme.uid}}){% endif %}</h3>
+			</div>	
+		</a>			
+	</div>
+{% endfor %}

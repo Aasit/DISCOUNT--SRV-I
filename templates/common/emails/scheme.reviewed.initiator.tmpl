@@ -1,0 +1,13 @@
+
+Dear {{ items.initiatorName }},
+
+A scheme submitted by you at {{ items.scheme.created_at }} was reviewed by {{ items.reviewerName }} ( {{ items.reviewerCode }} ). It has been sent for approval by {{ items.approverName }} ( {{ items.approverCode }} ). You may login into the Discounts Management Application to view the review / approval status under the "Schemes Pending Approval" section on your Dashboard.
+
+You will be notified as and when any action has been performed on this scheme.
+
+{% include "emails/basicSchemeDetails.tmpl" %}
+
+Regards,
+Discounts Management Portal Administrator
+{{ items.url }}
+

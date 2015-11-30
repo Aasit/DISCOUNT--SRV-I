@@ -1,0 +1,334 @@
+{% extends "base.html" %}
+
+{% block title %}Scheme Description{% endblock %}
+
+{% block header %} 
+    {% include 'header.tmpl' %} 
+{% endblock %}
+
+{% block content %}
+    <div class = "body-template">
+        <!--Menu-->
+        {% include 'menu.tmpl' %}
+        <section id="content-wrapper">  
+            <div class = "dashboard-content" align = "center">
+                <div class = "row">
+                    <div class = "col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                        <div id = "scheme_description">
+                            <div class="panel-body">
+                                
+                                {% if items.scheme.state == items.states.staged %}
+                                    <ul class="line-graph titles">
+                                        <li class="unit size1of3">
+                                            <ul class="line">
+                                                Initiated
+                                            </ul>
+                                        </li>
+                                        <li class="unit size1of3">
+                                            <ul class="line">
+                                                Reviewed
+                                            </ul>
+                                        </li>
+                                        <li class="unit size1of3">
+                                            <ul class="line">
+                                                Approved
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                    <ul class="line-graph">
+                                        <li class="unit size1of3">
+                                            <ul class="line">
+                                                <li class="process-step processed-continuous"></li>
+                                            </ul>
+                                        </li>
+                                        <li class="unit size1of3">
+                                            <ul class="line">
+                                                <li class="process-step inactive"></li>
+                                            </ul>
+                                        </li>
+                                        <li class="unit size1of3">
+                                            <ul class="line">
+                                                <li class="process-step inactive"></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                    <div class="scheme-state-details">
+                                        <div class="granular-info-box" style="display: none;">
+                                            <div class="arrow"></div>
+                                            <div class="details-content">
+                                                <!-- <p class="scheme-title">Scheme Name 001</p>
+                                                <p class="notification-info">Notification received from Mr. A</p> -->
+                                                <ul class="granular-info">
+                                                    <li class="unit "><span class="start-date-label info-label">Start Date: </span><span class="start-date info-data">{{items.scheme.start_date}}</span></li>
+                                                    <li class="unit "><span class="end-date-labe info-label">End Date: </span><span class="end-date info-data">{{items.scheme.end_date}}</span></li>
+                                                    <li class="unit "><span class="forecast-amount-label info-label">Forecast Amount: </span><span class="forecast-amount info-data">-</span></li>
+                                                    <li class="unit "><span class="initiated-label info-label">Created on: </span><span class="initiated-date info-data">{{items.scheme.created_at}}</span></li>
+                                                    <li class="unit "><span class="initiator-label info-label">To be Initiated by: </span><span class="initiated-by info-data">Mr. S</span></li>
+                                                    <li class="unit "><span class="reviewer-label info-label">To be Reviewed by: </span><span class="reviewed-by info-data">Mr. D</span></li>
+                                                    <li class="unit "><span class="status-label info-label">Status: </span><span class="status info-data">Saved as a Draft</span></li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                {% elseif items.scheme.state == items.states.updateRequested %}
+                                    <ul class="line-graph titles">
+                                        <li class="unit size1of3">
+                                            <ul class="line">
+                                                Update Requested
+                                            </ul>
+                                        </li>
+                                        <li class="unit size1of3">
+                                            <ul class="line">
+                                                To Be Reviewed
+                                            </ul>
+                                        </li>
+                                        <li class="unit size1of3">
+                                            <ul class="line">
+                                                To Be Approved
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                    <ul class="line-graph">
+                                        <li class="unit size1of3">
+                                            <ul class="line">
+                                                <li class="process-step processed-continuous"></li>
+                                            </ul>
+                                        </li>
+                                        <li class="unit size1of3">
+                                            <ul class="line">
+                                                <li class="process-step inactive"></li>
+                                            </ul>
+                                        </li>
+                                        <li class="unit size1of3">
+                                            <ul class="line">
+                                                <li class="process-step inactive"></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                    <div class="scheme-state-details">
+                                        <div class="granular-info-box" style="display: none;">
+                                            <div class="arrow"></div>
+                                            <div class="details-content">
+                                                <!-- <p class="scheme-title">Scheme Name 001</p>
+                                                <p class="notification-info">Notification received from Mr. A</p> -->
+                                                <ul class="granular-info">
+                                                    <li class="unit "><span class="start-date-label info-label">Start Date: </span><span class="start-date info-data">{{items.scheme.start_date}}</span></li>
+                                                    <li class="unit "><span class="end-date-labe info-label">End Date: </span><span class="end-date info-data">{{items.scheme.end_date}}</span></li>
+                                                    <li class="unit "><span class="forecast-amount-label info-label">Forecast Amount: </span><span class="forecast-amount info-data">-</span></li>
+                                                    <li class="unit "><span class="initiated-label info-label">Created on: </span><span class="initiated-date info-data">{{items.scheme.created_at}}</span></li>
+                                                    <li class="unit "><span class="initiator-label info-label">Initiated by: </span><span class="initiated-by info-data">{{items.scheme.initiator.name}}</span></li>
+                                                    <li class="unit "><span class="initiator-label info-label">To be Updated by: </span><span class="initiated-by info-data">{{items.scheme.initiator.name}}</span></li>
+                                                    <li class="unit "><span class="reviewer-label info-label">To be Reviewed by: </span><span class="reviewed-by info-data">{{items.scheme.reviewer.name}}</span></li>
+                                                    <li class="unit "><span class="reviewer-label info-label">To be Approved by: </span><span class="reviewed-by info-data">{{items.scheme.approver.name}}</span></li>
+                                                    <li class="unit "><span class="status-label info-label">Status: </span><span class="status info-data">Saved as a Draft</span></li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                {% elseif items.scheme.state == items.states.initiated %}
+                                    <ul class="line-graph titles">
+                                        <li class="unit size1of3">
+                                            <ul class="line">
+                                                Initiated
+                                            </ul>
+                                        </li>
+                                        <li class="unit size1of3">
+                                            <ul class="line">
+                                                To Be Reviewed
+                                            </ul>
+                                        </li>
+                                        <li class="unit size1of3">
+                                            <ul class="line">
+                                                To Be Approved
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                    <ul class="line-graph">
+                                        <li class="unit size1of3">
+                                            <ul class="line">
+                                                <li class="process-step processed"></li>
+                                            </ul>
+                                        </li>
+                                        <li class="unit size1of3">
+                                            <ul class="line">
+                                                <li class="process-step processed-continuous"></li>
+                                            </ul>
+                                        </li>
+                                        <li class="unit size1of3">
+                                            <ul class="line">
+                                                <li class="process-step inactive"></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                    <div class="scheme-state-details">
+                                        <div class="granular-info-box" style="display: none;">
+                                            <div class="arrow"></div>
+                                            <div class="details-content">
+                                                <!-- <p class="scheme-title">Scheme Name 001</p>
+                                                <p class="notification-info">Notification received from Mr. A</p> -->
+                                                <ul class="granular-info">
+                                                    <li class="unit "><span class="start-date-label info-label">Start Date: </span><span class="start-date info-data">{{items.scheme.start_date}}</span></li>
+                                                    <li class="unit "><span class="end-date-labe info-label">End Date: </span><span class="end-date info-data">{{items.scheme.end_date}}</span></li>
+                                                    <li class="unit "><span class="forecast-amount-label info-label">Forecast Amount: </span><span class="forecast-amount info-data">-</span></li>
+                                                    <li class="unit "><span class="initiated-label info-label">Created on: </span><span class="initiated-date info-data">{{items.scheme.created_at}}</span></li>
+                                                    <li class="unit "><span class="initiator-label info-label">Initiated by: </span><span class="initiated-by info-data">Mr. S</span></li>
+                                                    <li class="unit "><span class="reviewed-label info-label">Initiated on: </span><span class="reviewed-date info-data">-</span></li>
+                                                    <li class="unit "><span class="reviewer-label info-label">To be Reviewed by: </span><span class="reviewed-by info-data">Mr. D</span></li>
+                                                    <li class="unit "><span class="status-label info-label">Status: </span><span class="status info-data">Initiated</span></li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                {% elseif items.scheme.state == items.states.reviewed %}
+                                    <ul class="line-graph titles">
+                                        <li class="unit size1of3">
+                                            <ul class="line">
+                                                Initiated
+                                            </ul>
+                                        </li>
+                                        <li class="unit size1of3">
+                                            <ul class="line">
+                                                Reviewed
+                                            </ul>
+                                        </li>
+                                        <li class="unit size1of3">
+                                            <ul class="line">
+                                                To Be Approved
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                    <ul class="line-graph">
+                                        <li class="unit size1of3">
+                                            <ul class="line">
+                                                <li class="process-step processed"></li>
+                                            </ul>
+                                        </li>
+                                        <li class="unit size1of3">
+                                            <ul class="line">
+                                                <li class="process-step processed"></li>
+                                            </ul>
+                                        </li>
+                                        <li class="unit size1of3">
+                                            <ul class="line">
+                                                <li class="process-step processed-continuous"></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                    <div class="scheme-state-details">
+                                        <div class="granular-info-box" style="display: none;">
+                                            <div class="arrow"></div>
+                                            <div class="details-content">
+                                                <!-- <p class="scheme-title">Scheme Name 001</p>
+                                                <p class="notification-info">Notification received from Mr. A</p> -->
+                                                <ul class="granular-info">
+                                                    <li class="unit "><span class="start-date-label info-label">Start Date: </span><span class="start-date info-data">{{items.scheme.start_date}}</span></li>
+                                                    <li class="unit "><span class="end-date-labe info-label">End Date: </span><span class="end-date info-data">{{items.scheme.end_date}}</span></li>
+                                                    <li class="unit "><span class="forecast-amount-label info-label">Forecast Amount: </span><span class="forecast-amount info-data">-</span></li>
+                                                    <li class="unit "><span class="initiated-label info-label">Created on: </span><span class="initiated-date info-data">{{items.scheme.created_at}}</span></li>
+                                                    <li class="unit "><span class="initiator-label info-label">Initiated by: </span><span class="initiated-by info-data">Mr. S</span></li>
+                                                    <li class="unit "><span class="reviewed-label info-label">Reviewed on: </span><span class="reviewed-date info-data">21 Sept 2013</span></li>
+                                                    <li class="unit "><span class="reviewer-label info-label">Reviewed by: </span><span class="reviewed-by info-data">Mr. D</span></li>
+                                                    <li class="unit "><span class="status-label info-label">Status: </span><span class="status info-data">Reviewd</span></li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                {% elseif items.scheme.state == items.states.approved %}
+                                    <ul class="line-graph titles">
+                                        <li class="unit size1of3">
+                                            <ul class="line">
+                                                Initiated
+                                            </ul>
+                                        </li>
+                                        <li class="unit size1of3">
+                                            <ul class="line">
+                                                Reviewed
+                                            </ul>
+                                        </li>
+                                        <li class="unit size1of3">
+                                            <ul class="line">
+                                                Approved
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                    <ul class="line-graph">
+                                        <li class="unit size1of3">
+                                            <ul class="line">
+                                                <li class="process-step processed"></li>
+                                            </ul>
+                                        </li>
+                                        <li class="unit size1of3">
+                                            <ul class="line">
+                                                <li class="process-step processed"></li>
+                                            </ul>
+                                        </li>
+                                        <li class="unit size1of3">
+                                            <ul class="line">
+                                                <li class="process-step processed"></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                    <div class="scheme-state-details">
+                                        <div class="granular-info-box" style="display: none;">
+                                            <div class="arrow"></div>
+                                            <div class="details-content">
+                                                <!-- <p class="scheme-title">Scheme Name 001</p>
+                                                <p class="notification-info">Notification received from Mr. A</p> -->
+                                                <ul class="granular-info">
+                                                    <li class="unit "><span class="start-date-label info-label">Start Date: </span><span class="start-date info-data">{{items.scheme.start_date}}</span></li>
+                                                    <li class="unit "><span class="end-date-labe info-label">End Date: </span><span class="end-date info-data">{{items.scheme.end_date}}</span></li>
+                                                    <li class="unit "><span class="forecast-amount-label info-label">Forecast Amount: </span><span class="forecast-amount info-data">-</span></li>
+                                                    <li class="unit "><span class="initiated-label info-label">Created on: </span><span class="initiated-date info-data">{{items.scheme.created_at}}</span></li>
+                                                    <li class="unit "><span class="initiator-label info-label">Initiated by: </span><span class="initiated-by info-data">Mr. S</span></li>
+                                                    <li class="unit "><span class="reviewed-label info-label">Reviewed on: </span><span class="reviewed-date info-data">21 Sept 2013</span></li>
+                                                    <li class="unit "><span class="reviewer-label info-label">Reviewed by: </span><span class="reviewed-by info-data">Mr. D</span></li>
+                                                    <li class="unit "><span class="status-label info-label">Status: </span><span class="status info-data">Approved</span></li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                {% endif %}
+
+                                    
+                            </div>
+                        </div>
+                    </div>
+                    <div class = "col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                        <div id = "scheme_timeline">
+                            <ul class="cbp_tmtimeline">
+                                <li>
+                                    <time class="cbp_tmtime" datetime="2013-04-10 18:30"><span>4/10/13</span> <span>18:30</span></time>
+                                    <div class="cbp_tmicon cbp_tmicon-phone"></div>
+                                    <div class="cbp_tmlabel">
+                                        <h2>Ricebean black-eyed pea</h2>
+                                        <p>Winter purslane courgette pumpkin quandong komatsuna fennel green bean cucumber watercress. Pea sprouts wattle seed rutabaga okra yarrow cress avocado grape radish bush tomato ricebean black-eyed pea maize eggplant. Cabbage lentil cucumber chickpea sorrel gram garbanzo plantain lotus root bok choy squash cress potato summer purslane salsify fennel horseradish dulse. Winter purslane garbanzo artichoke broccoli lentil corn okra silver beet celery quandong. Plantain salad beetroot bunya nuts black-eyed pea collard greens radish water spinach gourd chicory prairie turnip avocado sierra leone bologi.</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+{% endblock %}
+
+{% block footer %}{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+    <script type="text/javascript" src={{resolvePath("akzo_menu.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("jquery.multi-select.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("scheme_description.js")}}></script>
+{% endblock %}

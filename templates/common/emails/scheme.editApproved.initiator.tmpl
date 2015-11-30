@@ -1,0 +1,13 @@
+
+Dear {{ items.initiatorName }},
+
+An approved scheme created by you at {{ items.scheme.created_at }} has been reopened for editing by you. Once you edit and initiate the scheme it will be sent for review to {{ items.reviewerName }} ( {{ items.reviewerCode }} ) and for subsequent approval to {{ items.approverName }} ( {{ items.approverCode }} ). Please login into the Discounts Management Application & navigate to the "Schemes Pending Approval" section on your Dashboard to view its status.
+
+You will be notified as and when any action has been performed on this scheme.
+
+{% include "emails/basicSchemeDetails.tmpl" %}
+
+Regards,
+Discounts Management Portal Administrator
+{{ items.url }}
+

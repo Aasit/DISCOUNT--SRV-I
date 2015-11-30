@@ -1,0 +1,475 @@
+{% extends "base.html" %}
+
+{% block title %}Create Scheme{% endblock %}
+
+{% block header %} 
+    {% include 'header.tmpl' %} 
+{% endblock %}
+
+{% block content %}
+    <div class = "body-template">
+        <!--Menu-->
+        {% include 'menu.tmpl' %}
+        <div id="modelDetails" style="display: none;" data-model="{{items.schemeData}}" data-state = "{{items.state}}" data-id = "{{items.schemeCode}}" data-user = "{{items.userType}}"></div>
+        <section id="content-wrapper">
+            <div>
+                <a id="schemePDF1" class="button-simple pull-right margin-bottom-20 {% if items.schemeCode == false %} disabled {% endif %}" {% if items.schemeCode %} href="scheme/generatePDF?schemeId={{items.schemeCode}}&rand_token={{items.nonce}}" {%endif %}>PDF</a>
+            </div>
+            
+            <div class="dashboard-content">
+                <div class="margin-bottom-20">
+                    {% if items.transitions is not empty %}
+                    <button class="button-simple n5-template-rfloat" id="show-transitions">Show Transitions</button>
+                    {% endif %}
+                    <button class="button-simple" id="scheme-from-existing">Copy Existing Scheme</button>
+                </div>
+                <div id="scheme-details"></div>
+                <div id = "dealer-attributes"></div>
+                
+                <div id="qualifying-conditions">
+                    <div class = "qc-satisfy-container">
+                        <span class="n5-ui-qc-right-btn">
+                            <div class="n5-radio-toolbar">
+                                <input type="radio" name="satisfyAll" id = "radio_qca" class = "satisfyAll" value="Satisfy All" checked>
+                                <label for="radio_qca">Satisfy All</label>
+                                <input type="radio" name="satisfyAll" id = "radio_qco" class = "satisfyOne" value="Satisfy Any One">
+                                <label for="radio_qco">Satisfy Any One</label> 
+                            </div>
+                        </span>
+                    </div>
+                    <div id = "n5-qc-list">
+
+                    </div>
+                    <div  id="n5-add-Q-conditions" align="center">  
+                        <button class="qc-add-condition button-simple">Add Qualifying Condition</button>
+                    </div>	
+                </div>
+
+                <div id="n5-ui-template-add-temp-qc" style="margin-bottom:20px;">
+                    {% if (items.userType == "initiator") and ((items.state == items.defaultStates.staged) or (items.state == items.defaultStates.updateRequested)) %}
+                        <div class="page-footer page-buttons" style = "display: none;">
+                            <button id="checkTemplateData" class="page-scheme-submit">Submit</button>
+                            <button id="updateTemplateData" class="page-scheme-submit">Update</button>
+                            <button id="sendTemplateData" class="page-scheme-submit">Send</button>
+                        </div>
+                    {% elseif (items.userType == "reviewer") and (items.state == items.defaultStates.initiated) %}
+                        <div class="page-footer page-buttons" style = "display: none;">
+                            <button id="checkTemplateData" class="page-scheme-submit">Submit</button>
+                            <button id="updateTemplateData" class="page-scheme-submit">Update</button>
+                            <button id="sendTemplateData" class="page-scheme-submit">Send</button>
+                        </div>
+                    {% elseif (items.userType == "approver") and (items.state == items.defaultStates.reviewed) %}
+                        <div class="page-footer page-buttons" style = "display: none;">
+                            <button id="checkTemplateData" class="page-scheme-submit">Submit</button>
+                            <button id="updateTemplateData" class="page-scheme-submit">Update</button>
+                            <button id="sendTemplateData" class="page-scheme-submit">Send</button>
+                        </div>
+                    {% elseif items.userType == "creator" %}
+                        <div class="page-footer page-buttons" style = "display: none;">
+                            <button id="checkTemplateData" class="page-scheme-submit">Submit</button>
+                            <button id="updateTemplateData" class="page-scheme-submit">Update</button>
+                            <button id="sendTemplateData" class="page-scheme-submit">Send</button>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="n5-popup" style="display: none" id="n5-template-popup">
+                    <div class="n5-template-popup-header">
+                        <i class="modal_close fa fa-times-circle-o fa-lg"></i>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12" style="margin-top: 20px;">
+                            <div class="col-md-2">
+                                <button id="n5-ui-template-modal-inBill" class="button-simple col-md-10">inBill</button>
+                            </div>
+                            <div class="col-md-2">
+                                <button id="n5-ui-template-modal-ppi" class="button-simple col-md-10">PPI</button>
+                            </div>
+                            <div class="col-md-2">
+                                <button id="n5-ui-template-modal-pri" class="button-simple col-md-10">PRI</button>
+                            </div>
+                            <div class="col-md-2">
+                                <button id="n5-ui-template-modal-slab" class="button-simple col-md-10">SLAB</button>
+                            </div>
+                            <div class="col-md-2">
+                                <button id="n5-ui-template-modal-newSlab" class="button-simple col-md-10">NEWSLAB</button>
+                            </div>
+                            <div class="col-md-2">
+                                <button id="n5-ui-template-modal-newPpi" class="button-simple col-md-10">NEWPPI</button>
+                            </div>
+                            <div class="col-md-2" style="margin-top: 10px;">
+                                <button id="n5-ui-template-modal-slabv3" class="button-simple col-md-10">SLABV3</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4" style="margin-top: 20px;">
+                            <button id="copyTemplate" class="button-simple col-md-12">Copy Template</button>
+                        </div>
+                        <div class="col-md-8 template-list" style="margin-top: 20px;">
+                            <select class="col-md-4 copy-template-select select-dropdown n5-ui-sc-label-sub" id="listTemplate">
+                                <option>Select Template ..</option>
+                            </select>
+
+                            <select class="col-md-4 copy-template-select select-dropdown n5-ui-sc-label-sub" id="copiesTemplate">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                                <option>6</option>
+                                <option>7</option>
+                                <option>8</option>
+                                <option>9</option>
+                                <option>10</option>
+                            </select>
+
+                            <button id="copyTemplateAction" class="button-simple col-md-2 col-md-offset-1">Copy</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="n5-scheme-popup" class="n5-popup" style = "display: none">
+                    <div class="n5-template-popup-header">
+                        <i class="modal_close fa fa-times-circle-o fa-lg"></i>
+                    </div>
+                    <div class = "row">
+                        <div class = "col-lg-6 col-sm-12 col-xs-12">
+                            <div id = "active-schemes" style = "max-height: 250px">
+                                {% include 'copy_activeSchemes.tmpl' %}
+                            </div>
+                            <div id = "draft-schemes" style = "max-height: 250px">
+                                {% include 'copy_draftSchemes.tmpl' %}
+                            </div>
+                        </div>
+                        <div class = "col-lg-6 col-sm-12 col-xs-12">
+                            <div id = "schemes-pending-approval" style = "max-height: 250px">
+                                {% include 'copy_schemesPendingApproval.tmpl' %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="n5-slab-qc-popup" class = "n5-popup" style = "display: none">
+                    <div id="n5-template-popup-header">
+                        <i class="modal_close fa fa-times-circle-o fa-lg"></i>
+                    </div>
+                    <div class = "row">
+                        <div class = "col-lg-12 col-sm-12 col-xs-12" id = "slab-qc-container">
+                            
+                        </div>
+
+                        <button class = "button-simple button-right" id = "add-qc-inslab">Add Qualifying Condition</button>
+                        <button class = "button-simple button-right" id = "add-qc-inslab-done" style = "margin-right: 10px" >Done</button>
+                        <button class = "button-simple button-right" style = "margin-right: 10px" id = "remove-qc-slab">Delete</button>
+                        
+                    </div>
+                </div>
+
+                <div id="n5-timeline-popup" class="n5-popup" style = "display: none">
+                    <div class="n5-template-popup-header">
+                        <i class="modal_close fa fa-times-circle-o fa-lg"></i>
+                    </div>
+                    <div class = "row">
+                        <div class = "col-lg-12 col-sm-12 col-xs-12 timeline-container">
+                            <ul class="cbp_tmtimeline">
+                                {% for item in items.transitions %}
+                                {% if loop.last %}
+                                    <li>
+                                        <time class="cbp_tmtime" datetime="2013-04-10 18:30">
+                                        <span>{{ item.date }}</span> <span>{{ item.time }}</span></time>
+                                        <div class="cbp_tmicon tooltip" tip-title = "{{ items.stateNamesMap[item.before_state].title }}"><i class = "fa fa-{{ items.stateNamesMap[item.before_state].icon }}"></i></div>
+                                        <div class="cbp_tmlabel">
+                                            <h2>{{ items.transitionNamesMap[item.type].name }}</h2>
+                                            <p>{{ item.comments }}</p>
+                                        </div>
+                                        <div class="cbp_tmicon last tooltip" tip-title = "{{ items.stateNamesMap[item.after_state].title }}"><i class = "fa fa-{{ items.stateNamesMap[item.after_state].icon }}"></i></div>
+                                    </li>
+                                {% else %}
+                                    <li>
+                                        <time class="cbp_tmtime" datetime="2013-04-10 18:30">
+                                        <span>{{ item.date }}</span> <span>{{ item.time }}</span></time>
+                                        <div class="cbp_tmicon tooltip" tip-title = "{{ items.stateNamesMap[item.before_state].title }}"><i class = "fa fa-{{ items.stateNamesMap[item.before_state].icon }}"></i></div>
+                                        <div class="cbp_tmlabel">
+                                            <h2>{{ items.transitionNamesMap[item.type].name }}</h2>
+                                            <p>{{ item.comments }}</p>
+                                        </div>
+                                    </li>
+                                {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Exclusion Modal -->
+                <div id="n5-product-select-popup" class="n5-popup" style = "display: none; top: 50px;">
+                    <div class="n5-template-popup-header">
+                        <i class="modal_close fa fa-times-circle-o fa-lg"></i>
+                    </div>
+                    <div class = "row">
+                        <div class = "col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div>Select Items</div>
+                            <input type="text" id="selectInclude" />
+                        </div>
+                        <!-- <div class = "col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <div>Excluded Products</div>
+                            <input type="text" id="selectExclude" />
+                        </div> -->
+                    </div>
+                    <div class = "row">
+                        <div class = "col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10px;">
+                            <div class="col-md-8" style="padding: 0 !important;">
+                                Result
+                                <button class = "highlight-button product-manipulate-all">Include All</button>
+                                <button class = "highlight-button product-manipulate-all">Exclude All</button>
+                            </div>
+                            <div id="selectResult" class="col-md-8 prod-exclusion-ul"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button class="btn col-md-2 col-md-offset-9" id="prodExclusionSubmit">Submit</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Product Exlusion Modal -->
+
+                <div class="comment-popup" id="n5-comment-popup" style="display: none;">
+                    <div class="n5-template-popup-header">
+                        <i class="modal_close fa fa-times-circle-o fa-lg"></i>
+                    </div>
+                    <div class="row">
+                        <textarea placeholder="Comment" id="n5-comment-box"></textarea>
+                    </div>
+                    <div class="row">
+                        <button class="btn btn-primary pull-right" id="n5-comment-submit">Submit</button>
+                    </div>
+                </div>
+
+                <script type = "text/template" id = "schemeHeader">
+                    <span class="n5-ui-sc-col col-lg-4 col-md-6 col-sm-12 col-xs-12" tip-title="Cannot be Empty">
+                        <label class="n5-ui-sc-label" for="templateno">Scheme Name</label>
+                        <input class="n5-template-box scheme-name" placeholder="Enter Scheme Name" type="text" value = "<%= schemeHeader.name %>"/>
+                        <!-- <div class="n5-template-sd-temno-label" name="templateno">XYZVVN</div> -->
+                    </span>
+
+                    <span class="n5-ui-sc-col col-lg-4 col-md-6 col-sm-12 col-xs-12">
+                        <label for="segment" class="n5-ui-sc-label">Segment</label>
+                        <span  id="n5-segment-type" name="segment">
+                            <select multiple class = "n5-segment-select">
+                                {% for item in items.segmentTypes %}
+                                    <option value="{{item.attr.value}}" <% if(schemeHeader.segment){ if (schemeHeader.segment.indexOf("{{item.attr.value}}") >= 0) { %>selected<% }} %> >{{item.textStr}}</option>
+                                {% endfor %}
+                            </select>
+                        </span>
+                    </span>
+
+                    <span class="n5-ui-sc-col col-lg-4 col-md-6 col-sm-12 col-xs-12">
+                        <label for="first_name" class="n5-ui-sc-label">Scheme Type</label>
+                        <span id="n5-scheme-type">
+                            <select class = "n5-schemetype-select" >
+                                {% for item in items.schemeTypes %}
+                                    <option value="{{item.attr.value}}" <% if ("{{item.textStr}}" == schemeHeader.type) { %>selected<% } %> >{{item.textStr}}</option>
+                                {% endfor %}
+                            </select>
+                        </span>
+                    </span>
+
+                    <span class="n5-ui-sc-col col-lg-4 col-md-6 col-sm-12 col-xs-12" tip-title = "Cannot be Empty">
+                        <label for="first_name" class="n5-ui-sc-label">Sales Geography</label>
+                        <span  id="n5-sales-geography" >
+                            <button class="n5-template-box geography-select">Select Geography</button>
+                        </span>
+                    </span>
+
+                    <span class="n5-ui-sc-col col-lg-4 col-md-6 col-sm-12 col-xs-12">
+                        <label for="first_name" class="n5-ui-sc-label">Sales Period</label>
+                        <div class="input-prepend input-group">
+                            <span class="add-on input-group-addon">
+                                <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                            </span>
+                            <input type="text" name="sales-period" id="sales-period" class="form-control" placeholder = "Select Sales Period" readonly /> 
+                        </div>      
+                    </span>
+
+                    <span class="n5-ui-sc-col col-lg-4 col-md-6 col-sm-12 col-xs-12">
+                        <label for="first_name" class="n5-ui-sc-label">Dealers Attribute</label>
+                        <span  id="n5-dealers-attribute">
+                            <Button class = "dealer-attr-button n5-template-box"> Update Dealer Attributes</Button>
+                        </span>
+                    </span>
+
+                    <span class = "n5-ui-sc-col-sp-cor col-lg-6 col-md-8 col-sm-12 col-xs-12">
+                        <label for="termsConditions" class="n5-ui-sc-label">Terms and Conditions</label>
+                        <textarea class = "input-terms-conditions" ><% if (typeof schemeHeader.terms !== "undefined"){ %><%= schemeHeader.terms%><%}%></textarea>    
+                    </span>
+
+                    <div id="n5-dealer-attr-popup" class = "n5-popup n5-dealer-attr" style = "display: none">
+                        <div id="n5-template-popup-header">
+                            <i class="modal_close fa fa-times-circle-o fa-lg"></i>
+                        </div>
+                        <div class = "row">
+                            
+                            {% for attribute in items.dealerTypes %}
+                                <div class = "col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    <div class = "dealertype-select-container">
+                                        <div class = "dealertype-select-title"> {{attribute.name}} </div>
+                                        <div class = "dealertype-select-content" data-value = "{{attribute.value}}">
+                                            {% for val in attribute.children %}
+                                                <div class = "dealertype-value-container" data-value = "{{val.attr.value}}">
+                                                    <button class = "highlight-button dealertype-include-button tooltip noleft
+                                                    <% if(schemeHeader.dealerAttributes){
+                                                        if (_.findWhere(
+                                                            schemeHeader.dealerAttributes, 
+                                                            {"id": "{{attribute.value}}"+"{{val.attr.value}}"+"false"})
+                                                        ) { %>selected<% }} %> " tip-title = "Include"><i class = "fa fa-plus"></i></button>
+
+                                                    <button class = "highlight-button dealertype-exclude-button tooltip noleft
+                                                    <% if(schemeHeader.dealerAttributes){
+                                                        if (_.findWhere(
+                                                            schemeHeader.dealerAttributes, 
+                                                            {"id": "{{attribute.value}}"+"{{val.attr.value}}"+"true"})
+                                                        ) { %>selected<% }} %> " tip-title = "Exclude"><i class = "fa fa-minus"></i></button>
+                                                    <div class = "dealertype-value" >{{val.textStr}}</div>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            
+                        </div>
+                    </div>
+
+                </script>
+
+                {% include "ppiTemplate.tmpl" %}
+
+                {% include "newPpiTemplate.tmpl" %}
+
+                {% include "slabTemplate.tmpl" %}
+
+                {% include "slabV3Template.tmpl" %}
+
+                {% include "priTemplate.tmpl" %}
+
+                {% include "inBillTemplate.tmpl" %}
+
+                {% include "newSlabTemplate.tmpl" %}
+
+                <script type = "text/template" id="n5-ui-template-qualCond-template">
+                    <div class="n5-template-qc-conditions">
+                        <div class="n5-ui-qc-btn-par-close">
+                            <i class="n5-tempate-close-condition fa fa-times-circle-o pull-right">
+                            </i>
+                        </div>
+                        <div class="n5-template-qc-conditions-row">
+                            <span class="n5-template-qc-conditions-col" >
+                                <select class = "n5-qctype-select" >
+                                    {% for item in items.qcBasevalue %}
+                                        <option value="{{item.attr.value}}" <% if(typeof name !== "undefined" && typeof type !== "undefined"){ if ("{{item.attr.value}}".toUpperCase() == name + " " + type) { %>selected<% }} %>>{{item.textStr}}</option>
+                                    {% endfor %}
+                                </select>
+                            </span>
+                            <span class="n5-template-qc-conditions-col">
+                                <select class = "n5-operator-select">
+                                    {% for item in items.qcOperator %}
+                                        <option value="{{item.attr.value}}" <% if(typeof op !== "undefined"){ if ("{{item.attr.value}}" == op) { %>selected<% }} %> >{{item.textStr}}</option>
+                                    {% endfor %}
+                                </select>
+                            </span>
+                            <span class = "n5-input-value-container">
+                                <span class="n5-template-qc-conditions-col" tip-title = "Value should be a Number" >
+                                    <input class="qc-template-box n5-ui-qc-input-value" placeholder="Value" type="text" value = <% if (typeof val !== "undefined"){ %>"<%= val %>" <% } %> />
+                                </span>
+                            </span>
+                            <span class = "n5-input-datepicker-container">
+                                <span class="n5-template-qc-conditions-col">
+                                        <span class="add-on input-group-addon">
+                                            <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                                        </span>
+                                        <input type="text" name="sales-period" class="qc-template-box n5-ui-qc-input-datepicker" readonly placeholder = "Select Period" /> 
+                                </span>
+                                <span class="n5-template-qc-conditions-col" tip-title="Cannot be Empty">
+                                    <span class="n5-qc-multi-check">
+                                        <button class = "qc-template-box input-product-select qc-product-select">Update Products</button>
+                                    </span>
+                                </span>
+                            </span>
+                            <span class="n5-template-qc-conditions-col" >
+                                <span id="n5-add-percentage1" tip-title = "Should lie in 1~100">
+                                    <input class="qc-template-box n5-ui-qc-input-payout" placeholder="Payout Percentage %" type="text" value = <% if (typeof payoutCondition !== "undefined"){ %>"<%= payoutCondition %>" <% } %> />
+
+                                </span>
+                            </span>
+                            <div class = "n5-template-qc-segment-checkbox">
+
+                            </div>
+                        </div>
+                    </div>
+
+                </script>
+            </div>
+        </section>
+    </div>
+
+{% endblock %}
+
+{% block footer %}{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+
+    <!-- External libs -->
+    <script type="text/javascript" src={{resolvePath("moment.min.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("daterangepicker.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("native5.select2.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("underscore.min.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("backbone.min.js")}}></script>
+    <!-- n5 wrappers -->
+    <script type="text/javascript" src={{resolvePath("native5.ui.card.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("native5.ui.modal.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("native5.ui.tab.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("native5.ui.table.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("native5.ui.select.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("native5.ui.loader.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("native5.notifications.js")}}></script>
+    <!-- akzo wrappers -->
+    <script type="text/javascript" src={{resolvePath("akzo.ui.select.multiple.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("akzo.ui.exclusionSelect.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("akzo.ui.ppiTemplate.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("akzo.ui.newPpiTemplate.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("akzo.ui.inBillTemplate.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("akzo.ui.newSlabTemplate.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("akzo.ui.priTemplate.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("akzo.ui.slabTemplate.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("akzo.ui.slabV3Template.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("akzo_menu.js")}}></script>
+    <script type="text/javascript">
+        window.defaultStates = {
+            "staged": "{{items.defaultStates.staged}}",
+            "initiated": "{{items.defaultStates.initiated}}",
+            "updateRequested": "{{items.defaultStates.updateRequested}}",
+            "reviewed": "{{items.defaultStates.reviewed}}",
+            "approved": "{{items.defaultStates.approved}}"
+        };
+    </script>
+
+
+    <script type="text/javascript" src={{resolvePath("models_default.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("model.schemeDetail.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("model.qualifyingCondition.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("model.qualifyingConditions.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("model.templateModel.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("model.slabView.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("model.slabV3View.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("model.ppiView.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("model.newPpiView.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("model.priView.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("model.inBillView.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("model.newSlabView.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("template.js")}}></script>
+
+    
+{% endblock %}

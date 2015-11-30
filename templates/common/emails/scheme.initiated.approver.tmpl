@@ -1,0 +1,13 @@
+
+Dear {{ items.approverName }},
+
+A new scheme was submitted at {{ items.scheme.created_at }} by {{ items.initiatorName }} ( {{ items.initiatorCode }} ) for which you are the approver. The scheme is currently under review by {{ items.reviewerName }} ( {{ items.reviewerCode }} ). You will be intimated as soon as it has been reviewed and is awaiting your approval. You may also login into the Discounts Management Application & navigate to the "Schemes Pending Approval" section on your Dashboard to view its status.
+
+You will be notified as and when any action has been performed on this scheme.
+
+{% include "emails/basicSchemeDetails.tmpl" %}
+
+Regards,
+Discounts Management Portal Administrator
+{{ items.url }}
+

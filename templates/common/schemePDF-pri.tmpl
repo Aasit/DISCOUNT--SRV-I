@@ -1,0 +1,74 @@
+{% if items.schemeData.priTpls| length > 0 %}
+<div class="pdf-content js-pri">
+    <hr />
+    {% for template in items.schemeData.priTpls %}
+        <h2><b>{{templateCounter}}. PRI Templates - {{template.priDnI.templateName}}</b></h2>
+        {% set templateCounter = templateCounter + 1 %}
+
+        <p class="section"><span><b>Applicable for Segments:</b></span> <span class="right"> 
+            {% for segment in template.priDnI.segment %}
+                {{segment}} {% if not loop.last%},{% endif %}
+            {% endfor %}
+        </span></p>
+
+        <p class="section"><span>
+            <b>Scheme Products:</b>
+            <span class="right">
+                {% for product in template.priDnI.priProducts %}
+                    {{product.product.name}} {% if not loop.last%}, {% endif %}
+                {% endfor %}
+            </span>
+        </span></p>
+
+        <p>{% if template.priDnI.projectSku %}Including{% else %}Excluding{% endif %} Project SKU</p>
+
+        <p class="section"><span>
+            <b>Minimum {% if template.priDnI.priType == "VOLUME" %} Volume (Ltrs) {% else %} Value (Rs) {% endif %} each Product :</b>
+            <span class="right">{{template.priDnI.priProducts[0].value}}</span>
+        </span></p>
+
+        <p class="section"><span>
+            <b>Scheme Period: {{1}}</b>
+            <span class="right">{{template.priDnI.period.startDate}} to {{template.priDnI.period.endDate}}</span>
+        </span></p>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Sl. No</th>
+                    <th>No of Products</th>
+                    <th>Payout</th>
+                    <th>Payout Type</th>
+                    <th>Payout Description</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for row in template.priDnI.priPayouts %}
+                    <tr>
+                        <td>{{loop.index}}</td>
+                        <td>{{row.numProducts}}</td>
+                        <td>{{row.payoutValue}}</td>
+                        <td>{{row.payoutType}}</td>
+                        <td>{{row.payoutDescription}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class = "pdf-qualifying-conditions">
+            <h3>{{"Qualifying Conditions:"| upper}}</h3>
+            <h3>Slab Qualifying Conditions:</h3>
+            {% for row in template.priDnI.priPayouts %}
+                {% if row.qcList is defined  and row.qcList is not empty%}
+                    {% include "schemepdf_QC.tmpl" with {'qcList': row.qcList} %}
+                {% endif %}
+            {% endfor %}
+            {% if template.qcList|length > 0 %}
+                <h3>Template Qualifying Conditions:</h3>
+                {% include "schemepdf_QC.tmpl" with {'qcList': template.qcList} %}
+            {% endif %}
+                
+        </div>
+    {% endfor %}
+</div>
+{% endif %}

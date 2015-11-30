@@ -1,0 +1,97 @@
+{% if items.schemeData.ppiTpls| length > 0 %}
+<div class="pdf-content js-ppi">
+    <hr />
+    {% for template in items.schemeData.ppiTpls %}
+        <h2><b>{{templateCounter}}. {% if template.ppiDnI.repeatData.rowRepeat %}New{%endif%} PPI Templates - {{template.ppiDnI.templateName}}</b></h2>
+        {% set templateCounter = templateCounter + 1 %}
+
+        <p class="section"><span><b>Applicable for Segments:</b></span> <span class="right"> 
+            {% for segment in template.ppiDnI.segment %}
+                {{segment}} {% if not loop.last%},{% endif %}
+            {% endfor %}
+        </span></p>
+
+        <p class="section"><span>
+            <b>Scheme Period: {{1}}</b>
+            <span class="right">{{template.ppiDnI.period.startDate}} to {{template.ppiDnI.period.endDate}}</span>
+        </span></p>
+
+        <p class="section"><span>
+            <b>Scheme Products:</b>
+            <span class="right">
+                {% for product in template.ppiDnI.products %}
+                    <b>{% if product.excluded %} - {% else %} + {%endif%}</b> {{product.name}} {% if not loop.last%}, {% endif %}
+                {% endfor %}
+            </span>
+        </span></p>
+
+        <p class="section"><span>
+            <b>Packs:</b>
+            <span class="right">
+                {% for pack in template.ppiDnI.packs %}
+                    {{pack}} {% if not loop.last%}, {% endif %}
+                {% endfor %}
+            </span>
+        </span></p>
+
+        <p>{% if template.ppiDnI.projectSku %}Including{% else %}Excluding{% endif %} Project SKU</p>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Sl. No</th>
+                    <th>Slab {% if template.ppiDnI.ppiType == "VOLUME" %} Volume (Ltrs) {% else %} Value (Rs) {% endif %}</th>
+                    <th>Payout</th>
+                    <th>Payout Type</th>
+                    <th>Payout Description</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% if template.ppiDnI.repeatData.rowRepeat %}
+                {% for row in template.ppiDnI.slabPayouts %}
+                    {% if loop.index <=  template.ppiDnI.slabPayouts | length - template.ppiDnI.repeatData.rowRepeat %}
+                    <tr>
+                        <td>{{loop.index}}</td>
+                        <td>{{row.slabStartValue}} to {{row.slabEndValue}}</td>
+                        <td>{{row.payoutValue}}</td>
+                        <td>{{row.payoutType}}</td>
+                        <td>{{row.payoutDescription}}</td>
+                    </tr>
+                    {% endif %}
+                {% endfor %}
+                {% else %}
+                {% for row in template.ppiDnI.slabPayouts %}
+                    <tr>
+                        <td>{{loop.index}}</td>
+                        <td>{{row.slabStartValue}} to {{row.slabEndValue}}</td>
+                        <td>{{row.payoutValue}}</td>
+                        <td>{{row.payoutType}}</td>
+                        <td>{{row.payoutDescription}}</td>
+                    </tr>
+                {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>
+       
+        {% if template.ppiDnI.repeatData.rowRepeat %}
+            <p>For every increase of <b>{{template.ppiDnI.repeatData.slabRange}} {% if template.ppiDnI.ppiType == "VOLUME" %} Liters {% else %} Rupees {% endif %}</b> for <b>{{template.ppiDnI.repeatData.rowRepeat}}</b> slabs, you'll get an increase of <b>{{template.ppiDnI.repeatData.lapChange}}</b> over the last payout rate.</p>
+        {% endif %}
+        <div class = "pdf-qualifying-conditions">
+            <h3>{{"Qualifying Conditions:"| upper}}</h3>
+            <h3>Slab Qualifying Conditions:</h3>
+            {% for row in template.ppiDnI.slabPayouts %}
+                {% if row.qcList is defined and row.qcList is not empty %}
+                    {% include "schemepdf_QC.tmpl" with {'qcList': row.qcList} %}
+                {% endif %}
+            {% endfor %}
+            {% if template.qcList|length > 0 %}
+                <h3>Template Qualifying Conditions:</h3>
+                {% include "schemepdf_QC.tmpl" with {'qcList': template.qcList} %}
+            {% endif %}
+                
+        </div>
+
+    {% endfor %}
+</div>
+{% endif %}

@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block header %} {% endblock %}
+
+{% block content %}
+    <div class = "body-login" align = "center">
+        <div class = "login-container">
+            <div class = "login-wrapper">
+                <div class = "login-logo"></div>
+                <div class = "login-form">
+                    <form id = "form-login">
+                        <fieldset class="">
+                            <label class="">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-square-o fa-stack-2x"></i>
+                                    <i class="fa fa-user fa-stack-1x"></i>
+                                </span>
+                            </label>
+                            <input class="" type="text" value="" name="username" id="uname" placeholder="Username" autocomplete="off" required />
+                        </fieldset>
+                        <fieldset>
+                            <label class="">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-square-o fa-stack-2x"></i>
+                                    <i class="fa fa-key fa-stack-1x"></i>
+                                </span>
+                            </label>
+                            <input class="" type="password" value="" name="password" id="upass" placeholder="Password" autocomplete="off" required />
+
+                        </fieldset>
+                        <fieldset>
+                            <span class = "error-msg">
+                            </span>
+                        </fieldset>      
+                        
+                        <fieldset>
+                            <!--<span class = "login-remember-block">-->
+                                <!--<input type="checkbox" name="remember" id="login-remember" value = "true">-->
+                                <!--<label for="login-remember"></label>-->
+                            <!--</span>-->
+                            <!--<span class = "login-remember-text">Remember?</span>-->
+                            <button class = "login-submit" type = "submit" >Submit</button>
+                        </fieldset>
+                        <!-- <fieldset class = "login-forgot">
+                            Forgot Your Password?
+                        </fieldset> -->
+                        
+                    </form>
+                </div>
+            </div>
+            <!--<div class = "login-register">-->
+                <!--Not a registered user yet? <span class = "login-register-link"> Sign up now!</span>-->
+            <!--</div>-->
+        </div>
+            
+    </div>
+{% endblock %}
+
+{% block footer %}{% endblock %}
+
+{% block scripts %}
+    <script type="text/javascript" src={{resolvePath("jquery-2.1.0.min.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("native5.core.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("native5.core.analytics.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("native5.ui.loader.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("invokeService.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("form.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("login.js")}}></script>
+{% endblock %}

@@ -1,0 +1,42 @@
+<aside id="responsive-admin-menu">
+	<div id="menu">
+			<a href={{"./dashboard" | nonce}} title="Dashboard"><i class="fa fa-tachometer"></i><span> 
+			Dashboard</span></a>
+			<a href={{"./template" | nonce}} title="Create Scheme"><i class="fa fa-bullhorn"></i><span> Create Scheme</span></a>
+			<a href={{"./schemes" | nonce}} title="Schemes"><i class="fa fa-anchor"></i><span> Schemes</span></a>
+			<a href="" title="My Schemes" class="submenu" name="schemes-sub"><i class="fa fa-eye"></i><span>  
+			My Schemes</span></a>
+			<!-- Media Sub Menu -->
+				<div id="schemes-sub" class = "submenu-elm" style="display: none;">
+					<a href={{"./myschemes" | nonce}}#activeSchemesCard title="Active Schemes"><i class="fa fa-film"></i><span>  
+					Active Schemes</span></a>
+					<a href={{"./myschemes" | nonce}}#schemesPendingApprovalCard title="Schemes Pending Approval"><i class="fa fa-picture-o"></i><span>  
+					Schemes Pending Approval</span></a>
+					<a href={{"./myschemes" | nonce}}#draftSchemesCard title="Draft Schemes"><i class="fa fa-picture-o"></i><span>  
+					Draft Schemes</span></a>
+					<a href={{"./myschemes" | nonce}}#concludedSchemesCard title="Concluded Schemes"><i class="fa fa-picture-o"></i><span>  
+					Concluded Schemes</span></a>
+				</div>
+
+			<a href={{"./simulation" | nonce}} title="Simulate Schemes"><i class="fa fa-globe"></i><span>  
+			Simulate Schemes</span></a>
+			<a href="" title="Events"><i class="fa fa-ticket"></i><span>  
+			Events</span></a>
+
+			<a href="" class="submenu" name="other-sub" title="Other Contents"><i class="fa fa-random"></i><span> 
+			Other Contents</span></a>
+			<!-- Other Contents Sub Menu -->
+				<div id="other-sub" class = "submenu-elm">
+					<a href="" title="Forms"><i class="fa fa-female"></i><span>  
+					Forms</span></a>
+					<a href="" title="Mail Lists"><i class="fa fa-male"></i><span>  
+					Mail Lists</span></a>
+					<a href="" title="Maps"><i class="fa fa-plane"></i><span>  
+					Maps</span></a>
+				</div>
+			<!-- Other Contents Sub Menu -->
+			<a href="" title="Admin Tools"><i class="fa fa-gear"></i><span>  
+			Admin Tools</span></a>
+	</div>
+</aside>
+

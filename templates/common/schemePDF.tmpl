@@ -1,0 +1,97 @@
+<!DOCTYPE HTML>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Akzo | Discounts and Incentives | PDF</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+        <link rel="icon" href="./favicon.ico" type="image/x-icon" />
+        <style type="text/css">
+            .pdf-content {
+                margin: auto;
+                padding-bottom: 20px;
+            }
+            body {
+                background-image: none; 
+            }
+            table {
+                border-collapse: collapse;
+            }
+            table {
+                width: 100%;
+            }
+            table, td, th {
+                border: 1px solid black;
+                text-align: center;
+            }
+            .newline {
+                white-space: pre-line;
+            }
+            .right {
+                float:right;
+                max-width: 60%;
+            }
+            .section {
+                border-bottom: 1px dotted;
+            }
+            .section:after {
+                content: "."; 
+                visibility: hidden; 
+                display: block; 
+                height: 0;
+                clear: both;
+            }
+        </style>
+    </head>
+
+    <body itemscope itemtype="http://schema.org/WebPage">
+        {% for item in items.dealers %}
+            <div class = "pdf-content">
+                <h1 style="text-align:center">AkzoNobel India Limited</h1>
+                <div class = "pdf-scheme-details">
+                    <p><span><b>Dealer Name:</b></span> <span class="right">{{item.name}}</span></p>
+                    <p><span><b>Dealer Code:</b></span> <span class="right">{{item.code}}</span></p>
+                    <p>
+                        <span><b>Dealer Address:</b></span>
+                        <span class="right">{{item.address}}</span>
+                    </p>
+                    <p><span><b>Scheme Name:</b></span><span class = "right">{{items.schemeData.schemeHeaderTemplate.schemeHeader.name}}</span></p>
+                    <p class="section"><span><b>Applicable for Segments:</b></span> <span class="right"> 
+                        {% for segment in items.schemeData.schemeHeaderTemplate.schemeHeader.segment %}
+                            {{segment}} {% if not loop.last%},{% endif %}
+                        {% endfor %}
+                    </span></p>
+                    <p><span><b>Scheme Period :</b></span> <span style = "float: right"> {{items.schemeData.schemeHeaderTemplate.schemeHeader.startDate}} – {{items.schemeData.schemeHeaderTemplate.schemeHeader.endDate}}</span></p>
+                    <hr>
+                </div>
+
+                <div class = "pdf-qualifying-conditions">
+                    {% if items.schemeData.schemeHeaderTemplate.qcList|length > 0 %}
+                        <h2>Scheme Qualifying Conditions:</h2>
+                        {% include "schemepdf_QC.tmpl" with {'qcList': items.schemeData.schemeHeaderTemplate.qcList} %}
+                    {% endif %}
+                        
+                </div>
+            </div>
+            {% set templateCounter = 1 %}
+            {% include "schemePDF-inBill.tmpl" %}
+            {% set templateCounter = (items.schemeData.inBillTplsRO) ? items.schemeData.inBillTplsRO| length + templateCounter : 1 %}
+            {% include "schemePDF-ppi.tmpl" %}
+            {% set templateCounter = (items.schemeData.ppiTpls) ? items.schemeData.ppiTpls| length + templateCounter : 1 %}
+            {% include "schemePDF-slab.tmpl" %}
+            {% set templateCounter = (items.schemeData.slabTpls) ? items.schemeData.slabTpls| length + templateCounter : 1 %}
+            {% include "schemePDF-pri.tmpl" %}
+            {% set templateCounter = (items.schemeData.priTpls) ? items.schemeData.priTpls| length + templateCounter : 1 %}
+            {% include "schemePDF-newslab.tmpl" %}
+            {% set templateCounter = (items.schemeData.slabV2Tpls) ? items.schemeData.slabV2Tpls| length + templateCounter : 1 %}
+
+            <div class = "pdf-content newline">
+                <hr>
+                {% if items.schemeData.schemeHeaderTemplate.schemeHeader.terms is defined %}
+                    <b>Terms and Conditions:</b> <br>
+                    {{items.schemeData.schemeHeaderTemplate.schemeHeader.terms}}
+                {% endif %}                
+            </div>
+        {% endfor %}
+    </body>
+</html>

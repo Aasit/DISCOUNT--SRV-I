@@ -1,0 +1,13 @@
+
+Dear {{ items.initiatorName }},
+
+A scheme submitted by you at {{ items.scheme.created_at }} was approved by {{ items.approverName }} ( {{ items.approverCode }} ). The scheme was first reviewed by {{ items.reviewerName }} ( {{ items.reviewerCode }} ). You may login into the Discounts Management Application to view its status.
+
+You will be notified as and when any action has been performed on this scheme.
+
+{% include "emails/basicSchemeDetails.tmpl" %}
+
+Regards,
+Discounts Management Portal Administrator
+{{ items.url }}
+

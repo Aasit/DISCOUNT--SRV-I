@@ -1,0 +1,50 @@
+<div class="scheme-details-wrapper">
+    <div class = "row detail-row">
+        <div class = "col-lg-3 col-md-4 col-sm-6 col-xs-12 detail-elm">
+            <h5>Name</h5>
+            {{items.schemeData.schemeHeaderTemplate.schemeHeader.name}}
+        </div>
+        <div class = "col-lg-3 col-md-4 col-sm-6 col-xs-12 detail-elm">
+            <h5>Type</h5>
+            {{items.schemeData.schemeHeaderTemplate.schemeHeader.type}}
+        </div>
+        <div class = "col-lg-3 col-md-4 col-sm-6 col-xs-12 detail-elm">
+            <h5>Period</h5>
+            {{items.schemeData.schemeHeaderTemplate.schemeHeader.startDate}}  --  {{items.schemeData.schemeHeaderTemplate.schemeHeader.endDate}}
+        </div>
+
+        <div class = "col-lg-3 col-md-4 col-sm-6 col-xs-12 detail-elm">
+            <h5>Segment</h5>
+            {% for item in items.schemeData.schemeHeaderTemplate.schemeHeader.segment|sort %}
+                <div>{{ items.segmentTypes[item] }}</div>
+            {% endfor %}
+        </div>
+        <div class = "col-lg-3 col-md-4 col-sm-6 col-xs-12 detail-elm ">
+            <h5>Dealer Attributes</h5>
+            {% for item in items.schemeData.schemeHeaderTemplate.schemeHeader.dealerAttributes|sort %}
+                <div>
+                    {% if item.excluded == false %}
+                        <i class = "fa fa-times"></i>
+                    {% else %}
+                        <i class = "fa fa-check"></i>
+                    {% endif %}
+                    
+                    {{item.type | replace({"_": " "}) | capitalize}} | {{ item.attr }}  
+                    
+                </div>
+            {% endfor %}
+        </div>
+        <div class = "col-lg-3 col-md-4 col-sm-6 col-xs-12 detail-elm">
+            <h5>Geography</h5>
+            {% for item in items.schemeData.schemeHeaderTemplate.schemeHeader.salesGeography|sort %}
+                <div>{{ item.name }}</div>
+            {% endfor %}
+        </div>
+        <div class = "col-lg-6 col-md-6 col-sm-12 col-xs-12 detail-elm">
+            <h5>Terms</h5>
+            {{items.schemeData.schemeHeaderTemplate.schemeHeader.terms}}
+        </div>
+        
+        
+    </div>
+</div>

@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block header %} 
+    {% include 'header.tmpl' %} 
+{% endblock %}
+
+{% block content %}
+
+<section>
+<aside id="responsive-admin-menu">
+	<div id="responsive-menu">akzo-n5menu
+		<div class="menuicon">≡</div>
+	</div>
+	<!--Menu-->
+	<div id="menu">
+			<a href="" title="Dashboard"><i class="fa fa-tachometer"></i><span> 
+			Dashboard</span></a>
+			<a href="" title="News"><i class="fa fa-music"></i><span> News</span></a>
+			<a href="" title="Pages"><i class="fa fa-anchor"></i><span> Pages</span></a>
+			<a href="" title="Media" class="submenu" name="media-sub"><i class="fa fa-eye"></i><span>  
+			Media</span></a>
+			<!-- Media Sub Menu -->
+				<div id="media-sub" style="display: none;">
+					<a href="" title="Video Gallery"><i class="fa fa-film"></i><span>  
+					Video Gallery</span></a>
+					<a href="" title="Photo Gallery"><i class="fa fa-picture-o"></i><span>  
+					Photo Gallery</span></a>
+				</div>
+			<!-- Media Sub Menu -->
+			
+			<a href="" title="Graph &amp; Charts"><i class="fa fa-home"></i><span>  
+			Graph &amp; Charts</span></a>
+			<a href="" title="Events"><i class="fa fa-ticket"></i><span>  
+			Events</span></a>
+
+			<a href="" class="submenu" name="other-sub" title="Other Contents"><i class="fa fa-random"></i><span> 
+			Other Contents</span></a>
+			<!-- Other Contents Sub Menu -->
+				<div id="other-sub">
+					<a href="" title="Forms"><i class="fa fa-female"></i><span>  
+					Forms</span></a>
+					<a href="" title="Mail Lists"><i class="fa fa-male"></i><span>  
+					Mail Lists</span></a>
+					<a href="" title="Maps"><i class="fa fa-plane"></i><span>  
+					Maps</span></a>
+				</div>
+			<!-- Other Contents Sub Menu -->
+			<a href="" title="Admin Tools"><i class="fa fa-gear"></i><span>  
+			Admin Tools</span></a>
+	</div>
+	<!--Menu-->
+</aside>
+<div stye="float:none"></div>
+<section id="content-wrapper">
+		<div id="mycarddemo">
+			<div class = "select-container" id = "selectContainer" align = "center">	
+			</div>
+		     <div class="input-prepend input-group">
+					<span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span><input type="text" style="width: 200px" name="reservation" id="reservation" class="form-control" value="03/18/2013 - 03/23/2013" /> 
+			</div>
+	</div>
+</section>
+</section>
+	
+
+{% endblock %}
+
+{% block footer %}{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+
+    <!-- External libs -->
+	<!-- // <script type="text/javascript" src={{resolvePath("mlpushmenu.js")}}></script> -->
+	<!-- // <script type="text/javascript" src={{resolvePath("backbone.min.js")}}></script> -->
+	<script type="text/javascript" src={{resolvePath("native5.select2.js")}}></script>
+	<script type="text/javascript" src={{resolvePath("moment.min.js")}}></script>
+	<script type="text/javascript" src={{resolvePath("daterangepicker.js")}}></script>
+	<!-- n5 wrappers -->
+	<script type="text/javascript" src={{resolvePath("native5.ui.card.js")}}></script>
+	<script type="text/javascript" src={{resolvePath("native5.ui.select.js")}}></script>
+
+	<!-- akzo wrappers -->
+	<script type="text/javascript" src={{resolvePath("akzo.ui.select.multiple.js")}}></script>
+    <script type="text/javascript" src={{resolvePath("akzo_menu.js")}}></script> 
+    <script type="text/javascript" src={{resolvePath("demo.js")}}></script> 
+    
+{% endblock %}

@@ -1,0 +1,13 @@
+Scheme Highlights:
+------------------
+Name: {{ items.scheme.name }}
+Start Date: {{ items.scheme.start_date }}
+End Date: {{ items.scheme.end_date }}
+Created on: {{ items.scheme.created_at }}
+Status: {{ items.status }}
+
+{% if items.comment is not empty %}
+Submission Comments:
+--------------------
+{{ items.comment }}
+{% endif %}

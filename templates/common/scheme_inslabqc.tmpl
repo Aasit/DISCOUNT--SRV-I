@@ -1,0 +1,102 @@
+<div class="scheme-qc-wrapper">
+    <h5>Slab Qualifying Condition</h5>
+    <div class = "col-lg-3 col-md-4 col-sm-6 col-xs-12 detail-elm">
+        <h5>Type</h5>
+        {{ items.qcBasevalue[item.name ~ " " ~ item.type] }}
+    </div>
+    <div class = "col-lg-3 col-md-4 col-sm-6 col-xs-12 detail-elm">
+        <h5>Operator</h5>
+        {{ items.qcOperator[item.op] }}
+    </div>
+    <div class = "col-lg-3 col-md-4 col-sm-6 col-xs-12 detail-elm">
+        <h5>Value</h5>
+        {{ item.val }}
+    </div>
+    {% if item.period %}
+        <div class = "col-lg-3 col-md-4 col-sm-6 col-xs-12 detail-elm">
+            <h5>Period</h5>
+            {{ item.period.startDate }} -- {{ item.period.endDate }}
+        </div>
+    {% endif %}
+    {% if item.previousPeriod %}
+        <div class = "col-lg-3 col-md-4 col-sm-6 col-xs-12 detail-elm">
+            <h5>Previous Period</h5>
+            {{ item.previousPeriod.startDate }} -- {{ item.previousPeriod.endDate }}
+        </div>
+    {% endif %}
+    {% if item.currentPeriod %}
+        <div class = "col-lg-3 col-md-4 col-sm-6 col-xs-12 detail-elm">
+            <h5>Current Period</h5>
+            {{ item.currentPeriod.startDate }} -- {{ item.currentPeriod.endDate }}
+        </div>
+    {% endif %}
+    {% if item.numPeriod %}
+        <div class = "col-lg-3 col-md-4 col-sm-6 col-xs-12 detail-elm">
+            <h5>Numerator Period</h5>
+            {{ item.numPeriod.startDate }} -- {{ item.numPeriod.endDate }}
+        </div>
+    {% endif %}
+    {% if item.denPeriod %}
+        <div class = "col-lg-3 col-md-4 col-sm-6 col-xs-12 detail-elm">
+            <h5>Denominator Period</h5>
+            {{ item.denPeriod.startDate }} -- {{ item.denPeriod.endDate }}
+        </div>
+    {% endif %}
+    {% if item.numProducts %}
+        <div class = "col-lg-3 col-md-4 col-sm-6 col-xs-12 detail-elm">
+            <h5>Numerator Products</h5>
+            {% for item in item.numProducts|sort %}
+                <div>
+                    {% if item.excluded == false %}
+                        <i class = "fa fa-check"></i>
+                    {% else %}
+                        <i class = "fa fa-times"></i>
+                    {% endif %}
+                    
+                    {{item.name}}  
+                    
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    {% if item.denProducts %}
+        <div class = "col-lg-3 col-md-4 col-sm-6 col-xs-12 detail-elm">
+            <h5>Denominator Products</h5>
+            {% for item in item.denProducts|sort %}
+                <div>
+                    {% if item.excluded == false %}
+                        <i class = "fa fa-check"></i>
+                    {% else %}
+                        <i class = "fa fa-times"></i>
+                    {% endif %}
+                    
+                    {{item.name}}  
+                    
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    {% if item.products %}
+        <div class = "col-lg-3 col-md-4 col-sm-6 col-xs-12 detail-elm">
+            <h5>Products</h5>
+            {% for item in item.products|sort %}
+                <div>
+                    {% if item.excluded == false %}
+                        <i class = "fa fa-check"></i>
+                    {% else %}
+                        <i class = "fa fa-times"></i>
+                    {% endif %}
+                    
+                    {{item.name}}  
+                    
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    {% if item.payoutCondition %}
+        <div class = "col-lg-3 col-md-4 col-sm-6 col-xs-12 detail-elm">
+            <h5>Payout Rate</h5>
+            {{ item.payoutCondition }}
+        </div>
+    {% endif %}
+</div>

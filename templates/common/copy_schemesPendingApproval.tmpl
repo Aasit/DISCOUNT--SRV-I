@@ -1,0 +1,49 @@
+{% if items.initiatedSchemes|length > 0 %}
+    <div class = "list-header">
+		Initiated Schemes
+	</div>
+{% endif %}
+	
+{% for scheme in items.initiatedSchemes %}
+    <div class="state-panel panel-solid-default no-margin">
+		<a href="template?schemeId={{ scheme.code }}&rand_token={{ items.nonce }}&cpy=true">
+			<div class="panel-heading">
+				<h3 class="panel-title">{{scheme.name}} {% if not(scheme.uid is empty) %}({{scheme.uid}}){% endif %}</h3>
+			</div>
+		</a>
+	</div>
+{% endfor %}
+
+{% if items.toBeReviewedSchemes|length > 0 %}
+    <div class = "list-header">
+		To Be Approved Schemes
+	</div>
+{% endif %}
+
+{% for scheme in items.toBeReviewedSchemes %}
+    <div class="state-panel panel-solid-default no-margin">
+    	<a href="template?schemeId={{ scheme.code }}&rand_token={{ items.nonce }}&cpy=true">
+			<div class="panel-heading">
+				<h3 class="panel-title">{{scheme.name}} {% if not(scheme.uid is empty) %}({{scheme.uid}}){% endif %}</h3>
+			</div>	
+		</a>			
+	</div>
+{% endfor %}
+
+
+{% if items.toBeApprovedSchemes|length > 0 %}
+    <div class = "list-header">
+		To Be Reviewed Schemes
+	</div>
+{% endif %}
+	
+{% for scheme in items.toBeApprovedSchemes %}
+    <div class="state-panel panel-solid-default no-margin">
+    	<a href="template?schemeId={{ scheme.code }}&rand_token={{ items.nonce }}&cpy=true">
+			<div class="panel-heading">
+				<h3 class="panel-title">{{scheme.name}} {% if not(scheme.uid is empty) %}({{scheme.uid}}){% endif %}</h3>
+			</div>
+		</a>
+
+	</div>
+{% endfor %}

@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block header %} 
+    {% include 'header.tmpl' %} 
+{% endblock %}
+
+{% block content %}
+<section>
+	{% include 'menu.tmpl' %}
+	<section id="content-wrapper">  
+				<div class = "dashboard-content">
+					<div class = "dashboard-container">
+						<div class = "row">
+							<div class = "col-lg-12 col-sm-12 col-xs-12">
+								<div id = "active-schemes">
+									{% include 'activeSchemes.tmpl' %}
+								</div>
+							</div>
+							<div class = "col-lg-12 col-sm-12 col-xs-12">
+								<div id = "schemes-pending-approval">
+									{% include 'schemesPendingApproval.tmpl' %}
+								</div>
+							</div>
+							<div class = "col-lg-12 col-sm-12 col-xs-12">
+								<div id = "draft-schemes">
+									{% include 'draftSchemes.tmpl' %}
+								</div>
+							</div>
+							<div class = "col-lg-12 col-sm-12 col-xs-12">
+								<div id = "concluded-schemes">
+									{% include 'concludedSchemes.tmpl' %}
+								</div>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+	    </div>
+	</section>
+</section>
+{% endblock %}
+
+{% block footer %}{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+	<!-- n5 wrappers -->
+	<script type="text/javascript" src={{resolvePath("native5.ui.card.js")}}></script>
+
+	<!-- akzo wrappers -->
+    <script type="text/javascript" src={{resolvePath("akzo_menu.js")}}></script> 
+    <script type="text/javascript" src={{resolvePath("my_schemes.js")}}></script> 
+    
+{% endblock %}
