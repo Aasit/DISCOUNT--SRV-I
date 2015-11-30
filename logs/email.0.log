@@ -1,0 +1,35 @@
+Native5\Services\Messaging\MailMessage Object
+(
+    [_subject:Native5\Services\Messaging\MailMessage:private] => Scheme Review / Approval Initiated
+    [_body:Native5\Services\Messaging\MailMessage:private] => 
+Dear PUNJAB &amp; HP,
+
+A new scheme was submitted at 2015-06-29 14:08:27 by you for review by Scheme Reviewer North ( SRIN01 ) & subsequent approval by Scheme Approver North ( SAIN01 ). You may login into the Discounts Management Application to view the review / approval status under the "Schemes Pending Approval" section on your Dashboard.
+
+You will be notified as and when any action has been performed on this scheme.
+
+Scheme Highlights:
+------------------
+Name: Test Scheme
+Start Date: 2015-06-29
+End Date: 2015-07-29
+Created on: 2015-06-29 14:08:27
+Status: Initiated, To be Reviewed
+
+Submission Comments:
+--------------------
+Sample Scheme for test purpose
+
+Regards,
+Discounts Management Portal Administrator
+http://182.18.160.250/discounts
+
+
+    [_attachments:Native5\Services\Messaging\MailMessage:private] => 
+    [_to:Native5\Services\Messaging\MailMessage:private] => Array
+        (
+            [0] => shamik@native5.com
+        )
+
+    [_id:Native5\Services\Messaging\MailMessage:private] => mm55910403c2350
+)
