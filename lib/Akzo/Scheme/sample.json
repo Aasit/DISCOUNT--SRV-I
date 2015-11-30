@@ -1,0 +1,520 @@
+{
+    "name": "Test Scheme",
+    "schemeHeaderTemplate": {
+        "id": "HEADER_TPL_ID",
+        "qcList": [
+            {
+                "historical": true,
+                "name": "HISTORICAL",
+                "op": "GREATER_THAN",
+                "payoutCondition": 1,
+                "period": {
+                    "endDate": "15-Jun-2014",
+                    "startDate": "01-Jun-2014"
+                },
+                "products": [
+                    {
+                        "name": "Product1",
+                        "pid": "P1"
+                    },
+                    {
+                        "name": "Product1",
+                        "pid": "P2"
+                    },
+                    {
+                        "name": "Product1",
+                        "pid": "P3"
+                    }
+                ],
+                "type": null,
+                "val": 20000
+            },
+            {
+                "historical": true,
+                "name": "HISTORICAL",
+                "op": "LESS_THAN",
+                "payoutCondition": 1,
+                "period": {
+                    "endDate": "30-Jun-2014",
+                    "startDate": "16-Jun-2014"
+                },
+                "products": [
+                    {
+                        "name": "AllProducts",
+                        "pid": "ALL"
+                    }
+                ],
+                "type": null,
+                "val": 25000
+            },
+            {
+                "currentPeriod": {
+                    "endDate": "30-Jun-2014",
+                    "startDate": "16-Jun-2014"
+                },
+                "currentVal": 0,
+                "growth": true,
+                "name": "GROWTH",
+                "op": "GREATER_THAN",
+                "payoutCondition": 1,
+                "previousPeriod": {
+                    "endDate": "30-Jun-2013",
+                    "startDate": "16-Jun-2013"
+                },
+                "previousVal": 0,
+                "products": [],
+                "type": null,
+                "val": 20
+            }
+        ],
+        "satisfyAll": false,
+        "schemeHeader": {
+            "dealerAttributes": [
+                "Attribute_1",
+                "Attribute_2",
+                "Attribute_3"
+            ],
+            "description": "Initial Test Scheme",
+            "endDate": "30-Jun-2014",
+            "id": "HEADER_ID",
+            "name": "TestScheme",
+            "salesGeography": [
+                {
+                    "name": "Delhi",
+                    "gid": "Depot1"
+                },
+                {
+                    "name": "NORTH",
+                    "gid": "Region3"
+                },
+                {
+                    "name": "Karnataka",
+                    "gid": "Zone52"
+                }
+            ],
+            "startDate": "01-Jun-2014",
+            "type": null
+        }
+    },
+    "slabTpls": [
+        {
+            "id": "SLAB_TPL_ID",
+            "qcList": [
+                {
+                    "historical": true,
+                    "name": "HISTORICAL",
+                    "op": "GREATER_THAN",
+                    "payoutCondition": 1,
+                    "period": {
+                        "endDate": "15-Jun-2014",
+                        "startDate": "01-Jun-2014"
+                    },
+                    "products": [
+                        {
+                            "name": "Product1",
+                            "pid": "P1"
+                        },
+                        {
+                            "name": "Product1",
+                            "pid": "P2"
+                        },
+                        {
+                            "name": "Product1",
+                            "pid": "P3"
+                        }
+                    ],
+                    "type": null,
+                    "val": 20000
+                },
+                {
+                    "historical": true,
+                    "name": "HISTORICAL",
+                    "op": "LESS_THAN",
+                    "payoutCondition": 1,
+                    "period": {
+                        "endDate": "30-Jun-2014",
+                        "startDate": "16-Jun-2014"
+                    },
+                    "products": [
+                        {
+                            "name": "AllProducts",
+                            "pid": "ALL"
+                        }
+                    ],
+                    "type": null,
+                    "val": 25000
+                },
+                {
+                    "currentPeriod": {
+                        "endDate": "30-Jun-2014",
+                        "startDate": "16-Jun-2014"
+                    },
+                    "currentVal": 0,
+                    "growth": true,
+                    "name": "GROWTH",
+                    "op": "GREATER_THAN",
+                    "payoutCondition": 1,
+                    "previousPeriod": {
+                        "endDate": "30-Jun-2013",
+                        "startDate": "16-Jun-2013"
+                    },
+                    "previousVal": 0,
+                    "products": [],
+                    "type": null,
+                    "val": 20
+                }
+            ],
+            "satisfyAll": false,
+            "slabDnI": {
+                "id": "SLAB_ONE",
+                "laps": [
+                    {
+                        "id": "LAP_ONE",
+                        "payouts": [
+                            {
+                                "id": "PAYOUT_ONE",
+                                "payoutType": "FLATPAYOUT",
+                                "payoutValue": 2500,
+                                "slabEndValue": 10000,
+                                "slabStartValue": 5000
+                            },
+                            {
+                                "id": "PAYOUT_TWO",
+                                "payoutType": "RSPERLITRE",
+                                "payoutValue": 4,
+                                "slabEndValue": 15000,
+                                "slabStartValue": 10000
+                            }
+                        ],
+                        "period": {
+                            "endDate": "15-Jun-2014",
+                            "startDate": "01-Jun-2014"
+                        }
+                    },
+                    {
+                        "id": "LAP_TWO",
+                        "payouts": [
+                            {
+                                "id": "PAYOUT_ONE",
+                                "payoutType": "FLATPAYOUT",
+                                "payoutValue": 2000,
+                                "slabEndValue": 10000,
+                                "slabStartValue": 5000
+                            },
+                            {
+                                "id": "PAYOUT_TWO",
+                                "payoutType": "RSPERLITRE",
+                                "payoutValue": 3000,
+                                "slabEndValue": 15000,
+                                "slabStartValue": 10000
+                            }
+                        ],
+                        "period": {
+                            "endDate": "30-Jun-2014",
+                            "startDate": "16-Jun-2014"
+                        }
+                    }
+                ],
+                "numSlabs": 0,
+                "packs": [
+                    "BULK"
+                ],
+                "period": null,
+                "products": [
+                    {
+                        "name": "ALL",
+                        "pid": "PID1"
+                    }
+                ],
+                "slabType": "VOLUME"
+            }
+        }
+    ],
+    "ppiTpls": [
+        {
+            "id": "PPI_TPL_ID",
+            "ppiDnI": {
+                "id": "PPI_ONE",
+                "numSlabs": 2,
+                "packs": [
+                    "BULK",
+                    "RETAIL"
+                ],
+                "period": null,
+                "ppiType": "VOLUME_PPI",
+                "products": [],
+                "slabPayouts": [
+                    {
+                        "id": "PAYOUT_ONE",
+                        "payoutType": "FLATPAYOUT",
+                        "payoutValue": 2000,
+                        "slabEndValue": 9000,
+                        "slabStartValue": 4000
+                    },
+                    {
+                        "id": "PAYOUT_TWO",
+                        "payoutType": "RSPERLITRE",
+                        "payoutValue": 3,
+                        "slabEndValue": 15000,
+                        "slabStartValue": 10000
+                    }
+                ]
+            },
+            "qcList": [
+                {
+                    "historical": true,
+                    "name": "HISTORICAL",
+                    "op": "GREATER_THAN",
+                    "payoutCondition": 1,
+                    "period": {
+                        "endDate": "30-Jun-2014",
+                        "startDate": "01-Jun-2014"
+                    },
+                    "products": [
+                        {
+                            "name": "Product1",
+                            "pid": "P1"
+                        },
+                        {
+                            "name": "Product1",
+                            "pid": "P2"
+                        },
+                        {
+                            "name": "Product1",
+                            "pid": "P3"
+                        }
+                    ],
+                    "type": "VOLUME",
+                    "val": 20000
+                },
+                {
+                    "currentPeriod": {
+                        "endDate": "30-Jun-2014",
+                        "startDate": "01-Jun-2014"
+                    },
+                    "currentVal": 0,
+                    "growth": true,
+                    "name": "GROWTH",
+                    "op": "GREATER_THAN",
+                    "payoutCondition": 1,
+                    "previousPeriod": {
+                        "endDate": "30-Jun-2013",
+                        "startDate": "01-Jun-2013"
+                    },
+                    "previousVal": 0,
+                    "products": [
+                        {
+                            "name": "Product1",
+                            "pid": "P1"
+                        },
+                        {
+                            "name": "Product1",
+                            "pid": "P2"
+                        },
+                        {
+                            "name": "Product1",
+                            "pid": "P3"
+                        }
+                    ],
+                    "type": "VOLUME",
+                    "val": 20
+                }
+            ],
+            "satisfyAll": true
+        }
+    ],
+    "priTpls": [
+        {
+            "id": "PRI_TPL_ID",
+            "priDnI": {
+                "id": "PRI_ONE",
+                "period": null,
+                "priPayouts": [
+                    {
+                        "id": "PAYOUT_ONE",
+                        "numProducts": 5,
+                        "payoutType": "FLATPAYOUT",
+                        "payoutValue": 1000
+                    },
+                    {
+                        "id": "PAYOUT_TWO",
+                        "numProducts": 7,
+                        "payoutType": "FLATPAYOUT",
+                        "payoutValue": 1500
+                    }
+                ],
+                "priProducts": [
+                    {
+                        "product": {
+                            "name": "Velvet Touch",
+                            "pid": "P1"
+                        },
+                        "value": 2000
+                    },
+                    {
+                        "product": {
+                            "name": "3 in 1",
+                            "pid": "P2"
+                        },
+                        "value": 2000
+                    },
+                    {
+                        "product": {
+                            "name": "DSS",
+                            "pid": "P3"
+                        },
+                        "value": 2000
+                    },
+                    {
+                        "product": {
+                            "name": "WSS",
+                            "pid": "P4"
+                        },
+                        "value": 2000
+                    },
+                    {
+                        "product": {
+                            "name": "Max",
+                            "pid": "P5"
+                        },
+                        "value": 2000
+                    },
+                    {
+                        "product": {
+                            "name": "Satin",
+                            "pid": "P6"
+                        },
+                        "value": 2000
+                    },
+                    {
+                        "product": {
+                            "name": "Glass",
+                            "pid": "P7"
+                        },
+                        "value": 2000
+                    }
+                ]
+            },
+            "qcList": [
+                {
+                    "historical": true,
+                    "name": "HISTORICAL",
+                    "op": "GREATER_THAN",
+                    "payoutCondition": 1,
+                    "period": {
+                        "endDate": "30-Jun-2014",
+                        "startDate": "01-Jun-2014"
+                    },
+                    "products": [
+                        {
+                            "name": "Product1",
+                            "pid": "P1"
+                        },
+                        {
+                            "name": "Product1",
+                            "pid": "P2"
+                        },
+                        {
+                            "name": "Product1",
+                            "pid": "P3"
+                        }
+                    ],
+                    "type": "VOLUME",
+                    "val": 20000
+                },
+                {
+                    "currentPeriod": {
+                        "endDate": "30-Jun-2014",
+                        "startDate": "01-Jun-2014"
+                    },
+                    "currentVal": 0,
+                    "growth": true,
+                    "name": "GROWTH",
+                    "op": "GREATER_THAN",
+                    "payoutCondition": 1,
+                    "previousPeriod": {
+                        "endDate": "30-Jun-2013",
+                        "startDate": "01-Jun-2013"
+                    },
+                    "previousVal": 0,
+                    "products": [
+                        {
+                            "name": "Product1",
+                            "pid": "P1"
+                        },
+                        {
+                            "name": "Product1",
+                            "pid": "P2"
+                        },
+                        {
+                            "name": "Product1",
+                            "pid": "P3"
+                        }
+                    ],
+                    "type": "VOLUME",
+                    "val": 20
+                }
+            ],
+            "satisfyAll": true
+        }
+    ],
+    "inbillTpls": [
+        {
+            "id": "INBILL_TPL_ID",
+            "satisfyAll": false,
+            "inbillDnI": {
+                "id": "INBILL_ONE",
+                "payouts": [
+                    {
+                        "id": "PAYOUT_ONE",
+                        "payoutType": "FLATPAYOUT",
+                        "lapRate": 2500,
+                        "prodcutType":  [
+                            "BULK"
+                        ],
+                        "products": [
+                            {
+                                "products": [
+                                    {
+                                        "name": "ALL",
+                                        "pid": "PID1"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "id": "PAYOUT_TWO",
+                        "payoutType": "RSPERLITRE",
+                        "lapRate": 4,
+                        "prodcutType":  [
+                            "BULK"
+                        ],
+                        "products": [
+                            {
+                                "products": [
+                                    {
+                                        "name": "ALL",
+                                        "pid": "PID1"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "period": [
+                {
+                    "endDate": "15-Jun-2014",
+                    "startDate": "01-Jun-2014"
+                },
+                {
+                    "endDate": "15-Jun-2014",
+                    "startDate": "01-Jun-2014"
+                }
+                ],
+                "numProducts": 0,
+                "period": null
+            }
+        }
+    ]
+}

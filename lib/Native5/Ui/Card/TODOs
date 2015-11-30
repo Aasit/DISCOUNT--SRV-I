@@ -1,0 +1,26 @@
+Card Backend Library TODOs - 5th May, 2014
+==========================================
+1. Add unique constraint to card table. - change in liquibase schema - DONE
+2. Add validation in DAO while reading / writing card data. - using https://github.com/Respect/Validation - DONE
+3. Add insert or update to setCard function - modify Insert Query - DONE
+4. Implement deleteCard function - DONE
+5. Add test cases for the changes above - DONE
+6. Add setPage function - NOT DONE
+
+Card Backend Library TODOs - 9th May, 2014
+==========================================
+1. Create a common validation function for validating all sorts of inputs in `lib/Native5/Ui/Card/DAOImpl.php`.
+2. Do not use raw numbers in the validation calls, eg. `$validateNumber = v::numeric()->noWhitespace()->length(8,15);`. Define these as constants in config/settings.yml inside a section Ui > Cards > nameMaxLength, nameMinLenght, etc. Retreive them using `$GLOBALS['app']->getConfiguration()->getRawConfiguration('Ui');`, etc. you can refer the management console code which has many instances of the same.
+3. Validation related errors for the function parameters should throw and exception, specifically for parameters throw InvalidArgumentException.
+4. Add negative test cases and tests to check that validation works, refer to the kind of test cases written in the Management Console project at `tests/unit/Native5/Console/Account/Test`.
+
+
+Running codeception tests
+=========================
+1. Copy codeception.sample.yml into codeception.yml and change database settings.
+2. Create the database that you have specified in codeception.yml
+3. Change the database name for the main library to the same codeception database.
+4. If some changes have been made to the database schema (using liquibase), you will need to add those schema changes into the test database dump located at tests/_data/akzo_discounts_db_dump.sql. The best way to do this is to create a temporary database with this dump and then run liquibase update on it and then overwrite the file at tests/_data/akzo_discounts_db_dump.sql by exporting the liquibase updated database.
+5. Run - ./vendor/bin/codecept run unit
+
+
