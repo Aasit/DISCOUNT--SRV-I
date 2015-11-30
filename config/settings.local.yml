@@ -1,0 +1,11 @@
+---
+app :
+    name            : discounts
+    trackAnalytics  : true
+api:
+    url             : http://103.27.87.3:8080/v1
+    sharedKey       : uro4ecpk55pe
+    secretKey       : j03tdef1rukhkhi26ac3ji9tsh
+environment         : "" 
+
+...

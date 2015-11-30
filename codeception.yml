@@ -1,0 +1,27 @@
+paths:
+    tests: tests
+    log: tests/_log
+    data: tests/_data
+    helpers: tests/_helpers
+settings:
+    bootstrap: _bootstrap.php
+    suite_class: \PHPUnit_Framework_TestSuite
+    colors: true
+    memory_limit: 1024M
+    log: true
+coverage:
+    enabled: true
+    include:
+        - lib/Native5/*
+    exclude:
+        - lib/Native5/Ui/Service.php
+        - lib/Native5/Ui/DAO*
+modules:
+    config:
+        Db:
+            dsn: 'mysql:host=127.0.0.1;dbname=akzodiscountstestdb_v20'
+            user: native5
+            password: native5
+            dump: tests/_data/akzo_discounts_db_dump.sql
+            populate: false
+            cleanup: false

@@ -1,0 +1,27 @@
+---
+# NOTE: Change placeholders below <...> with actual values to run codeception
+paths:
+    tests: tests
+    log: tests/_log
+    data: tests/_data
+    helpers: tests/_helpers
+settings:
+    bootstrap: _bootstrap.php
+    suite_class: \PHPUnit_Framework_TestSuite
+    colors: true
+    memory_limit: 1024M
+    log: true
+coverage:
+    enabled: true
+    include:
+        - lib/Native5/*
+        - models/*
+modules:
+    config:
+        Db:
+            dsn: 'mysql:host=<db host>;dbname=<db name>'
+            user: <db username>
+            password: <db password>
+            dump: tests/_data/<db dump sql file name>
+            populate: true
+            cleanup: false

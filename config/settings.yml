@@ -1,0 +1,43 @@
+---
+app :
+    name        : toBeDefined # Application context e.g. if you host your application at http://localhost/hello-world then hello-world is the application context.
+    logLevel    : info # Log Levels, supports levels, such as warn, info, trace, error, debug.
+    defaultGrade: D001 # Application wide fallback view in case device cannot be identified. Note, D001 defaults to desktop. See http://docs.native5.com/app.html#device-matrix for grade related details.
+api:
+    url         : http://api.prod.native5.com/v1 # Native5 Hosted Services endpoint
+    sharedKey   : uro4ecpk55pe
+    secretKey   : j03tdef1rukhkhi26ac3ji9tsh
+session:
+    timeout: 36000
+#environment : local # Uncomment when developing locally.
+database:
+    type        : mysql
+    host        : localhost
+    port        : 3306
+    user        : akzodbuser
+    password    : akz0N0b@l
+    name        : akzo_discounts
+ui:
+    card:
+        minNumericLength        : 8
+        maxNumericLength        : 15
+        minStringLength         : 3
+        maxStringLength         : 25
+library:
+    product:
+        minNameLength           : 1
+        maxNameLength           : 125
+        minCodeLength           : 1
+        maxCodeLength           : 25
+scheme:
+    ruleApiUrl  : http://103.27.87.3:8090 #8090 for dev, 8070 for prod
+    ruleApiEnabled: 1
+    namespace: scheme
+cache:
+    scheme: tcp
+    host: 10.32.0.76
+    port: 6379
+    database: 30
+    read_write_timeout: 120
+pdf:
+    path: ./pdf
