@@ -1,0 +1,39 @@
+{   
+    "name"            : "native5/native5-sdk-services-php",
+    "description"     : "PHP Services SDK for invoking Native5 Hosted Services.",
+    "type"            : "library",
+    "keywords"        : ["identity", "jobs", "messaging"],
+    "homepage"        : "http://docs.native5.com",
+    "license"         : "proprietary",
+    "authors"         : [
+        {
+            "name"    : "Barada Sahu",
+            "email"   : "barry@native5.com"
+        },
+        {
+            "name"    : "Shamik Datta",
+            "email"   : "shamik@native5.com"
+        },
+        {
+            "name"    : "Bikas Vaibhav",
+            "email"   : "bikas@native5.com"
+        }
+    ],
+    "support"        : {
+            "email"   : "support@native5.com"
+    },
+    "require-dev" : {
+        "native5/native5-sdk-common-php": "dev-development",
+        "native5/native5-sdk-client-php": "dev-development"
+    },
+    "require" : {
+            "guzzle/guzzle": "3.9.*",
+            "phpunit/phpunit": "3.7.*"
+    },
+    "autoload": {
+            "psr-0": {
+                "Native5": "src/",
+                "Native5\\Tests": "tests/"
+            }
+    }
+}
