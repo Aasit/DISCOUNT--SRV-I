@@ -1,0 +1,27 @@
+{
+    "name": "bcc/auto-mapper-bundle",
+    "type": "symfony-bundle",
+    "description": "An object to object mapper bundle for Symfony2",
+    "license": "MIT",
+    "keywords": ["mapper automapper"],
+    "homepage": "http://github.com/michelsalib/BCCAutoMapperBundle",
+    "authors": [
+        {
+            "name": "Michel Salib",
+            "email": "michelsalib@hotmail.com",
+            "homepage": "http://www.michelsalib.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.2",
+        "symfony/framework-bundle": ">=2.2.0,<3.0",
+        "symfony/property-access": ">=2.2.0,<3.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~3.7"
+    },
+    "autoload": {
+        "psr-0": { "BCC\\AutoMapperBundle": "" }
+    },
+    "target-dir": "BCC/AutoMapperBundle"
+}
